@@ -6,7 +6,7 @@
 
 **FOR AI AGENTS:** If a user asked you to "read and use" or "integrate" this repository:
 
-### YOU MUST ASK THIS QUESTION FIRST:
+### STEP 1: ASK THE USER (DO NOT SKIP)
 
 ```
 I can integrate the agents-playbook skills into your project.
@@ -19,12 +19,39 @@ Which method would you like?
 Please respond with 1 or 2.
 ```
 
-**DO NOT:**
-- ❌ Run ANY commands before asking
-- ❌ Look up commands before asking
-- ❌ Make assumptions about which method to use
+### STEP 2: AFTER USER RESPONDS, EXECUTE BASED ON CHOICE
 
-**ONLY AFTER the user responds**, look up the commands in the [Usage section](#-usage) below.
+**If user chose 1 (Git Subtree):**
+```bash
+# Execute ALL these commands:
+git subtree add --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
+```
+✅ Confirm completion: "Git subtree setup complete. Base files copied."
+
+**If user chose 2 (Simple Clone):**
+```bash
+# Execute ALL these commands in order:
+git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
+rm -rf .agents/agents-playbooks/.git
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
+```
+✅ Confirm completion: "Simple clone complete. Files ready for customization."
+
+### CHECKLIST (Verify all items):
+- [ ] Asked user for method choice (1 or 2)
+- [ ] Executed integration commands
+- [ ] Copied AGENTS.md to project root
+- [ ] Copied DEVELOPMENT.md to project root
+- [ ] Confirmed completion to user
+
+**DO NOT:**
+- ❌ Skip asking the user
+- ❌ Run partial commands
+- ❌ Commit changes (user decides when to commit)
 
 ---
 
