@@ -2,6 +2,16 @@
 
 **For Consumer Projects:** Copy this file to your project root and customize with project-specific rules (commands, repo composition, CI/CD, etc.) while keeping the precedence order and base patterns.
 
+---
+
+## 🚨 FOR AI AGENTS - INTEGRATION INSTRUCTION 🚨
+
+**If a user asked to "read and use" or "integrate" this repository:**
+
+👉 **[READ THE INTEGRATION INSTRUCTIONS](AI-AGENT-INTEGRATION.md)** 👈
+
+---
+
 Global, authoritative rules for this repository.
 
 ## Order of precedence

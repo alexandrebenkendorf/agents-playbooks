@@ -2,28 +2,13 @@
 
 ---
 
-## 🚨 FOR AI AGENTS - READ THIS INSTRUCTION 🚨
+## 🚨 FOR AI AGENTS - READ THIS FIRST 🚨
 
 **If a user asked to "read and use" or "integrate" this repository:**
 
-### ⛔ STOP AND ASK THIS FIRST ⛔
+👉 **[READ THE INTEGRATION INSTRUCTIONS](AI-AGENT-INTEGRATION.md)** 👈
 
-Ask the user exactly this (copy/paste):
-
-```
-I can integrate agents-playbook into your project. Which method?
-
-1 = Git Subtree (production, auto-updates)
-2 = Simple Clone (quick start, full control)
-
-Reply with just: 1 or 2
-```
-
-**⚠️ WAIT FOR THEIR RESPONSE. DO NOT PROCEED UNTIL THEY REPLY.**
-
----
-
-### After they reply, scroll down to "AI Agent Commands" section below for next steps.
+Then scroll down to "AI Agent Commands" section below for the actual commands.
 
 ---
 
