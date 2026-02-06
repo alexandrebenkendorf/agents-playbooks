@@ -140,6 +140,26 @@ rm -rf .agents/agents-playbooks/.git
 Choose **git subtree** if you want to stay synced with upstream and contribute improvements.  
 Choose **simple clone** if you want full control and don't need automatic updates.
 
+#### Migrating from Simple Clone to Git Subtree
+
+Since both options use the same `.agents/agents-playbooks/` structure, migration is seamless:
+
+```bash
+# You already have the right structure!
+# Just ensure no .git folder (should already be removed)
+rm -rf .agents/agents-playbooks/.git
+
+# Commit current state if not already committed
+git add .agents/
+git commit -m "chore: Current state of agents-playbooks"
+
+# From now on, use subtree pull for updates
+git subtree pull --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+```
+
+**No deletion or re-setup needed** - the directory structure is already production-ready. You're simply switching from manual updates to git subtree updates.
+
 #### Consumer Project Structure
 
 **Git Subtree Structure:**
