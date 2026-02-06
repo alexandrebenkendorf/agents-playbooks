@@ -3,6 +3,7 @@
 Essential clean code practices for writing maintainable, readable TypeScript code.
 
 > 📖 **Related principles:**
+>
 > - For SOLID principles (SRP, OCP, etc.): [solid-principles.md](solid-principles.md)
 > - For architecture patterns: [clean-architecture.md](clean-architecture.md)
 > - For TypeScript-specific practices: [typescript-best-practices.md](typescript-best-practices.md)
@@ -17,13 +18,14 @@ Names should reveal intent without needing comments.
 
 ```ts
 // ❌ Bad
-const d = 7 // days
+const d = 7; // days
 
 // ✅ Good
-const daysUntilExpiration = 7
+const daysUntilExpiration = 7;
 ```
 
 **Guidelines:**
+
 - Variable names should be nouns or noun phrases
 - Function names should be verbs or verb phrases
 - Avoid single-letter names except in short loops
@@ -40,28 +42,29 @@ Each function should have a single, well-defined purpose.
 ```ts
 // ❌ Bad (does 3 things)
 function processUser(user: User) {
-  validateUser(user)
-  saveToDatabase(user)
-  sendWelcomeEmail(user)
+  validateUser(user);
+  saveToDatabase(user);
+  sendWelcomeEmail(user);
 }
 
 // ✅ Good (each does one thing)
 function validateUser(user: User): void {
   if (!user.email) {
-    throw new ValidationError('Email required')
+    throw new ValidationError('Email required');
   }
 }
 
 function saveUser(user: User): Promise<void> {
-  return userRepository.save(user)
+  return userRepository.save(user);
 }
 
 function sendWelcomeEmail(user: User): Promise<void> {
-  return emailService.send(user.email, 'Welcome!')
+  return emailService.send(user.email, 'Welcome!');
 }
 ```
 
 **Why:** Functions that do one thing are easier to:
+
 - Test
 - Understand
 - Reuse
@@ -114,6 +117,7 @@ try {
 ```
 
 **Benefits:**
+
 - Self-documenting (exception name explains the error)
 - Type-safe (can catch specific error types)
 - Stack traces for debugging
@@ -128,39 +132,41 @@ Avoid code duplication through abstraction.
 ```ts
 // ❌ Bad (duplication)
 function formatUserName(user: User): string {
-  return `${user.firstName} ${user.lastName}`
+  return `${user.firstName} ${user.lastName}`;
 }
 
 function formatAdminName(admin: Admin): string {
-  return `${admin.firstName} ${admin.lastName}`
+  return `${admin.firstName} ${admin.lastName}`;
 }
 
 function formatCustomerName(customer: Customer): string {
-  return `${customer.firstName} ${customer.lastName}`
+  return `${customer.firstName} ${customer.lastName}`;
 }
 
 // ✅ Good (abstraction)
 interface HasName {
-  firstName: string
-  lastName: string
+  firstName: string;
+  lastName: string;
 }
 
 function formatFullName(person: HasName): string {
-  return `${person.firstName} ${person.lastName}`
+  return `${person.firstName} ${person.lastName}`;
 }
 
 // Works for any type with firstName and lastName
-formatFullName(user)
-formatFullName(admin)
-formatFullName(customer)
+formatFullName(user);
+formatFullName(admin);
+formatFullName(customer);
 ```
 
 **When to apply DRY:**
+
 - Same logic appears in 2+ places
 - Logic changes would need to be made in multiple places
 - Code can be abstracted without becoming overly complex
 
 **When NOT to apply:**
+
 - Coincidental similarity (code looks similar but serves different purposes)
 - Premature abstraction (wait until duplication appears 2-3 times)
 - Abstraction would be harder to understand than duplication
@@ -179,17 +185,17 @@ function processOrder(order: Order): void {
     throw new Error('No items')
   }
   // ... more validation
-  
+
   // Calculate total (15 lines)
   let total = 0
   for (const item of order.items) {
     total += item.price * item.quantity
   }
   // ... tax calculations, discounts
-  
+
   // Save to database (10 lines)
   // ... database logic
-  
+
   // Send confirmation (10 lines)
   // ... email logic
 }
@@ -249,18 +255,57 @@ See [general-coding-standards.md](general-coding-standards.md) for more on Comma
 
 ## Quick Reference
 
-| Principle | Guideline |
-|-----------|-----------|
-| **Names** | Reveal intent, no comments needed |
-| **Functions** | Do one thing only |
-| **Errors** | Use exceptions, not error codes |
-| **DRY** | Don't Repeat Yourself |
-| **Size** | 5-20 lines per function |
-| **Side Effects** | Separate commands from queries |
+| Principle        | Guideline                         |
+| ---------------- | --------------------------------- |
+| **Names**        | Reveal intent, no comments needed |
+| **Functions**    | Do one thing only                 |
+| **Errors**       | Use exceptions, not error codes   |
+| **DRY**          | Don't Repeat Yourself             |
+| **Size**         | 5-20 lines per function           |
+| **Side Effects** | Separate commands from queries    |
 
 ---
 
-## Further Reading
+## Multiple Condition Checks
 
-- [Clean Code](https://www.oreilly.com/library/view/clean-code-a/9780136083238/) by Robert C. Martin (Chapters 1-3)
-- [The Art of Readable Code](https://www.oreilly.com/library/view/the-art-of/9781449318482/) by Boswell & Foucher
+### Use `.some(Boolean)` for Multiple OR Conditions
+
+When checking if any of several conditions is true, use an array with `.some(Boolean)` instead of chaining `||` operators. This avoids ESLint `prefer-nullish-coalescing` warnings and is more readable.
+
+```ts
+// ❌ Don't - Chain with || triggers ESLint warnings
+const isValid =
+  (id && validIds.includes(id)) ||
+  (name && validNames.includes(name)) ||
+  (role && validRoles.includes(role));
+
+// ❌ Don't - Using ?? is incorrect for boolean conditions
+const isValid =
+  (id && validIds.includes(id)) ??
+  (name && validNames.includes(name)) ??
+  (role && validRoles.includes(role));
+
+// ✅ Do - Array with .some(Boolean)
+const isValid = [
+  id && validIds.includes(id),
+  name && validNames.includes(name),
+  role && validRoles.includes(role),
+].some(Boolean);
+```
+
+**Benefits:**
+
+- No ESLint disable comments needed
+- More readable with each condition on its own line
+- `.some(Boolean)` clearly expresses "any truthy value"
+- Easier to add/remove conditions
+
+**When to use:**
+
+- Multiple independent boolean conditions
+- Checking if any of several criteria match
+- Avoiding `||` chains that trigger ESLint warnings
+
+**Note:** The `Boolean` function filters out falsy values (`false`, `null`, `undefined`, `0`, `''`, `NaN`), returning `true` if any element is truthy.
+
+---

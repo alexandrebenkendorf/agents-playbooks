@@ -17,30 +17,31 @@ Each class should have one job, one responsibility.
 ```ts
 class User {
   constructor(private data: UserData) {}
-  
+
   // Responsibility 1: Data management
   getData(): UserData {
-    return this.data
+    return this.data;
   }
-  
+
   // Responsibility 2: Persistence
   save() {
-    database.save(this.data)
+    database.save(this.data);
   }
-  
+
   // Responsibility 3: Communication
   sendEmail() {
-    emailService.send(this.data.email, 'Welcome')
+    emailService.send(this.data.email, 'Welcome');
   }
-  
+
   // Responsibility 4: Reporting
   generateReport() {
-    return reportGenerator.create(this.data)
+    return reportGenerator.create(this.data);
   }
 }
 ```
 
 **Why it's bad:** User class will change if:
+
 - Data structure changes
 - Database changes
 - Email provider changes
@@ -52,7 +53,7 @@ class User {
 // Responsibility: Represent user data
 class User {
   constructor(private data: UserData) {}
-  
+
   getData(): UserData {
     return this.data
   }
@@ -63,7 +64,7 @@ class UserRepository {
   save(user: User): Promise<void> {
     return database.save(user.getData())
   }
-  
+
   findById(id: string): Promise<User | null> {
     const data = await database.findById(id)
     return data ? new User(data) : null
@@ -86,6 +87,7 @@ class UserReportGenerator {
 ```
 
 **Benefits:**
+
 - Each class has one reason to change
 - Easier to test in isolation
 - Can reuse components independently
@@ -105,13 +107,13 @@ class PaymentProcessor {
   processPayment(type: string, amount: number) {
     if (type === 'credit') {
       // Credit card logic
-      console.log('Processing credit card payment')
+      console.log('Processing credit card payment');
     } else if (type === 'paypal') {
       // PayPal logic
-      console.log('Processing PayPal payment')
+      console.log('Processing PayPal payment');
     } else if (type === 'bitcoin') {
       // Bitcoin logic - MUST MODIFY THIS CLASS
-      console.log('Processing Bitcoin payment')
+      console.log('Processing Bitcoin payment');
     }
     // Every new payment type requires modifying this class!
   }
@@ -123,52 +125,53 @@ class PaymentProcessor {
 ```ts
 // Abstraction (stable interface)
 interface PaymentMethod {
-  process(amount: number): Promise<void>
+  process(amount: number): Promise<void>;
 }
 
 // Implementations (extensions)
 class CreditCardPayment implements PaymentMethod {
   process(amount: number): Promise<void> {
-    console.log(`Processing $${amount} via credit card`)
+    console.log(`Processing $${amount} via credit card`);
     // Credit card logic
   }
 }
 
 class PayPalPayment implements PaymentMethod {
   process(amount: number): Promise<void> {
-    console.log(`Processing $${amount} via PayPal`)
+    console.log(`Processing $${amount} via PayPal`);
     // PayPal logic
   }
 }
 
 class PaymentProcessor {
   constructor(private method: PaymentMethod) {}
-  
+
   processPayment(amount: number): Promise<void> {
-    return this.method.process(amount)
+    return this.method.process(amount);
   }
 }
 
 // Usage: extend by adding new payment methods without modifying existing code
-const creditCardProcessor = new PaymentProcessor(new CreditCardPayment())
-await creditCardProcessor.processPayment(100)
+const creditCardProcessor = new PaymentProcessor(new CreditCardPayment());
+await creditCardProcessor.processPayment(100);
 
-const paypalProcessor = new PaymentProcessor(new PayPalPayment())
-await paypalProcessor.processPayment(100)
+const paypalProcessor = new PaymentProcessor(new PayPalPayment());
+await paypalProcessor.processPayment(100);
 
 // Add new payment method without changing PaymentProcessor
 class BitcoinPayment implements PaymentMethod {
   process(amount: number): Promise<void> {
-    console.log(`Processing $${amount} via Bitcoin`)
+    console.log(`Processing $${amount} via Bitcoin`);
     // Bitcoin logic
   }
 }
 
-const bitcoinProcessor = new PaymentProcessor(new BitcoinPayment())
-await bitcoinProcessor.processPayment(100)
+const bitcoinProcessor = new PaymentProcessor(new BitcoinPayment());
+await bitcoinProcessor.processPayment(100);
 ```
 
 **Benefits:**
+
 - Add features without touching existing code
 - Reduces risk of breaking existing functionality
 - Follows dependency inversion (depend on abstractions)
@@ -186,25 +189,25 @@ If S is a subtype of T, you should be able to replace T with S without breaking 
 ```ts
 class Bird {
   fly(): void {
-    console.log('Flying')
+    console.log('Flying');
   }
 }
 
 class Sparrow extends Bird {
   fly(): void {
-    console.log('Sparrow flying')
+    console.log('Sparrow flying');
   }
 }
 
 class Penguin extends Bird {
   fly(): void {
-    throw new Error('Penguins cannot fly') // Breaks LSP!
+    throw new Error('Penguins cannot fly'); // Breaks LSP!
   }
 }
 
 // This breaks when using Penguin
 function makeBirdFly(bird: Bird) {
-  bird.fly() // Works for Sparrow, throws for Penguin!
+  bird.fly(); // Works for Sparrow, throws for Penguin!
 }
 ```
 
@@ -212,39 +215,40 @@ function makeBirdFly(bird: Bird) {
 
 ```ts
 interface Bird {
-  move(): void
+  move(): void;
 }
 
 class FlyingBird implements Bird {
   move(): void {
-    this.fly()
+    this.fly();
   }
-  
+
   private fly(): void {
-    console.log('Flying')
+    console.log('Flying');
   }
 }
 
 class Penguin implements Bird {
   move(): void {
-    this.swim()
+    this.swim();
   }
-  
+
   private swim(): void {
-    console.log('Swimming')
+    console.log('Swimming');
   }
 }
 
 // Works for all birds
 function makeBirdMove(bird: Bird) {
-  bird.move() // Always works!
+  bird.move(); // Always works!
 }
 
-makeBirdMove(new FlyingBird()) // Flying
-makeBirdMove(new Penguin())     // Swimming
+makeBirdMove(new FlyingBird()); // Flying
+makeBirdMove(new Penguin()); // Swimming
 ```
 
 **Benefits:**
+
 - Polymorphism works correctly
 - No unexpected exceptions
 - Predictable behavior
@@ -261,21 +265,33 @@ Prefer many specific interfaces over one general-purpose interface.
 
 ```ts
 interface Worker {
-  work(): void
-  eat(): void
-  sleep(): void
+  work(): void;
+  eat(): void;
+  sleep(): void;
 }
 
 class Human implements Worker {
-  work(): void { console.log('Working') }
-  eat(): void { console.log('Eating') }
-  sleep(): void { console.log('Sleeping') }
+  work(): void {
+    console.log('Working');
+  }
+  eat(): void {
+    console.log('Eating');
+  }
+  sleep(): void {
+    console.log('Sleeping');
+  }
 }
 
 class Robot implements Worker {
-  work(): void { console.log('Working') }
-  eat(): void { /* Robots don't eat! */ }
-  sleep(): void { /* Robots don't sleep! */ }
+  work(): void {
+    console.log('Working');
+  }
+  eat(): void {
+    /* Robots don't eat! */
+  }
+  sleep(): void {
+    /* Robots don't sleep! */
+  }
 }
 ```
 
@@ -283,30 +299,39 @@ class Robot implements Worker {
 
 ```ts
 interface Workable {
-  work(): void
+  work(): void;
 }
 
 interface Eatable {
-  eat(): void
+  eat(): void;
 }
 
 interface Sleepable {
-  sleep(): void
+  sleep(): void;
 }
 
 class Human implements Workable, Eatable, Sleepable {
-  work(): void { console.log('Working') }
-  eat(): void { console.log('Eating') }
-  sleep(): void { console.log('Sleeping') }
+  work(): void {
+    console.log('Working');
+  }
+  eat(): void {
+    console.log('Eating');
+  }
+  sleep(): void {
+    console.log('Sleeping');
+  }
 }
 
 class Robot implements Workable {
-  work(): void { console.log('Working') }
+  work(): void {
+    console.log('Working');
+  }
   // Only implements what it needs
 }
 ```
 
 **Benefits:**
+
 - No unused methods
 - Smaller, focused interfaces
 - Easier to implement
@@ -325,16 +350,16 @@ High-level modules shouldn't depend on low-level modules. Both should depend on 
 class EmailService {
   send(to: string, message: string): void {
     // Send via Gmail
-    console.log(`Sending via Gmail to ${to}: ${message}`)
+    console.log(`Sending via Gmail to ${to}: ${message}`);
   }
 }
 
 class UserService {
-  private emailService = new EmailService() // Tightly coupled!
-  
+  private emailService = new EmailService(); // Tightly coupled!
+
   registerUser(user: User): void {
     // ... registration logic
-    this.emailService.send(user.email, 'Welcome')
+    this.emailService.send(user.email, 'Welcome');
   }
 }
 
@@ -346,20 +371,20 @@ class UserService {
 ```ts
 // Abstraction
 interface MessageSender {
-  send(to: string, message: string): Promise<void>
+  send(to: string, message: string): Promise<void>;
 }
 
 // Concrete implementation
 class EmailService implements MessageSender {
   send(to: string, message: string): Promise<void> {
-    console.log(`Sending via Gmail to ${to}: ${message}`)
+    console.log(`Sending via Gmail to ${to}: ${message}`);
     // Gmail logic
   }
 }
 
 class SMSService implements MessageSender {
   send(to: string, message: string): Promise<void> {
-    console.log(`Sending SMS to ${to}: ${message}`)
+    console.log(`Sending SMS to ${to}: ${message}`);
     // SMS logic
   }
 }
@@ -367,30 +392,31 @@ class SMSService implements MessageSender {
 // High-level module depends on abstraction
 class UserService {
   constructor(private messageSender: MessageSender) {} // Depends on abstraction
-  
+
   async registerUser(user: User): Promise<void> {
     // ... registration logic
-    await this.messageSender.send(user.email, 'Welcome')
+    await this.messageSender.send(user.email, 'Welcome');
   }
 }
 
 // Usage: inject dependency
-const emailService = new EmailService()
-const userService = new UserService(emailService)
+const emailService = new EmailService();
+const userService = new UserService(emailService);
 
 // Easy to switch implementations
-const smsService = new SMSService()
-const userServiceWithSMS = new UserService(smsService)
+const smsService = new SMSService();
+const userServiceWithSMS = new UserService(smsService);
 
 // Easy to test with mock
 class MockMessageSender implements MessageSender {
-  send = vi.fn()
+  send = vi.fn();
 }
-const mockSender = new MockMessageSender()
-const testUserService = new UserService(mockSender)
+const mockSender = new MockMessageSender();
+const testUserService = new UserService(mockSender);
 ```
 
 **Benefits:**
+
 - Loose coupling
 - Easy to swap implementations
 - Testable with mocks/stubs
@@ -400,25 +426,27 @@ const testUserService = new UserService(mockSender)
 
 ## Quick Reference
 
-| Principle | Acronym | Guideline |
-|-----------|---------|-----------|
-| **Single Responsibility** | **S** | One class, one reason to change |
-| **Open/Closed** | **O** | Open for extension, closed for modification |
-| **Liskov Substitution** | **L** | Subtypes are fully substitutable |
-| **Interface Segregation** | **I** | Many specific interfaces > one fat interface |
-| **Dependency Inversion** | **D** | Depend on abstractions, not concretions |
+| Principle                 | Acronym | Guideline                                    |
+| ------------------------- | ------- | -------------------------------------------- |
+| **Single Responsibility** | **S**   | One class, one reason to change              |
+| **Open/Closed**           | **O**   | Open for extension, closed for modification  |
+| **Liskov Substitution**   | **L**   | Subtypes are fully substitutable             |
+| **Interface Segregation** | **I**   | Many specific interfaces > one fat interface |
+| **Dependency Inversion**  | **D**   | Depend on abstractions, not concretions      |
 
 ---
 
 ## When to Apply SOLID
 
 **Use SOLID when:**
+
 - Building class-based architectures
 - Creating reusable libraries/frameworks
 - Designing domain models (DDD)
 - Long-lived, evolving codebases
 
 **SOLID is less relevant for:**
+
 - Simple utility functions
 - One-off scripts
 - Pure functional programming

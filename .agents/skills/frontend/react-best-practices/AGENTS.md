@@ -18,11 +18,13 @@
 **Impact:** Waterfalls are the #1 performance killer. 50-200% performance gains possible.
 
 **Quick wins:**
+
 - Defer `await` until actually needed
 - Use `Promise.all()` for independent operations
 - Parallel data fetching in components
 
 **Section rules:**
+
 - 1.1 Defer Await Until Needed
 - 1.2 Dependency-Based Parallelization
 - 1.3 Prevent Waterfall Chains in API Routes
@@ -38,11 +40,13 @@
 **Impact:** 30-95% bundle size reduction. Faster TTI and LCP.
 
 **Quick wins:**
+
 - Avoid barrel imports (`import { X } from '@mui/material'` → `import X from '@mui/material/X'`)
 - Dynamic imports for heavy components
 - Code splitting by route
 
 **Section rules:**
+
 - 2.1 Avoid Barrel File Imports
 - 2.2 Conditional Module Loading
 - 2.3 Defer Non-Critical Third-Party Libraries
@@ -58,11 +62,13 @@
 **Impact:** Faster server responses, better SSR performance.
 
 **Quick wins:**
+
 - Use `React.cache()` for per-request deduplication
 - LRU caching for cross-request data
 - Parallel component composition
 
 **Section rules:**
+
 - 3.1 Authenticate Server Actions Like API Routes
 - 3.2 Avoid Duplicate Serialization in RSC Props
 - 3.3 Cross-Request LRU Caching
@@ -80,11 +86,13 @@
 **Impact:** Reduces redundant network requests, improves data consistency.
 
 **Quick wins:**
+
 - Use SWR for automatic deduplication
 - Passive event listeners for scroll performance
 - Deduplicate global listeners
 
 **Section rules:**
+
 - 4.1 Deduplicate Global Event Listeners
 - 4.2 Use Passive Event Listeners for Scrolling Performance
 - 4.3 Use SWR for Automatic Deduplication
@@ -99,11 +107,13 @@
 **Impact:** Reduces wasted computation, improves UI responsiveness.
 
 **Quick wins:**
+
 - Extract to memoized components
 - Use functional setState updates
 - Narrow effect dependencies
 
 **Section rules:**
+
 - 5.1 Calculate Derived State During Rendering
 - 5.2 Defer State Reads to Usage Point
 - 5.3 Avoid useMemo for Simple Primitive Expressions
@@ -126,11 +136,13 @@
 **Impact:** Faster rendering, smoother animations, better hydration.
 
 **Quick wins:**
+
 - CSS `content-visibility` for long lists
 - Hoist static JSX elements
 - Use `useTransition` over manual loading states
 
 **Section rules:**
+
 - 6.1 Animate SVG Wrapper Instead of SVG Element
 - 6.2 CSS content-visibility for Long Lists
 - 6.3 Hoist Static JSX Elements
@@ -150,10 +162,12 @@
 **Impact:** Edge case optimizations, advanced techniques.
 
 **Quick wins:**
+
 - Initialize app once (not per mount)
 - Store event handlers in refs for stability
 
 **Section rules:**
+
 - 7.1 Initialize App Once, Not Per Mount
 - 7.2 Store Event Handlers in Refs
 - 7.3 useEffectEvent for Stable Callback Refs

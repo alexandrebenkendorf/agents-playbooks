@@ -1,126 +1,282 @@
-# Agent Skills Configuration
+# .agents Directory
 
-This file contains project-specific configuration for the agent skills from [agents-playbook](https://github.com/alexandrebenkendorf/agents-playbook).
+**This is the BASE repository for shared agent skills.**
+
+Operational documentation for AI agent skills and playbooks.
 
 ---
 
-## Jira Ticket Prefix
+## Overview
 
-**Current Project Prefix:** `<PREFIX>`
+This repository (`agents-playbook`) is the **centralized base** for reusable AI agent skills. Consumer repositories sync this content using **git subtree**.
 
-Replace `<PREFIX>` with your Jira project prefix (e.g., `PROJ`, `JIRA`, `TASK`).
+### Architecture
 
-### Usage
+- **This repository** = Source of truth for shared skills
+- **Consumer repositories** = Pull skills from here via subtree into `.agents/agents-playbooks/`
+- **Consumer `.agents/local/`** = Repository-specific overrides (takes precedence)
 
-When using the `git/commit-conventions` skill:
-- Replace `<PREFIX>` in all examples with your actual prefix
-- Update your branch naming: `<PREFIX>-<number>-description`
-- Commit format: `<type>: <PREFIX>-<number> <description>`
+---
 
-**Example for PROJ prefix:**
-```bash
-# Branch name
-PROJ-12345-add-user-profile
+## Directory Structure (This Repo)
 
-# Commit message
-feat: PROJ-12345 Add user profile component
+```
+.agents/
+├── skills/           # Shared skills (testing, git, frontend, etc.)
+│   ├── frontend/
+│   ├── git/
+│   └── ...
+├── templates/        # Shared templates
+└── README.md         # This file
 ```
 
 ---
 
-## Framework
+## For Consumer Repositories
 
-**Current Project:**
-- [ ] React + TypeScript
-- [ ] Other: ___________
+### Initial Setup
+
+**Add this base repository to your project:**
+
+```bash
+git subtree add --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+```
+
+This creates `.agents/agents-playbooks/` in your repo with all skills.
+
+### Update Base Content
+
+Pull latest changes from this repository:
+
+```bash
+git subtree pull --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+```
+
+⚠️ **Warning:** This overwrites `.agents/agents-playbooks/`. Never edit that directory directly in consumer repos.
+
+### Consumer Directory Structure
+
+After subtree setup, consumer repos should have:
+
+```
+.agents/
+├── agents-playbooks/     # Synced from THIS repo (read-only)
+│   ├── skills/
+│   └── templates/
+├── local/                # Consumer-specific overrides (optional)
+│   └── .gitkeep
+└── README.md             # Consumer's config/documentation
+```
 
 ---
 
-## Skill Inventory
+## Precedence Rules (Consumer Repos)
 
-### Active Skills
+When an AI agent in a consumer repo looks for a skill:
 
-Skills vendored from agents-playbook:
+1. **Check `.agents/local/`** first (consumer-specific)
+2. **Fall back to `.agents/agents-playbooks/`** (from this repo)
+
+This allows:
+- ✅ Local customization without forking
+- ✅ Safe experimentation
+- ✅ Explicit promotion path (local → base → subtree)
+
+---
+
+## Local Overrides (Consumer Repos)
+
+### When to Use Local
+
+Consumer repos can use `.agents/local/` for:
+- Repository-specific skills
+- Experimental modifications
+- Testing patterns before promoting to this base repo
+
+### Creating a Local Override
+
+In a consumer repo:
+
+1. **Copy skill from base:**
+   ```bash
+   cp -r .agents/agents-playbooks/skills/frontend/react-testing \
+         .agents/local/skills/frontend/react-testing
+   ```
+
+2. **Modify in `.agents/local/`**
+
+3. **Test** - AI agents will use the local version
+
+---
+
+## Promotion Workflow (Consumer → Base)
+
+When a consumer's local skill is ready to share:
+
+1. **Create PR in the agents-playbook repository**
+   - Fork https://github.com/alexandrebenkendorf/agents-playbook
+   - Copy skill from your `.agents/local/` to the fork's `.agents/skills/`
+   - Open pull request to agents-playbook
+   - Get review and merge
+
+2. **After merge, consumer updates subtree:**
+   ```bash
+   git subtree pull --prefix=.agents/agents-playbooks \
+     https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+   ```
+
+3. **Consumer removes local override:**
+   ```bash
+   git rm -r .agents/local/skills/promoted-skill
+   git commit -m "chore: Remove local override after promotion to base"
+   ```
+
+---
+
+## Contributing to Base (This Repo)
+
+### Rules for This Repository
+
+✅ **DO edit skills directly** - This IS the source of truth  
+✅ **DO test changes before committing**  
+✅ **DO follow semantic versioning for breaking changes**  
+✅ **DO document skill changes in CHANGELOG.md**
+
+❌ **DO NOT commit consumer-specific configuration**  
+❌ **DO NOT commit secrets or tokens**  
+❌ **DO NOT break existing skill contracts without major version bump**
+
+### Skill Development
+
+1. Create or modify skills in `.agents/skills/`
+2. Test with AI agents
+3. Update documentation
+4. Open PR with clear description
+5. After merge, consumers pull via subtree
+
+---
+
+## Consumer DON'Ts
+
+❌ **DO NOT edit `.agents/agents-playbooks/` in consumer repos**  
+It's managed by subtree. Changes will be lost on next pull.
+
+❌ **DO NOT use git submodules**  
+Use git subtree for better merge handling.
+
+❌ **DO NOT duplicate skills unintentionally**  
+If a skill exists in both local and base, local shadows base. Document your intent.
+
+---
+
+## Verification Report
+
+**Last verified:** 2026-02-06  
+**Verified by:** Autonomous documentation agent
+
+### Structure Check
+- ✅ `.agents/skills/` exists (base skills)
+- ✅ `.agents/templates/` exists (base templates)
+- ✅ This IS the base repository
+
+### Git Configuration
+- ✅ No git submodules detected
+- ✅ Standard git repository (not a subtree consumer)
+
+### Base Repository Status
+- ✅ Repository structure follows base pattern
+- ✅ Ready for consumers to sync via subtree
+
+---
+
+## Quick Reference
+
+### For Consumers
+
+**Initial setup:**
+```bash
+git subtree add --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+```
+
+**Update base:**
+```bash
+git subtree pull --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+```
+
+**Create local override:**
+```bash
+mkdir -p .agents/local/skills
+cp -r .agents/agents-playbooks/skills/some-skill .agents/local/skills/
+# Edit in .agents/local/ safely
+```
+
+**Promote to base:**
+1. PR to this repo
+2. After merge: `git subtree pull ...`
+3. Remove local override
+
+### For This Repo
+
+**Add new skill:**
+```bash
+mkdir -p .agents/skills/category/skill-name
+# Create SKILL.md and README.md
+git add .agents/skills/category/skill-name
+git commit -m "feat: Add new skill-name skill"
+```
+
+**Update existing skill:**
+```bash
+# Edit .agents/skills/category/skill-name/SKILL.md
+git commit -m "docs: Update skill-name documentation"
+```
+
+---
+
+## Project-Specific Configuration (For Consumers)
+
+Consumer repositories should configure these in their own `.agents/README.md`:
+
+### Jira Ticket Prefix
+
+**Example:**
+```markdown
+**Current Project Prefix:** `PROJ`
+```
+
+Replace with your Jira project prefix (e.g., `PROJ`, `JIRA`, `TASK`).
+
+When using the `git/commit-conventions` skill:
+- Branch naming: `<PREFIX>-<number>-description`
+- Commit format: `<type>: <PREFIX>-<number> <description>`
+
+### Framework
+
+**Example:**
+```markdown
+**Current Project:**
+- [x] React + TypeScript
+- [ ] Other: ___________
+```
+
+---
+
+## Active Skills (Base Repository)
+
+### Frontend Skills
 
 - ✅ **frontend/code-standards** - TypeScript/JavaScript naming, Clean Code, SOLID, Clean Architecture
 - ✅ **frontend/react-best-practices** - Vercel Labs React performance patterns
 - ✅ **frontend/react-component-structure** - Function vs const, SRP, file organization
 - ✅ **frontend/react-testing** - Vitest + React Testing Library patterns
+
+### Git Skills
+
 - ✅ **git/commit-conventions** - Conventional commits with Jira tickets
-
-### Custom Skills
-
-Project-specific skills not in agents-playbook:
-
-- (none yet)
-
----
-
-## Skill Usage Guide
-
-### For AI Assistants
-
-Reference skills in prompts to ensure consistency:
-
-```
-"Follow the testing guidelines to add tests for this component"
-"Create a commit message following our conventions"
-"Refactor this code according to our coding standards"
-"Apply SOLID principles to this class"
-```
-
-### For Developers
-
-Skills are located in `.agents/skills/` with the following structure:
-
-```
-.agents/skills/
-├── frontend/
-│   ├── code-standards/        # General TypeScript/JavaScript
-│   ├── react-best-practices/  # Vercel React patterns
-│   ├── react-component-structure/  # Component design
-│   └── react-testing/         # Vitest + RTL
-└── git/
-    └── commit-conventions/    # Commit message format
-```
-
-See [DEVELOPMENT.md](../DEVELOPMENT.md) for human-friendly quick reference.
-
----
-
-## Updating Skills
-
-### From agents-playbook Repository
-
-**If vendored (recommended):**
-
-```bash
-# Navigate to agents-playbook
-cd /path/to/agents-playbook
-git pull origin main
-
-# Copy to your project
-cp -r .agents/skills/* /path/to/your-project/.agents/skills/
-
-# Review changes
-cd /path/to/your-project
-git diff .agents/skills/
-```
-
-**If using git submodule:**
-
-```bash
-cd /path/to/your-project
-git submodule update --remote .agents/skills-source
-```
-
-### Version Tracking
-
-Track which version of agents-playbook you're using:
-
-**Current Version:** v1.0.0  
-**Last Updated:** 2025-01-XX  
-**Upstream:** https://github.com/alexandrebenkendorf/agents-playbook
 
 ---
 
@@ -222,51 +378,42 @@ If you create a useful pattern that could benefit other projects:
 
 ---
 
-## Troubleshooting
+## Troubleshooting (For Consumers)
 
 ### AI Assistant Not Following Skills
 
-**Check:**
-- Skills are in `.agents/skills/` directory
-- `AGENTS.md` references `.agents/skills/*` in precedence order
+**In consumer repos, check:**
+- Skills are in `.agents/agents-playbooks/skills/` (synced from base)
+- Local overrides are in `.agents/local/skills/` (if any)
+- `AGENTS.md` references both directories in correct precedence order
 - Skill files have proper frontmatter (YAML)
-- File paths are correct
 
 **Solution:**
 ```
-"Please review the skills in .agents/skills/ and follow them strictly"
+"Please review the skills in .agents/agents-playbooks/skills/ and follow them strictly"
 ```
 
-### Conflicting Guidelines
+### Conflicting Guidelines (Consumer Repos)
 
 **Order of Precedence:**
-1. `/AGENTS.md` (root level)
-2. `/.agents/skills/*` (all skills)
-3. Existing code and comments
+1. `/AGENTS.md` (root level in consumer repo)
+2. `/.agents/local/*` (consumer-specific overrides)
+3. `/.agents/agents-playbooks/skills/*` (from this base repo)
+4. Existing code and comments
 
 If skills conflict, follow root `AGENTS.md`. If `AGENTS.md` conflicts with skills, mention the conflict.
 
-### Outdated Skills
+### Updating Skills (Consumer Repos)
 
-Check agents-playbook repository for updates:
+Pull latest from this base repository:
 ```bash
-cd /path/to/agents-playbook
-git log --oneline -10
+git subtree pull --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
 ```
-
-Compare with your vendored version and update if needed.
 
 ---
 
 ## Support
 
-**agents-playbook Issues:** https://github.com/alexandrebenkendorf/agents-playbook/issues  
-**Project Issues:** (your project issue tracker)
-
----
-
-## Maintenance Log
-
-| Date | Version | Changes | Updated By |
-|------|---------|---------|------------|
-| 2025-01-XX | v1.0.0 | Initial vendor from agents-playbook | (your name) |
+**Base Repository Issues:** https://github.com/alexandrebenkendorf/agents-playbook/issues  
+**Base Repository Discussions:** https://github.com/alexandrebenkendorf/agents-playbook/discussions

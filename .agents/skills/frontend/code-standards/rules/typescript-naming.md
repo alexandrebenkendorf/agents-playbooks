@@ -17,16 +17,16 @@ Naming conventions for TypeScript types, interfaces, and type-related constructs
 - **MUST use PascalCase**
 
 ```ts
-type UserId = string
-type UserRole = 'admin' | 'member' | 'guest'
+type UserId = string;
+type UserRole = 'admin' | 'member' | 'guest';
 
 interface User {
-  id: UserId
-  role: UserRole
+  id: UserId;
+  role: UserRole;
 }
 
 interface UserRepository {
-  findById(id: UserId): Promise<User | null>
+  findById(id: UserId): Promise<User | null>;
 }
 ```
 
@@ -45,6 +45,7 @@ export function formatDate(value: string): Date {}
 ```
 
 **Use when:**
+
 - No state
 - No lifecycle
 - Simple transformation or helper logic
@@ -62,6 +63,7 @@ export class DateFormatter {
 ```
 
 **Use when:**
+
 - Stateful or potentially stateful
 - Injectable or mockable
 - Represents a formatter, parser, validator, or service abstraction
@@ -82,6 +84,7 @@ export class DateFormatter {
 ## Rationale
 
 These conventions align with:
+
 - TypeScript naming conventions
 - Type/value distinction clarity
 - Discoverability and readability

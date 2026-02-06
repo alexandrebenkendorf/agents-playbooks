@@ -10,7 +10,7 @@ Naming conventions for React components, hooks, and related files.
 
 ```tsx
 export function UserProfile() {}
-export const UserName = () => {}
+export const UserName = () => {};
 ```
 
 ### Component files
@@ -31,8 +31,8 @@ UserProfile.stories.tsx
 - **MUST start with `use`**
 
 ```ts
-useUser.ts
-useAuth.ts
+useUser.ts;
+useAuth.ts;
 ```
 
 ---
@@ -40,6 +40,7 @@ useAuth.ts
 ## Directories (Folders)
 
 ### Feature / domain directories
+
 - **MUST use kebab-case**
 
 ```txt
@@ -64,6 +65,7 @@ user-profile/
 ```
 
 **Rules:**
+
 - The PascalCase folder represents the **public component**
 - `index.ts` MUST explicitly export only the public component(s)
 - Subcomponents inside the folder are considered **private implementation details**
@@ -85,6 +87,7 @@ user-profile/
 ## Rationale
 
 These conventions align with:
+
 - React and JSX semantics (components start with capital letters)
 - Hook naming conventions (`use` prefix for rules of hooks)
 - File system organization that scales with project growth

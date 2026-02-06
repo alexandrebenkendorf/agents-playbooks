@@ -14,22 +14,22 @@ Return early when result is determined to skip unnecessary processing.
 
 ```typescript
 function validateUsers(users: User[]) {
-  let hasError = false
-  let errorMessage = ''
-  
+  let hasError = false;
+  let errorMessage = '';
+
   for (const user of users) {
     if (!user.email) {
-      hasError = true
-      errorMessage = 'Email required'
+      hasError = true;
+      errorMessage = 'Email required';
     }
     if (!user.name) {
-      hasError = true
-      errorMessage = 'Name required'
+      hasError = true;
+      errorMessage = 'Name required';
     }
     // Continues checking all users even after error found
   }
-  
-  return hasError ? { valid: false, error: errorMessage } : { valid: true }
+
+  return hasError ? { valid: false, error: errorMessage } : { valid: true };
 }
 ```
 
@@ -39,14 +39,14 @@ function validateUsers(users: User[]) {
 function validateUsers(users: User[]) {
   for (const user of users) {
     if (!user.email) {
-      return { valid: false, error: 'Email required' }
+      return { valid: false, error: 'Email required' };
     }
     if (!user.name) {
-      return { valid: false, error: 'Name required' }
+      return { valid: false, error: 'Name required' };
     }
   }
 
-  return { valid: true }
+  return { valid: true };
 }
 ```
 
@@ -62,18 +62,18 @@ Don't create RegExp inside frequently-called functions. Hoist to module scope or
 
 ```typescript
 function validateEmail(email: string) {
-  const regex = new RegExp('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
-  return regex.test(email)
+  const regex = new RegExp('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$');
+  return regex.test(email);
 }
 ```
 
 ### Correct: hoist to module scope
 
 ```typescript
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function validateEmail(email: string) {
-  return EMAIL_REGEX.test(email)
+  return EMAIL_REGEX.test(email);
 }
 ```
 
@@ -82,9 +82,9 @@ function validateEmail(email: string) {
 Global regex (`/g`) has mutable `lastIndex` state. Reset it or create new instances when needed:
 
 ```typescript
-const regex = /foo/g
-regex.test('foo')  // true, lastIndex = 3
-regex.test('foo')  // false, lastIndex = 0
+const regex = /foo/g;
+regex.test('foo'); // true, lastIndex = 3
+regex.test('foo'); // false, lastIndex = 0
 ```
 
 ---
@@ -101,11 +101,11 @@ function processUser(user: User | null) {
     if (user.isActive) {
       if (user.hasPermission('admin')) {
         // Do work
-        return user.data
+        return user.data;
       }
     }
   }
-  return null
+  return null;
 }
 ```
 
@@ -113,11 +113,11 @@ function processUser(user: User | null) {
 
 ```typescript
 function processUser(user: User | null) {
-  if (!user) return null
-  if (!user.isActive) return null
-  if (!user.hasPermission('admin')) return null
-  
+  if (!user) return null;
+  if (!user.isActive) return null;
+  if (!user.hasPermission('admin')) return null;
+
   // Do work
-  return user.data
+  return user.data;
 }
 ```

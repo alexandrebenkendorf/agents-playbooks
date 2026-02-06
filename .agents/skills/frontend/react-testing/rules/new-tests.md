@@ -42,11 +42,10 @@ describe('ConfigurationTool', () => {
 ## Standard Imports
 
 ```typescript
+import { createBackendServerResponse, createEmptyServerResponse, testRender } from '@/test';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 import React from 'react';
-
-import { createBackendServerResponse, createEmptyServerResponse, testRender } from '@/test';
 
 import YourComponent from './your-component';
 ```
@@ -211,15 +210,18 @@ fireEvent.click(cancelButton);
 ## Element Selection Priority
 
 1. **Semantic queries** (best for accessibility):
+
    - `screen.getByRole('button', { name: 'Submit' })`
    - `screen.getByLabelText('Email')`
    - `screen.getByText('Expected text')`
 
 2. **data-ta with screen queries**:
+
    - `screen.getByTestId('save-button')`
    - `const [firstItem] = screen.getAllByTestId('list-item')`
 
 3. **within() for nested elements**:
+
    - `within(dialog).getByTestId('accept-button')`
 
 4. **querySelector** (last resort):

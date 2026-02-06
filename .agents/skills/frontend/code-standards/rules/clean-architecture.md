@@ -51,22 +51,22 @@ export class User {
     public readonly email: string,
     private passwordHash: string
   ) {}
-  
+
   verifyPassword(password: string): boolean {
     // Pure business logic
-    return hashPassword(password) === this.passwordHash
+    return hashPassword(password) === this.passwordHash;
   }
-  
+
   changePassword(currentPassword: string, newPassword: string): void {
     if (!this.verifyPassword(currentPassword)) {
-      throw new InvalidPasswordError()
+      throw new InvalidPasswordError();
     }
-    
+
     if (newPassword.length < 8) {
-      throw new WeakPasswordError()
+      throw new WeakPasswordError();
     }
-    
-    this.passwordHash = hashPassword(newPassword)
+
+    this.passwordHash = hashPassword(newPassword);
   }
 }
 ```
@@ -77,20 +77,20 @@ export class User {
 // domain/value-objects/EmailAddress.ts
 export class EmailAddress {
   private constructor(private readonly value: string) {}
-  
+
   static create(email: string): EmailAddress {
     if (!this.isValid(email)) {
-      throw new InvalidEmailError(email)
+      throw new InvalidEmailError(email);
     }
-    return new EmailAddress(email.toLowerCase())
+    return new EmailAddress(email.toLowerCase());
   }
-  
+
   private static isValid(email: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
-  
+
   toString(): string {
-    return this.value
+    return this.value;
   }
 }
 ```
@@ -115,17 +115,17 @@ Contains application-specific business rules.
 
 ```ts
 // application/use-cases/RegisterUser.ts
-import { User } from '../../domain/entities/User'
-import { EmailAddress } from '../../domain/value-objects/EmailAddress'
+import { User } from '../../domain/entities/User';
+import { EmailAddress } from '../../domain/value-objects/EmailAddress';
 
 // Abstractions (interfaces) defined in application layer
 export interface UserRepository {
-  findByEmail(email: string): Promise<User | null>
-  save(user: User): Promise<void>
+  findByEmail(email: string): Promise<User | null>;
+  save(user: User): Promise<void>;
 }
 
 export interface EmailService {
-  sendWelcomeEmail(email: string): Promise<void>
+  sendWelcomeEmail(email: string): Promise<void>;
 }
 
 export class RegisterUserUseCase {
@@ -133,31 +133,27 @@ export class RegisterUserUseCase {
     private userRepository: UserRepository,
     private emailService: EmailService
   ) {}
-  
+
   async execute(email: string, password: string): Promise<User> {
     // Validate input with value object
-    const emailAddress = EmailAddress.create(email)
-    
+    const emailAddress = EmailAddress.create(email);
+
     // Business rule: no duplicate emails
-    const existingUser = await this.userRepository.findByEmail(emailAddress.toString())
+    const existingUser = await this.userRepository.findByEmail(emailAddress.toString());
     if (existingUser) {
-      throw new UserAlreadyExistsError()
+      throw new UserAlreadyExistsError();
     }
-    
+
     // Create entity
-    const user = new User(
-      generateId(),
-      emailAddress.toString(),
-      hashPassword(password)
-    )
-    
+    const user = new User(generateId(), emailAddress.toString(), hashPassword(password));
+
     // Persist
-    await this.userRepository.save(user)
-    
+    await this.userRepository.save(user);
+
     // Side effect
-    await this.emailService.sendWelcomeEmail(user.email)
-    
-    return user
+    await this.emailService.sendWelcomeEmail(user.email);
+
+    return user;
   }
 }
 ```
@@ -181,31 +177,25 @@ Adapters translate between the formats most convenient for use cases and entitie
 
 ```ts
 // infrastructure/repositories/UserRepositoryImpl.ts
-import { UserRepository } from '../../application/use-cases/RegisterUser'
-import { User } from '../../domain/entities/User'
+import { UserRepository } from '../../application/use-cases/RegisterUser';
+import { User } from '../../domain/entities/User';
 
 export class UserRepositoryImpl implements UserRepository {
   async findByEmail(email: string): Promise<User | null> {
     // Database-specific query
-    const row = await db.query(
-      'SELECT id, email, password_hash FROM users WHERE email = ?',
-      [email]
-    )
-    
+    const row = await db.query('SELECT id, email, password_hash FROM users WHERE email = ?', [email]);
+
     if (!row) {
-      return null
+      return null;
     }
-    
+
     // Convert database row to domain entity
-    return new User(row.id, row.email, row.password_hash)
+    return new User(row.id, row.email, row.password_hash);
   }
-  
+
   async save(user: User): Promise<void> {
     // Convert domain entity to database format
-    await db.query(
-      'INSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)',
-      [user.id, user.email, user['passwordHash']]
-    )
+    await db.query('INSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)', [user.id, user.email, user['passwordHash']]);
   }
 }
 ```
@@ -214,8 +204,11 @@ export class UserRepositoryImpl implements UserRepository {
 
 ```ts
 // infrastructure/services/EmailServiceImpl.ts
-import { EmailService } from '../../application/use-cases/RegisterUser'
-import { sendEmail } from 'some-email-provider' // External dependency
+import { sendEmail } from 'some-email-provider';
+
+import { EmailService } from '../../application/use-cases/RegisterUser';
+
+// External dependency
 
 export class EmailServiceImpl implements EmailService {
   async sendWelcomeEmail(email: string): Promise<void> {
@@ -224,7 +217,7 @@ export class EmailServiceImpl implements EmailService {
       to: email,
       subject: 'Welcome!',
       body: 'Thanks for registering',
-    })
+    });
   }
 }
 ```
@@ -241,41 +234,49 @@ This is where framework-specific code lives (React, Express, database drivers).
 
 ```tsx
 // presentation/components/RegisterForm.tsx
-import { useState } from 'react'
-import { RegisterUserUseCase } from '../../application/use-cases/RegisterUser'
+import { useState } from 'react';
+
+import { RegisterUserUseCase } from '../../application/use-cases/RegisterUser';
 
 interface RegisterFormProps {
-  registerUserUseCase: RegisterUserUseCase
+  registerUserUseCase: RegisterUserUseCase;
 }
 
 export function RegisterForm({ registerUserUseCase }: RegisterFormProps) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    
+    e.preventDefault();
+
     try {
-      await registerUserUseCase.execute(email, password)
+      await registerUserUseCase.execute(email, password);
       // Success: redirect or show message
     } catch (err) {
       if (err instanceof UserAlreadyExistsError) {
-        setError('Email already registered')
+        setError('Email already registered');
       } else {
-        setError('Registration failed')
+        setError('Registration failed');
       }
     }
   }
-  
+
   return (
     <form onSubmit={handleSubmit}>
-      <input value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <input
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <button type="submit">Register</button>
       {error && <p>{error}</p>}
     </form>
-  )
+  );
 }
 ```
 
@@ -306,7 +307,7 @@ Business logic doesn't depend on React, Express, or any framework.
 
 ```ts
 // ✅ Use case works with ANY UI framework
-const user = await registerUserUseCase.execute(email, password)
+const user = await registerUserUseCase.execute(email, password);
 ```
 
 ### 2. Testability
@@ -318,16 +319,16 @@ Test business logic without frameworks, databases, or UI.
 const mockRepository: UserRepository = {
   findByEmail: vi.fn().mockResolvedValue(null),
   save: vi.fn(),
-}
+};
 
 const mockEmailService: EmailService = {
   sendWelcomeEmail: vi.fn(),
-}
+};
 
-const useCase = new RegisterUserUseCase(mockRepository, mockEmailService)
-await useCase.execute('test@example.com', 'password123')
+const useCase = new RegisterUserUseCase(mockRepository, mockEmailService);
+await useCase.execute('test@example.com', 'password123');
 
-expect(mockRepository.save).toHaveBeenCalled()
+expect(mockRepository.save).toHaveBeenCalled();
 ```
 
 ### 3. Database Independence
@@ -394,12 +395,12 @@ src/
 
 ## Quick Reference
 
-| Layer | Purpose | Dependencies | Examples |
-|-------|---------|--------------|----------|
-| **Entities** | Business rules | None | User, Order, Product |
-| **Use Cases** | Application logic | Entities only | RegisterUser, PlaceOrder |
-| **Adapters** | Convert data | Use Cases, Entities | UserRepositoryImpl, Controllers |
-| **Frameworks** | External tools | All inner layers | React, Express, Database |
+| Layer          | Purpose           | Dependencies        | Examples                        |
+| -------------- | ----------------- | ------------------- | ------------------------------- |
+| **Entities**   | Business rules    | None                | User, Order, Product            |
+| **Use Cases**  | Application logic | Entities only       | RegisterUser, PlaceOrder        |
+| **Adapters**   | Convert data      | Use Cases, Entities | UserRepositoryImpl, Controllers |
+| **Frameworks** | External tools    | All inner layers    | React, Express, Database        |
 
 **Golden Rule:** Dependencies always point inward (toward business logic).
 

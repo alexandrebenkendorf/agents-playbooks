@@ -13,22 +13,22 @@ Multiple `.filter()` or `.map()` calls iterate the array multiple times. Combine
 ### Incorrect: 3 iterations
 
 ```typescript
-const admins = users.filter(u => u.isAdmin)
-const testers = users.filter(u => u.isTester)
-const inactive = users.filter(u => !u.isActive)
+const admins = users.filter((u) => u.isAdmin);
+const testers = users.filter((u) => u.isTester);
+const inactive = users.filter((u) => !u.isActive);
 ```
 
 ### Correct: 1 iteration
 
 ```typescript
-const admins: User[] = []
-const testers: User[] = []
-const inactive: User[] = []
+const admins: User[] = [];
+const testers: User[] = [];
+const inactive: User[] = [];
 
 for (const user of users) {
-  if (user.isAdmin) admins.push(user)
-  if (user.isTester) testers.push(user)
-  if (!user.isActive) inactive.push(user)
+  if (user.isAdmin) admins.push(user);
+  if (user.isTester) testers.push(user);
+  if (!user.isActive) inactive.push(user);
 }
 ```
 
@@ -45,7 +45,7 @@ When comparing arrays with expensive operations (sorting, deep equality, seriali
 ```typescript
 function hasChanges(current: string[], original: string[]) {
   // Always sorts and joins, even when lengths differ
-  return current.sort().join() !== original.sort().join()
+  return current.sort().join() !== original.sort().join();
 }
 ```
 
@@ -57,21 +57,22 @@ Two O(n log n) sorts run even when `current.length` is 5 and `original.length` i
 function hasChanges(current: string[], original: string[]) {
   // Early return if lengths differ
   if (current.length !== original.length) {
-    return true
+    return true;
   }
   // Only sort when lengths match
-  const currentSorted = current.toSorted()
-  const originalSorted = original.toSorted()
+  const currentSorted = current.toSorted();
+  const originalSorted = original.toSorted();
   for (let i = 0; i < currentSorted.length; i++) {
     if (currentSorted[i] !== originalSorted[i]) {
-      return true
+      return true;
     }
   }
-  return false
+  return false;
 }
 ```
 
 **Benefits:**
+
 - Avoids sorting overhead when lengths differ
 - Avoids memory allocation for joined strings
 - Avoids mutating original arrays
@@ -89,14 +90,14 @@ Finding the smallest or largest element only requires a single pass through the 
 
 ```typescript
 interface Project {
-  id: string
-  name: string
-  updatedAt: number
+  id: string;
+  name: string;
+  updatedAt: number;
 }
 
 function getLatestProject(projects: Project[]) {
-  const sorted = [...projects].sort((a, b) => b.updatedAt - a.updatedAt)
-  return sorted[0]
+  const sorted = [...projects].sort((a, b) => b.updatedAt - a.updatedAt);
+  return sorted[0];
 }
 ```
 
@@ -104,40 +105,40 @@ function getLatestProject(projects: Project[]) {
 
 ```typescript
 function getLatestProject(projects: Project[]) {
-  if (projects.length === 0) return null
-  
-  let latest = projects[0]
-  
+  if (projects.length === 0) return null;
+
+  let latest = projects[0];
+
   for (let i = 1; i < projects.length; i++) {
     if (projects[i].updatedAt > latest.updatedAt) {
-      latest = projects[i]
+      latest = projects[i];
     }
   }
-  
-  return latest
+
+  return latest;
 }
 
 function getOldestAndNewest(projects: Project[]) {
-  if (projects.length === 0) return { oldest: null, newest: null }
-  
-  let oldest = projects[0]
-  let newest = projects[0]
-  
+  if (projects.length === 0) return { oldest: null, newest: null };
+
+  let oldest = projects[0];
+  let newest = projects[0];
+
   for (let i = 1; i < projects.length; i++) {
-    if (projects[i].updatedAt < oldest.updatedAt) oldest = projects[i]
-    if (projects[i].updatedAt > newest.updatedAt) newest = projects[i]
+    if (projects[i].updatedAt < oldest.updatedAt) oldest = projects[i];
+    if (projects[i].updatedAt > newest.updatedAt) newest = projects[i];
   }
-  
-  return { oldest, newest }
+
+  return { oldest, newest };
 }
 ```
 
 ### Alternative: Math.min/Math.max for small arrays
 
 ```typescript
-const numbers = [5, 2, 8, 1, 9]
-const min = Math.min(...numbers)
-const max = Math.max(...numbers)
+const numbers = [5, 2, 8, 1, 9];
+const min = Math.min(...numbers);
+const max = Math.max(...numbers);
 ```
 
 **Caution:** This works for small arrays, but can be slower or throw an error for very large arrays due to spread operator limitations. Maximal array length is approximately 124000 in Chrome 143 and 638000 in Safari 18. Use the loop approach for reliability.
@@ -155,7 +156,7 @@ const max = Math.max(...numbers)
 ```typescript
 function sortUsers(users: User[]) {
   // Mutates the users array!
-  return users.sort((a, b) => a.name.localeCompare(b.name))
+  return users.sort((a, b) => a.name.localeCompare(b.name));
 }
 ```
 
@@ -164,7 +165,7 @@ function sortUsers(users: User[]) {
 ```typescript
 function sortUsers(users: User[]) {
   // Creates new sorted array, original unchanged
-  return users.toSorted((a, b) => a.name.localeCompare(b.name))
+  return users.toSorted((a, b) => a.name.localeCompare(b.name));
 }
 ```
 
@@ -181,7 +182,7 @@ function sortUsers(users: User[]) {
 
 ```typescript
 // Fallback for older browsers
-const sorted = [...items].sort((a, b) => a.value - b.value)
+const sorted = [...items].sort((a, b) => a.value - b.value);
 ```
 
 ### Other immutable array methods:

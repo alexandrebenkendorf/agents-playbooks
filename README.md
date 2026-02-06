@@ -58,49 +58,65 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 
 ## 🚀 Usage
 
-### Option 1: Vendoring (Recommended)
+### For Consumer Projects
 
-Copy skills into your project:
+This repository is the **base source** for shared agent skills. Consumer projects should sync these skills using **git subtree**.
+
+#### Initial Setup
+
+Add this repository to your project:
 
 ```bash
-# Clone this repository
-git clone https://github.com/your-org/agents-playbook.git
+git subtree add --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+```
 
-# Copy skills to your project
-mkdir -p your-project/.agents/skills
-cp -r agents-playbook/.agents/skills/* your-project/.agents/skills/
+This creates `.agents/agents-playbooks/` in your project with all skills.
+
+#### Update Skills
+
+Pull latest changes:
+
+```bash
+git subtree pull --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+```
+
+⚠️ **Never edit `.agents/agents-playbooks/` directly** - it's managed by subtree.
+
+#### Consumer Project Structure
+
+```
+your-project/
+├── .agents/
+│   ├── agents-playbooks/    # Synced from this repo (read-only)
+│   │   ├── skills/
+│   │   └── templates/
+│   ├── local/                # Your overrides (optional)
+│   │   └── skills/
+│   └── README.md             # Your project config
 ```
 
 **Benefits:**
-- ✅ Full control over skill versions
-- ✅ Can customize per-project
-- ✅ No external dependencies
+- ✅ Automatic updates via subtree pull
+- ✅ Safe local overrides in `.agents/local/`
+- ✅ Explicit promotion workflow
+- ✅ No git submodule complexity
 
-### Option 2: Git Submodule
-
-```bash
-cd your-project
-git submodule add https://github.com/your-org/agents-playbook.git .agents/skills-source
-ln -s .agents/skills-source/.agents/skills .agents/skills
-```
-
-**Benefits:**
-- ✅ Easy to update (`git submodule update --remote`)
-- ✅ Shared across all projects
-- ❌ Harder to customize per-project
+📖 **Full documentation:** See [.agents/README.md](./.agents/README.md)
 
 ---
 
 ## ⚙️ Configuration
 
-### Project Setup
+### Consumer Project Setup
 
-Create `.agents/README.md` in your project:
+Create `.agents/README.md` in your project with configuration:
 
 ```markdown
 # Project Agent Skills
 
-Skills are sourced from: [agents-playbook](https://github.com/your-org/agents-playbook)
+Base skills synced from: [agents-playbook](https://github.com/alexandrebenkendorf/agents-playbook)
 
 ## Configuration
 
@@ -108,27 +124,32 @@ Skills are sourced from: [agents-playbook](https://github.com/your-org/agents-pl
 - **Branch Format**: `PROJ-<number>-description`
 - **Framework**: React + TypeScript
 
-## Skill Usage
+## Updating Base Skills
 
-Reference skills in prompts:
+```bash
+git subtree pull --prefix=.agents/agents-playbooks \
+  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+```
 
-\```
-"Follow the testing guidelines to add tests for this component"
-"Create a commit message following our conventions"
-"Refactor this code according to our coding standards"
-\```
+## Local Overrides
 
-## Updating Skills
+To customize a skill:
 
-\```bash
-# If vendored
-cd /path/to/agents-playbook
-git pull
-cp -r .agents/skills/* /path/to/your-project/.agents/skills/
+```bash
+# Copy from base to local
+cp -r .agents/agents-playbooks/skills/frontend/react-testing \
+      .agents/local/skills/frontend/react-testing
 
-# If using submodule
-git submodule update --remote .agents/skills-source
-\```
+# Edit in .agents/local/ - AI agents will use your version
+```
+
+## Promoting Local Skills
+
+1. Fork https://github.com/alexandrebenkendorf/agents-playbook
+2. Copy from `.agents/local/` to fork's `.agents/skills/`
+3. Open PR to agents-playbook
+4. After merge: `git subtree pull ...`
+5. Remove local override
 ```
 
 Update `AGENTS.md` in your project:
@@ -136,8 +157,9 @@ Update `AGENTS.md` in your project:
 ```markdown
 ## Order of precedence
 1. `/AGENTS.md`
-2. `/.agents/skills/*`
-3. Existing code and comments
+2. `/.agents/local/*` (your overrides)
+3. `/.agents/agents-playbooks/skills/*` (base)
+4. Existing code and comments
 
 If instructions conflict, follow the higher-precedence source.
 ```
@@ -204,17 +226,31 @@ description: Brief description
 
 ## 🤝 Contributing
 
-### Adding a New Skill
+### Adding a New Skill (Base Repository)
+
+This repository is the source of truth for shared skills.
 
 1. Create skill directory: `.agents/skills/category/skill-name/`
-2. Add `SKILL.md` with frontmatter
+2. Add `SKILL.md` and `README.md`
 3. For large skills, use `rules/` directory
-4. Update this README
+4. Update this README and `.agents/skills/README.md`
 5. Test with a real project
+6. Document in CHANGELOG.md
+
+### Contributing from Consumer Projects
+
+If you developed a useful skill in a consumer project's `.agents/local/`:
+
+1. **Fork this repository**
+2. **Copy skill** from your `.agents/local/` to fork's `.agents/skills/`
+3. **Generalize** - remove project-specific references
+4. **Test thoroughly**
+5. **Open PR** with clear description
+6. **After merge**, update your subtree and remove local override
 
 ### Updating Existing Skills
 
-1. Make changes in skill files
+1. Make changes in `.agents/skills/`
 2. Test with AI assistant
 3. Update version/changelog if significant
 4. Document changes in commit message
@@ -226,8 +262,10 @@ description: Brief description
 - ✅ Include **anti-patterns** (what NOT to do)
 - ✅ Link to **authoritative sources** for deeper learning
 - ✅ Keep files **focused and modular** (token efficiency)
+- ✅ **No consumer-specific config** (keep generic)
 - ❌ Don't mix framework-specific patterns in generic skills
 - ❌ Don't create overly generic skills (be specific and actionable)
+- ❌ Don't commit secrets or project-specific tokens
 
 ---
 
@@ -271,5 +309,5 @@ MIT License - See [LICENSE](LICENSE) file for details.
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/your-org/agents-playbook/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-org/agents-playbook/discussions)
+- **Issues**: [GitHub Issues](https://github.com/alexandrebenkendorf/agents-playbook/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/alexandrebenkendorf/agents-playbook/discussions)

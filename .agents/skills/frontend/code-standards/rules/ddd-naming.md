@@ -35,7 +35,7 @@ domain/
 ```ts
 // domain/entities/User.ts
 export class User {}
-export type UserId = string
+export type UserId = string;
 
 // domain/value-objects/EmailAddress.ts
 export class EmailAddress {
@@ -44,7 +44,7 @@ export class EmailAddress {
 
 // domain/services/BookingService.ts
 export interface BookingService {
-  createBooking(params: CreateBookingParams): Promise<Booking>
+  createBooking(params: CreateBookingParams): Promise<Booking>;
 }
 ```
 
@@ -78,8 +78,8 @@ export class UserAggregate {
 
 // domain/repositories/UserRepository.ts
 export interface UserRepository {
-  findById(id: UserId): Promise<User | null>
-  save(user: User): Promise<void>
+  findById(id: UserId): Promise<User | null>;
+  save(user: User): Promise<void>;
 }
 ```
 
@@ -98,7 +98,7 @@ export class CreateBookingUseCase {
 
 // application/services/AuthenticationService.ts
 export interface AuthenticationService {
-  login(credentials: Credentials): Promise<UserSession>
+  login(credentials: Credentials): Promise<UserSession>;
 }
 ```
 
@@ -106,28 +106,30 @@ export interface AuthenticationService {
 
 ## Summary
 
-| Concept                | Naming     | Example              |
-| ---------------------- | ---------- | -------------------- |
-| Entities               | PascalCase | User, Booking        |
-| Value Objects          | PascalCase | EmailAddress, Money  |
-| Domain Services        | PascalCase | BookingService       |
-| Repositories           | PascalCase | UserRepository       |
-| Aggregates             | PascalCase | UserAggregate        |
-| Use Cases              | PascalCase | CreateBookingUseCase |
-| Application Services   | PascalCase | AuthenticationService|
-| Domain type aliases    | PascalCase | UserId, BookingId    |
+| Concept              | Naming     | Example               |
+| -------------------- | ---------- | --------------------- |
+| Entities             | PascalCase | User, Booking         |
+| Value Objects        | PascalCase | EmailAddress, Money   |
+| Domain Services      | PascalCase | BookingService        |
+| Repositories         | PascalCase | UserRepository        |
+| Aggregates           | PascalCase | UserAggregate         |
+| Use Cases            | PascalCase | CreateBookingUseCase  |
+| Application Services | PascalCase | AuthenticationService |
+| Domain type aliases  | PascalCase | UserId, BookingId     |
 
 ---
 
 ## Rationale
 
 These conventions align with:
+
 - Domain-Driven Design principles (Ubiquitous Language)
 - Clean Architecture layering
 - TypeScript type/value distinction
 - Large-scale, long-lived application architectures
 
 They optimize for:
+
 - Business domain clarity
 - Layer boundaries enforcement
 - Team communication using shared vocabulary

@@ -29,6 +29,7 @@ Guidelines for creating properly formatted commit messages with Jira ticket numb
 ```
 
 **Where:**
+
 - `<type>` = Commit type (feat, fix, docs, etc.)
 - `<PREFIX>` = Your Jira project prefix (PROJ, JIRA, etc.)
 - `<ticket-number>` = Jira ticket number
@@ -36,20 +37,20 @@ Guidelines for creating properly formatted commit messages with Jira ticket numb
 
 ### Commit Types
 
-| Type | Usage |
-|------|-------|
-| `feat` | A new feature |
-| `fix` | A bug fix |
-| `docs` | Documentation only changes |
-| `style` | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) |
-| `refactor` | A code change that neither fixes a bug nor adds a feature |
-| `perf` | A code change that improves performance |
-| `test` | Adding missing tests or correcting existing tests |
-| `build` | Changes that affect the build system or external dependencies |
-| `ci` | Changes to our CI configuration files and scripts |
-| `chore` | Other changes that don't modify src or test files |
-| `revert` | Reverts a previous commit |
-| `rollback` | Rolling back to a previous version |
+| Type       | Usage                                                                                                  |
+| ---------- | ------------------------------------------------------------------------------------------------------ |
+| `feat`     | A new feature                                                                                          |
+| `fix`      | A bug fix                                                                                              |
+| `docs`     | Documentation only changes                                                                             |
+| `style`    | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) |
+| `refactor` | A code change that neither fixes a bug nor adds a feature                                              |
+| `perf`     | A code change that improves performance                                                                |
+| `test`     | Adding missing tests or correcting existing tests                                                      |
+| `build`    | Changes that affect the build system or external dependencies                                          |
+| `ci`       | Changes to our CI configuration files and scripts                                                      |
+| `chore`    | Other changes that don't modify src or test files                                                      |
+| `revert`   | Reverts a previous commit                                                                              |
+| `rollback` | Rolling back to a previous version                                                                     |
 
 ---
 
@@ -136,6 +137,7 @@ git commit -m "perf: PROJ-134719 Optimize database query for user search"
 **Each commit should represent ONE logical change:**
 
 ✅ **Good - Focused commits:**
+
 ```bash
 # Commit 1
 git add src/components/UserProfile.tsx
@@ -151,6 +153,7 @@ git commit -m "docs: PROJ-12345 Update UserProfile component documentation"
 ```
 
 ❌ **Bad - Mixed changes:**
+
 ```bash
 # Mixing feature, fix, and docs in one commit
 git add src/components/UserProfile.tsx src/utils/validation.ts README.md
@@ -158,6 +161,7 @@ git commit -m "feat: PROJ-12345 Add avatar, fix validation, update docs"
 ```
 
 **When to split commits:**
+
 - Changes serve different purposes (feature vs fix vs refactor)
 - Changes affect unrelated areas of the codebase
 - One change could be reverted independently
@@ -179,20 +183,23 @@ git commit -m "feat: PROJ-12345 Add avatar, fix validation, update docs"
 ### Recommended Prompts
 
 **Best (let AI analyze):**
+
 ```
 "Commit the changes"
 "Review my staged changes and create a commit message"
 ```
 
 **Good (with context):**
+
 ```
-"I've updated the authentication flow and added error handling. 
+"I've updated the authentication flow and added error handling.
 Check my changes and create a commit message."
 ```
 
 **Acceptable (manual description):**
+
 ```
-"Create a commit message. I added unit tests for the UserProfile component 
+"Create a commit message. I added unit tests for the UserProfile component
 and fixed a bug in the validation logic."
 ```
 

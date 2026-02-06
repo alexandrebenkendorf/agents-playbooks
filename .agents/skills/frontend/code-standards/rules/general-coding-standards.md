@@ -22,13 +22,18 @@ Use named function declarations for better debugging and readability.
 
 ```ts
 // ❌ Don't
-const handler = () => { /* ... */ }
+const handler = () => {
+  /* ... */
+};
 
 // ✅ Do
-function handleRequest() { /* ... */ }
+function handleRequest() {
+  /* ... */
+}
 ```
 
 **Edge cases where arrow functions are preferred:**
+
 - When you don't want hoisting
 - When lexical `this` matters
 - Intentionally ephemeral functions (e.g., `array.map(item => transform(item))`)
@@ -39,19 +44,21 @@ function handleRequest() { /* ... */ }
 Start with a verb to communicate what the function does:
 
 ✅ **Good:**
+
 ```ts
-calculateTotal()
-fetchUser()
-validateToken()
-markAsCompleted()
+calculateTotal();
+fetchUser();
+validateToken();
+markAsCompleted();
 ```
 
 ❌ **Bad:**
+
 ```ts
-total()
-user()
-validation()
-completed()
+total();
+user();
+validation();
+completed();
 ```
 
 ### Keep Signatures Simple
@@ -96,16 +103,16 @@ Extract separate functions with specific behavior instead of boolean switches th
 ```ts
 // ❌ Don't
 function formatPrice(value: number, useCurrencySymbol: boolean) {
-  return useCurrencySymbol ? `€${value}` : `${value}`
+  return useCurrencySymbol ? `€${value}` : `${value}`;
 }
 
 // ✅ Do
 function formatPriceWithSymbol(value: number) {
-  return `€${value}`
+  return `€${value}`;
 }
 
 function formatPricePlain(value: number) {
-  return `${value}`
+  return `${value}`;
 }
 ```
 
@@ -122,18 +129,18 @@ Functions should either **mutate** (command) or **query** (return data), but not
 ```ts
 // ✅ Query (no side effects)
 function getUserDisplayName(user: { firstName: string; lastName: string }) {
-  return `${user.firstName} ${user.lastName}`
+  return `${user.firstName} ${user.lastName}`;
 }
 
 // ✅ Command (mutates)
 function markUserAsActive(user: { isActive: boolean }) {
-  user.isActive = true
+  user.isActive = true;
 }
 
 // ❌ Don't mix both
 function getUserNameAndMarkActive(user: User) {
-  user.isActive = true  // Side effect in a query!
-  return `${user.firstName} ${user.lastName}`
+  user.isActive = true; // Side effect in a query!
+  return `${user.firstName} ${user.lastName}`;
 }
 ```
 
@@ -204,28 +211,30 @@ function getUserRole(user: User): string {
   if (user.isAdmin) {
     return 'admin'
   }
-  
+
   if (user.isModerator) {
     return 'moderator'
   }
-  
+
   if (user.isPremium) {
     return 'premium'
   }
-  
+
   return 'user'
 }
 ```
 
 **Why avoid else?**
+
 - Reduces cognitive load (no need to mentally track else conditions)
 - Each condition stands on its own
 - Natural flow: handle special cases first, default case last
 - Easier to add/remove conditions without restructuring
 
 **Exception:** Simple ternary for straightforward either/or logic is fine:
+
 ```ts
-const status = isActive ? 'active' : 'inactive'
+const status = isActive ? 'active' : 'inactive';
 ```
 
 ---
@@ -248,9 +257,9 @@ function processOrder(orderId: string) {
   const userId = getCurrentUserId()
   const timestamp = Date.now()
   const logger = getLogger()
-  
+
   // ... 20 lines of other code
-  
+
   // userId finally used here
   const order = getOrder(orderId, userId)
 }
@@ -258,7 +267,7 @@ function processOrder(orderId: string) {
 // ✅ Do declare close to usage
 function processOrder(orderId: string) {
   // ... other code
-  
+
   const userId = getCurrentUserId()
   const order = getOrder(orderId, userId)
 }
@@ -290,11 +299,11 @@ Don't add blank lines inside functions/methods. Keep flow tight and readable.
 // ❌ Don't
 function calculateTotal(items: Item[]) {
   const subtotal = items.reduce((sum, item) => sum + item.price, 0)
-  
+
   const tax = subtotal * 0.21
-  
+
   const total = subtotal + tax
-  
+
   return total
 }
 
@@ -313,11 +322,11 @@ Always use braces for control structures, even for single statements.
 
 ```ts
 // ❌ Don't
-if (isTrue) doSomething()
+if (isTrue) doSomething();
 
 // ✅ Do
 if (isTrue) {
-  doSomething()
+  doSomething();
 }
 ```
 
@@ -328,11 +337,11 @@ Don't use comments unless they explain **why** something exists. Prefer self-exp
 ```ts
 // ❌ Don't explain what (code should be clear)
 // Get the user's full name
-const fullName = `${user.firstName} ${user.lastName}`
+const fullName = `${user.firstName} ${user.lastName}`;
 
 // ✅ Do explain why when necessary
 // Workaround: API sometimes returns null instead of empty array
-const items = response.items ?? []
+const items = response.items ?? [];
 ```
 
 ---
@@ -361,12 +370,12 @@ function retryRequest() {
 
 ### Pattern Summary
 
-| Aspect | Convention |
-|--------|------------|
-| Function length | ~50 lines max |
-| Class length | ~300 lines max |
-| Parameters | ≤3, or use options object |
-| Nesting depth | ≤2 levels |
-| Variable scope | Close to usage |
-| Side effects | Separate commands from queries |
-| Comments | Only explain "why", not "what" |
+| Aspect          | Convention                     |
+| --------------- | ------------------------------ |
+| Function length | ~50 lines max                  |
+| Class length    | ~300 lines max                 |
+| Parameters      | ≤3, or use options object      |
+| Nesting depth   | ≤2 levels                      |
+| Variable scope  | Close to usage                 |
+| Side effects    | Separate commands from queries |
+| Comments        | Only explain "why", not "what" |

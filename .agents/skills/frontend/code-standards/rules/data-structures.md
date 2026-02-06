@@ -14,10 +14,10 @@ Multiple `.find()` calls by the same key should use a Map for O(1) lookups inste
 
 ```typescript
 function processOrders(orders: Order[], users: User[]) {
-  return orders.map(order => ({
+  return orders.map((order) => ({
     ...order,
-    user: users.find(u => u.id === order.userId)
-  }))
+    user: users.find((u) => u.id === order.userId),
+  }));
 }
 ```
 
@@ -25,12 +25,12 @@ function processOrders(orders: Order[], users: User[]) {
 
 ```typescript
 function processOrders(orders: Order[], users: User[]) {
-  const userById = new Map(users.map(u => [u.id, u]))
+  const userById = new Map(users.map((u) => [u.id, u]));
 
-  return orders.map(order => ({
+  return orders.map((order) => ({
     ...order,
-    user: userById.get(order.userId)
-  }))
+    user: userById.get(order.userId),
+  }));
 }
 ```
 
@@ -64,11 +64,11 @@ items.filter(item => allowedIds.has(item.id))
 
 ## When to Use Each Data Structure
 
-| Data Structure | Use Case | Complexity |
-|---------------|----------|------------|
-| `Array` | Ordered data, iteration | O(n) lookup |
-| `Set` | Unique values, membership checks | O(1) lookup |
-| `Map` | Key-value pairs, fast lookups | O(1) lookup |
-| `Object` | String keys only, simple data | O(1) lookup* |
+| Data Structure | Use Case                         | Complexity    |
+| -------------- | -------------------------------- | ------------- |
+| `Array`        | Ordered data, iteration          | O(n) lookup   |
+| `Set`          | Unique values, membership checks | O(1) lookup   |
+| `Map`          | Key-value pairs, fast lookups    | O(1) lookup   |
+| `Object`       | String keys only, simple data    | O(1) lookup\* |
 
-*Note: Object lookup is typically O(1) but can degrade in edge cases. Map is more reliable for large datasets.
+\*Note: Object lookup is typically O(1) but can degrade in edge cases. Map is more reliable for large datasets.

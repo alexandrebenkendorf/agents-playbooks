@@ -16,9 +16,9 @@ Brief explanation of the testing rule and why it matters for test quality and ma
 ```typescript
 // Bad test example
 it('should work', () => {
-  const bad = example()
-  expect(bad).toBeTruthy()
-})
+  const bad = example();
+  expect(bad).toBeTruthy();
+});
 ```
 
 **Correct (recommended pattern):**
@@ -26,9 +26,9 @@ it('should work', () => {
 ```typescript
 // Good test example
 it('should return user data when ID exists', () => {
-  const good = example()
-  expect(good).toEqual({ name: 'John', id: 1 })
-})
+  const good = example();
+  expect(good).toEqual({ name: 'John', id: 1 });
+});
 ```
 
 Reference: [Testing Library Docs](https://testing-library.com)

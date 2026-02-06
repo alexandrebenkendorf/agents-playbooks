@@ -2,9 +2,9 @@
 
 TypeScript-specific patterns and best practices for test files.
 
-**Note:** For general TypeScript best practices (type safety, inference, interface vs type), see [frontend-code-standards/rules/typescript-best-practices.md](../../frontend-code-standards/rules/typescript-best-practices.md)
+**Note:** For general TypeScript best practices (type safety, inference, interface vs type), see [code-standards/rules/typescript-best-practices.md](../../code-standards/rules/typescript-best-practices.md)
 
-**Note:** For general clean coding principles (early returns, named functions, single-line statements), see [frontend-code-standards/rules/general-coding-standards.md](../../frontend-code-standards/rules/general-coding-standards.md)
+**Note:** For general clean coding principles (early returns, named functions, single-line statements), see [code-standards/rules/general-coding-standards.md](../../code-standards/rules/general-coding-standards.md)
 
 ## Conversion Rules
 
@@ -24,13 +24,19 @@ All tests must be wrapped in main `describe`:
 
 ```typescript
 // For testing multiple helpers in one file:
-describe('name-of-the-file', () => { /* tests */ });
+describe('name-of-the-file', () => {
+  /* tests */
+});
 
 // For testing default exported function:
-describe('utilityName', () => { /* tests */ });
+describe('utilityName', () => {
+  /* tests */
+});
 
 // For testing React component:
-describe('MyComponent', () => { /* tests */ });
+describe('MyComponent', () => {
+  /* tests */
+});
 ```
 
 ## Type Patterns
@@ -74,7 +80,7 @@ import React from 'react';
 
 ## Test Data Types
 
-**Note:** For comprehensive type vs interface guidelines, see [frontend-code-standards/rules/typescript-best-practices.md](../../frontend-code-standards/rules/typescript-best-practices.md)
+**Note:** For comprehensive type vs interface guidelines, see [code-standards/rules/typescript-best-practices.md](../../code-standards/rules/typescript-best-practices.md)
 
 ### Use interface for complex test cases
 
@@ -123,10 +129,10 @@ async function openDialog(user: ReturnType<typeof userEvent.setup>) {
 it('should save data', async () => {
   // Arrange
   const mockResponse = vi.fn().mockResolvedValue(createEmptyServerResponse());
-  
+
   // Act
   fireEvent.click(saveButton);
-  
+
   // Assert
   await waitFor(() => expect(mockResponse).toHaveBeenCalled());
 });
@@ -283,6 +289,7 @@ await clickButton(user); // Type-safe
 ## Next Steps
 
 After converting to TypeScript:
+
 1. Delete the old JavaScript test file
 2. Run `npm prettier-fix`
 3. Run `npx eslint <file-path> --fix`

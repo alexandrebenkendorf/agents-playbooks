@@ -7,6 +7,7 @@ Step-by-step guide for converting old tests to modern Vitest + React Testing Lib
 **Before making ANY edits, verify you will change ALL of these in a single pass:**
 
 ### Imports
+
 - [ ] Remove `sinon` import completely
 - [ ] Remove `userEvent` import unless actually needed
 - [ ] Remove `act`, `cleanup` imports (handled automatically)
@@ -16,6 +17,7 @@ Step-by-step guide for converting old tests to modern Vitest + React Testing Lib
 - [ ] Consolidate test helper imports from `../test/helpers/*` to `@/test`
 
 ### Setup and Cleanup
+
 - [ ] Remove `const sandbox = sinon.createSandbox()`
 - [ ] Remove local `afterEach()` blocks calling global cleanup methods
 - [ ] Remove manual `cleanup()`, `fetchMock.restore()`, `vi.clearAllMocks()` calls
@@ -23,6 +25,7 @@ Step-by-step guide for converting old tests to modern Vitest + React Testing Lib
 - [ ] Change `await setup()` to just `setup()` (not async unless actually needed)
 
 ### Mocking
+
 - [ ] Replace `createAwaitableSpy(response, sandbox)` with `vi.fn().mockResolvedValue(response())`
 - [ ] Replace `sinon.spy()` with `vi.fn()`
 - [ ] Replace `sinon.stub()` with `vi.fn().mockReturnValue()` or `vi.fn().mockResolvedValue()`
@@ -30,21 +33,25 @@ Step-by-step guide for converting old tests to modern Vitest + React Testing Lib
 - [ ] Use `createBackendServerResponse(data)` for fetch operations
 
 ### Selectors
+
 - [ ] Replace `waitForElement(() => getElementByTestId(...))` with `await screen.findByTestId(...)`
 - [ ] Replace `getElementByTestId('x', parent)` with `within(parent).getByTestId('x')`
 
 ### User Interactions
+
 - [ ] Evaluate each interaction: use `fireEvent` for simple events, `userEvent` for realistic sequences
 - [ ] If using userEvent, setup ONCE in render helper
 - [ ] Remove `await` before `fireEvent` calls
 - [ ] Keep `await` before `userEvent` calls
 
 ### Assertions
+
 - [ ] Replace spy promise patterns (`await spy.firstCallAsPromise`) with `await waitFor(() => expect(mockFn).toHaveBeenCalled())`
 - [ ] Use `expect(mockFn).toHaveBeenCalledTimes(n)` for call count verification
 - [ ] Use `expect(mockFn).not.toHaveBeenCalled()` for non-execution verification
 
 ### Post-Refactoring
+
 - [ ] Run `npx eslint <file-path> --fix`
 - [ ] Verify no compile errors
 - [ ] Run tests to ensure they pass
@@ -55,18 +62,19 @@ Step-by-step guide for converting old tests to modern Vitest + React Testing Lib
 
 ```typescript
 // ❌ OLD
-import sinon from 'sinon';
-import { render, cleanup, act } from '@testing-library/react';
+import { createBackendServerResponse, createEmptyServerResponse, testRender } from '@/test';
+import { act, cleanup, render } from '@testing-library/react';
 import { waitForElement } from '@testing-library/react';
-import { getElementByTestId } from '../test/helpers';
-import { describe, expect, it, vi } from 'vitest'; // Remove in TypeScript files
-
+// Remove in TypeScript files
 // ✅ NEW
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 import React from 'react';
+import sinon from 'sinon';
+import { describe, expect, it, vi } from 'vitest';
 
-import { createBackendServerResponse, createEmptyServerResponse, testRender } from '@/test';
+import { getElementByTestId } from '../test/helpers';
+
 // Note: describe, expect, it, vi are global in TypeScript files
 ```
 
@@ -224,28 +232,29 @@ import {
 
 ## Common Mistakes to Avoid
 
-| ❌ WRONG | ✅ CORRECT |
-|---------|-----------|
-| `import sinon from 'sinon'` | Use `vi` |
-| `sinon.stub()` or `sandbox.spy()` | `vi.fn()` |
-| `createAwaitableSpy(response, sandbox)` | `vi.fn().mockResolvedValue(response())` |
-| `waitForElement(() => getElementByTestId('x'))` | `await screen.findByTestId('x')` |
-| `getElementByTestId('nested', parent)` | `within(parent).getByTestId('nested')` |
-| `import { describe, expect, it, vi } from 'vitest'` (in TS) | No import needed in `.ts`/`.tsx` |
-| `vi.fn(() => response())` | `vi.fn().mockResolvedValue(response())` |
-| `createBackendServerResponse()` for save ops | `createEmptyServerResponse()` for save/delete |
-| `act(() => { render(...) })` | Just `render(...)` |
-| Local afterEach with only global cleanup | No local afterEach needed |
-| `await user.click()` without setup | Setup once: `const user = userEvent.setup()` |
+| ❌ WRONG                                                    | ✅ CORRECT                                    |
+| ----------------------------------------------------------- | --------------------------------------------- |
+| `import sinon from 'sinon'`                                 | Use `vi`                                      |
+| `sinon.stub()` or `sandbox.spy()`                           | `vi.fn()`                                     |
+| `createAwaitableSpy(response, sandbox)`                     | `vi.fn().mockResolvedValue(response())`       |
+| `waitForElement(() => getElementByTestId('x'))`             | `await screen.findByTestId('x')`              |
+| `getElementByTestId('nested', parent)`                      | `within(parent).getByTestId('nested')`        |
+| `import { describe, expect, it, vi } from 'vitest'` (in TS) | No import needed in `.ts`/`.tsx`              |
+| `vi.fn(() => response())`                                   | `vi.fn().mockResolvedValue(response())`       |
+| `createBackendServerResponse()` for save ops                | `createEmptyServerResponse()` for save/delete |
+| `act(() => { render(...) })`                                | Just `render(...)`                            |
+| Local afterEach with only global cleanup                    | No local afterEach needed                     |
+| `await user.click()` without setup                          | Setup once: `const user = userEvent.setup()`  |
 
 ## Example: Before & After
 
 ### Before (Legacy)
 
 ```javascript
-import sinon from 'sinon';
-import { render, cleanup } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import { waitForElement } from '@testing-library/react';
+import sinon from 'sinon';
+
 import { getElementByTestId } from '../test/helpers';
 import { createAwaitableSpy } from '../test/helpers/mock.vitest';
 
@@ -309,6 +318,7 @@ describe('ConfigurationTool', () => {
 ## Next Steps
 
 After refactoring:
+
 1. Run `npm prettier-fix`
 2. Run `npx eslint <file-path> --fix`
 3. Run tests: `npm test -- <file> --run`

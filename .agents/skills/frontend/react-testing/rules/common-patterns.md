@@ -4,20 +4,20 @@ Quick reference for common testing patterns, mistakes to avoid, and global setup
 
 ## Common Mistakes to Avoid
 
-| ❌ WRONG | ✅ CORRECT |
-|---------|-----------|
-| `import userEvent from '@testing-library/user-event'` (unless needed) | `import { fireEvent } from '@testing-library/react'` |
-| `await user.click(button)` (without setup) | `fireEvent.click(button)` OR setup once: `const user = userEvent.setup(); return { user }` |
-| Creating userEvent in each test | Setup once in render helper, return and reuse |
-| `import sinon from 'sinon'` | Use `vi` (globally available in TypeScript tests) |
-| `sinon.stub()` or `sandbox.spy()` | `vi.fn()` |
-| `import { describe, expect, it, vi } from 'vitest'` (in TS files) | No import needed in `.ts`/`.tsx` - globals via `tsconfig.json` |
-| `vi.fn(() => response())` | `vi.fn().mockResolvedValue(response())` |
-| `waitForElement(() => getElementByTestId('x'))` | `await screen.findByTestId('x')` |
-| `getElementByTestId('nested', parent)` | `within(parent).getByTestId('nested')` |
-| `createBackendServerResponse()` for save ops | `createEmptyServerResponse()` for save/delete |
-| `act(() => { render(...) })` | Just `render(...)` (act is automatic) |
-| Local afterEach with only global cleanup | No local afterEach needed |
+| ❌ WRONG                                                              | ✅ CORRECT                                                                                 |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `import userEvent from '@testing-library/user-event'` (unless needed) | `import { fireEvent } from '@testing-library/react'`                                       |
+| `await user.click(button)` (without setup)                            | `fireEvent.click(button)` OR setup once: `const user = userEvent.setup(); return { user }` |
+| Creating userEvent in each test                                       | Setup once in render helper, return and reuse                                              |
+| `import sinon from 'sinon'`                                           | Use `vi` (globally available in TypeScript tests)                                          |
+| `sinon.stub()` or `sandbox.spy()`                                     | `vi.fn()`                                                                                  |
+| `import { describe, expect, it, vi } from 'vitest'` (in TS files)     | No import needed in `.ts`/`.tsx` - globals via `tsconfig.json`                             |
+| `vi.fn(() => response())`                                             | `vi.fn().mockResolvedValue(response())`                                                    |
+| `waitForElement(() => getElementByTestId('x'))`                       | `await screen.findByTestId('x')`                                                           |
+| `getElementByTestId('nested', parent)`                                | `within(parent).getByTestId('nested')`                                                     |
+| `createBackendServerResponse()` for save ops                          | `createEmptyServerResponse()` for save/delete                                              |
+| `act(() => { render(...) })`                                          | Just `render(...)` (act is automatic)                                                      |
+| Local afterEach with only global cleanup                              | No local afterEach needed                                                                  |
 
 ## Core Testing Principles
 
@@ -31,26 +31,29 @@ Quick reference for common testing patterns, mistakes to avoid, and global setup
 ### Element Selection Priority
 
 1. **Semantic queries** (best for accessibility):
+
    ```typescript
-   screen.getByRole('button', { name: 'Submit' })
-   screen.getByLabelText('Email')
-   screen.getByText('Expected text')
+   screen.getByRole('button', { name: 'Submit' });
+   screen.getByLabelText('Email');
+   screen.getByText('Expected text');
    ```
 
 2. **data-ta with screen queries**:
+
    ```typescript
-   screen.getByTestId('save-button')
-   const [firstItem] = screen.getAllByTestId('list-item')
+   screen.getByTestId('save-button');
+   const [firstItem] = screen.getAllByTestId('list-item');
    ```
 
 3. **within() for nested elements**:
+
    ```typescript
-   within(dialog).getByTestId('accept-button')
+   within(dialog).getByTestId('accept-button');
    ```
 
 4. **querySelector** (last resort):
    ```typescript
-   document.querySelector('[data-ta="container"] .nested-class')
+   document.querySelector('[data-ta="container"] .nested-class');
    ```
 
 ### Test Structure and Naming
@@ -68,6 +71,7 @@ Quick reference for common testing patterns, mistakes to avoid, and global setup
 ### Component State Testing
 
 Test all relevant states:
+
 - ✅ Enabled/disabled states
 - ✅ Selected/unselected states
 - ✅ With/without data scenarios
@@ -86,6 +90,41 @@ expect(mockCallback).toHaveBeenCalledTimes(1);
 expect(mockCallback).toHaveBeenCalledWith('expected', 'args');
 expect(mockCallback).not.toHaveBeenCalled();
 ```
+
+### Extracting Mock Call Data (DRY Helper Pattern)
+
+When you repeatedly parse mock call data (e.g., base64, JSON), extract a helper function:
+
+```typescript
+// ❌ Repeated pattern throughout tests
+const ueCall = (pb.add as ReturnType<typeof vi.fn>).mock.calls.find(([key]) => key === 'ue_px');
+const updatedUe = JSON.parse(Buffer.from(ueCall?.[1] as string, 'base64').toString());
+
+const cxCall = (pb.add as ReturnType<typeof vi.fn>).mock.calls.find(([key]) => key === 'cx');
+const updatedContexts = JSON.parse(Buffer.from(cxCall?.[1] as string, 'base64').toString());
+
+// ✅ Extract to helper function
+function getUpdatedPayloadFromMock(pb: PayloadBuilder, key: 'ue_px' | 'cx' | 'ue_pr' | 'co') {
+  const call = (pb.add as ReturnType<typeof vi.fn>).mock.calls.find(([k]) => k === key);
+  if (!call) return undefined;
+
+  const value = call[1] as string;
+  if (key === 'ue_px' || key === 'cx') {
+    return JSON.parse(Buffer.from(value, 'base64').toString());
+  }
+  return JSON.parse(value);
+}
+
+// Use in tests
+const updatedUe = getUpdatedPayloadFromMock(pb, 'ue_px');
+const updatedContexts = getUpdatedPayloadFromMock(pb, 'cx');
+```
+
+**When to extract:**
+
+- Pattern repeats 3+ times
+- Parsing logic is complex (base64, nested JSON)
+- Mock inspection requires multiple steps
 
 ### Backend Request Mocking
 
@@ -142,11 +181,11 @@ import userEvent, { UserEvent } from '@testing-library/user-event';
 async function renderComponent() {
   const user = userEvent.setup();
   testRender(<Component />);
-  
+
   await waitFor(() => {
     expect(screen.queryByTestId('skeleton-loader')).not.toBeInTheDocument();
   });
-  
+
   return { user };
 }
 
@@ -242,13 +281,21 @@ expect(items[0]).toHaveTextContent(MOCK_DATA[0].name);
 ```typescript
 describe('MyComponent', () => {
   describe('when user is authenticated', () => {
-    it('should display user menu', () => { /* ... */ });
-    it('should show logout button', () => { /* ... */ });
+    it('should display user menu', () => {
+      /* ... */
+    });
+    it('should show logout button', () => {
+      /* ... */
+    });
   });
 
   describe('when user is not authenticated', () => {
-    it('should display login button', () => { /* ... */ });
-    it('should not show user menu', () => { /* ... */ });
+    it('should display login button', () => {
+      /* ... */
+    });
+    it('should not show user menu', () => {
+      /* ... */
+    });
   });
 });
 ```
@@ -258,9 +305,11 @@ describe('MyComponent', () => {
 The following is handled automatically in `vitest-setup.vitest.jsx`. **Do NOT duplicate in local beforeEach/afterEach:**
 
 ### Global beforeAll
+
 - `ignoreResizeObserverError()`
 
 ### Global beforeEach
+
 - `localStorage.clear()`
 - `sessionStorage.clear()`
 - `window.onbeforeunload = null`
@@ -269,6 +318,7 @@ The following is handled automatically in `vitest-setup.vitest.jsx`. **Do NOT du
 - `fetchMock.reset()`
 
 ### Global afterEach
+
 - `sandbox.restore()`
 - `vi.clearAllTimers()` (if fake timers active)
 - `cleanup()`
@@ -287,6 +337,7 @@ The following is handled automatically in `vitest-setup.vitest.jsx`. **Do NOT du
 ### When to Add Local beforeEach/afterEach
 
 **Only add local hooks if you need:**
+
 - Test-specific mocks not covered by global setup
 - Custom timers or date mocking for specific tests
 - Specific component state setup that varies per test
@@ -312,9 +363,9 @@ describe('Component with fake timers', () => {
 ```typescript
 describe('Component', () => {
   afterEach(() => {
-    fetchMock.restore();  // ❌ Already done globally
-    cleanup();            // ❌ Already done globally
-    vi.clearAllMocks();   // ❌ Already done globally
+    fetchMock.restore(); // ❌ Already done globally
+    cleanup(); // ❌ Already done globally
+    vi.clearAllMocks(); // ❌ Already done globally
   });
 });
 ```

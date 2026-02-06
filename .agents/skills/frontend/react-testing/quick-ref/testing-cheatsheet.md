@@ -12,10 +12,10 @@ describe('ComponentName', () => {
   it('should do something specific', async () => {
     // Arrange
     render(<ComponentName prop="value" />)
-    
+
     // Act
     await userEvent.click(screen.getByRole('button'))
-    
+
     // Assert
     expect(screen.getByText('Expected')).toBeInTheDocument()
   })
@@ -26,55 +26,55 @@ describe('ComponentName', () => {
 
 ```typescript
 // ✅ Accessible to everyone
-screen.getByRole('button', { name: /submit/i })
-screen.getByLabelText('Email')
-screen.getByPlaceholderText('Enter email')
-screen.getByText('Submit')
+screen.getByRole('button', { name: /submit/i });
+screen.getByLabelText('Email');
+screen.getByPlaceholderText('Enter email');
+screen.getByText('Submit');
 
 // ⚠️ Semantic fallbacks
-screen.getByAltText('Profile picture')
-screen.getByTitle('Close')
+screen.getByAltText('Profile picture');
+screen.getByTitle('Close');
 
 // ❌ Last resort (implementation details)
-screen.getByTestId('submit-button')
+screen.getByTestId('submit-button');
 ```
 
 ## User Interactions
 
 ```typescript
-const user = userEvent.setup()
+const user = userEvent.setup();
 
 // Click
-await user.click(screen.getByRole('button'))
+await user.click(screen.getByRole('button'));
 
 // Type
-await user.type(screen.getByLabelText('Email'), 'test@example.com')
+await user.type(screen.getByLabelText('Email'), 'test@example.com');
 
 // Clear and type
-await user.clear(input)
-await user.type(input, 'new value')
+await user.clear(input);
+await user.type(input, 'new value');
 
 // Select
-await user.selectOptions(screen.getByRole('combobox'), 'option1')
+await user.selectOptions(screen.getByRole('combobox'), 'option1');
 
 // Keyboard
-await user.keyboard('{Enter}')
-await user.keyboard('{Escape}')
+await user.keyboard('{Enter}');
+await user.keyboard('{Escape}');
 ```
 
 ## Async Patterns
 
 ```typescript
 // Wait for element to appear
-const element = await screen.findByText('Success')
+const element = await screen.findByText('Success');
 
 // Wait for element to disappear
-await waitForElementToBeRemoved(() => screen.queryByText('Loading'))
+await waitForElementToBeRemoved(() => screen.queryByText('Loading'));
 
 // Wait for callback
 await waitFor(() => {
-  expect(mockFn).toHaveBeenCalled()
-})
+  expect(mockFn).toHaveBeenCalled();
+});
 ```
 
 ## Mocking
@@ -106,33 +106,33 @@ vi.useRealTimers()
 
 ```typescript
 // Existence
-expect(element).toBeInTheDocument()
-expect(element).not.toBeInTheDocument()
+expect(element).toBeInTheDocument();
+expect(element).not.toBeInTheDocument();
 
 // Visibility
-expect(element).toBeVisible()
-expect(element).not.toBeVisible()
+expect(element).toBeVisible();
+expect(element).not.toBeVisible();
 
 // Enabled/Disabled
-expect(button).toBeEnabled()
-expect(button).toBeDisabled()
+expect(button).toBeEnabled();
+expect(button).toBeDisabled();
 
 // Value
-expect(input).toHaveValue('text')
-expect(checkbox).toBeChecked()
+expect(input).toHaveValue('text');
+expect(checkbox).toBeChecked();
 
 // Text content
-expect(element).toHaveTextContent('Hello')
-expect(element).toHaveTextContent(/hello/i)
+expect(element).toHaveTextContent('Hello');
+expect(element).toHaveTextContent(/hello/i);
 
 // Attributes
-expect(link).toHaveAttribute('href', '/home')
-expect(element).toHaveClass('active')
+expect(link).toHaveAttribute('href', '/home');
+expect(element).toHaveClass('active');
 
 // Function calls
-expect(mockFn).toHaveBeenCalled()
-expect(mockFn).toHaveBeenCalledTimes(2)
-expect(mockFn).toHaveBeenCalledWith('arg1', 'arg2')
+expect(mockFn).toHaveBeenCalled();
+expect(mockFn).toHaveBeenCalledTimes(2);
+expect(mockFn).toHaveBeenCalledWith('arg1', 'arg2');
 ```
 
 ## Parameterized Tests
@@ -142,8 +142,8 @@ it.each([
   { input: 'test@example.com', expected: true },
   { input: 'invalid', expected: false },
 ])('validates $input as $expected', ({ input, expected }) => {
-  expect(validateEmail(input)).toBe(expected)
-})
+  expect(validateEmail(input)).toBe(expected);
+});
 ```
 
 ## Setup & Teardown
@@ -151,18 +151,18 @@ it.each([
 ```typescript
 // Before each test
 beforeEach(() => {
-  vi.clearAllMocks()
-})
+  vi.clearAllMocks();
+});
 
 // After each test
 afterEach(() => {
-  vi.restoreAllMocks()
-})
+  vi.restoreAllMocks();
+});
 
 // Cleanup
 afterEach(() => {
-  cleanup()
-})
+  cleanup();
+});
 ```
 
 ## Common Mistakes to Avoid
@@ -199,11 +199,11 @@ it('test', async () => {
 
 ```typescript
 // See current DOM
-screen.debug()
+screen.debug();
 
 // See specific element
-screen.debug(screen.getByRole('button'))
+screen.debug(screen.getByRole('button'));
 
 // Print accessible tree
-screen.logTestingPlaygroundURL()
+screen.logTestingPlaygroundURL();
 ```

@@ -14,17 +14,17 @@ Cache object property lookups in hot paths to avoid repeated property resolution
 
 ```typescript
 for (let i = 0; i < arr.length; i++) {
-  process(obj.config.settings.value)
+  process(obj.config.settings.value);
 }
 ```
 
 ### Correct: 1 lookup total
 
 ```typescript
-const value = obj.config.settings.value
-const len = arr.length
+const value = obj.config.settings.value;
+const len = arr.length;
 for (let i = 0; i < len; i++) {
-  process(value)
+  process(value);
 }
 ```
 
@@ -40,12 +40,12 @@ Use a module-level Map to cache function results when the same function is calle
 
 ```typescript
 function processProjects(projects: Project[]) {
-  return projects.map(project => {
+  return projects.map((project) => {
     // slugify() called repeatedly for same project names
-    const slug = slugify(project.name)
-    
-    return { ...project, slug }
-  })
+    const slug = slugify(project.name);
+
+    return { ...project, slug };
+  });
 }
 ```
 
@@ -53,44 +53,44 @@ function processProjects(projects: Project[]) {
 
 ```typescript
 // Module-level cache
-const slugifyCache = new Map<string, string>()
+const slugifyCache = new Map<string, string>();
 
 function cachedSlugify(text: string): string {
   if (slugifyCache.has(text)) {
-    return slugifyCache.get(text)!
+    return slugifyCache.get(text)!;
   }
-  const result = slugify(text)
-  slugifyCache.set(text, result)
-  return result
+  const result = slugify(text);
+  slugifyCache.set(text, result);
+  return result;
 }
 
 function processProjects(projects: Project[]) {
-  return projects.map(project => {
+  return projects.map((project) => {
     // Computed only once per unique project name
-    const slug = cachedSlugify(project.name)
-    
-    return { ...project, slug }
-  })
+    const slug = cachedSlugify(project.name);
+
+    return { ...project, slug };
+  });
 }
 ```
 
 ### Simpler pattern for single-value functions:
 
 ```typescript
-let isLoggedInCache: boolean | null = null
+let isLoggedInCache: boolean | null = null;
 
 function isLoggedIn(): boolean {
   if (isLoggedInCache !== null) {
-    return isLoggedInCache
+    return isLoggedInCache;
   }
-  
-  isLoggedInCache = document.cookie.includes('auth=')
-  return isLoggedInCache
+
+  isLoggedInCache = document.cookie.includes('auth=');
+  return isLoggedInCache;
 }
 
 // Clear cache when auth changes
 function onAuthChange() {
-  isLoggedInCache = null
+  isLoggedInCache = null;
 }
 ```
 
@@ -110,7 +110,7 @@ function onAuthChange() {
 
 ```typescript
 function getTheme() {
-  return localStorage.getItem('theme') ?? 'light'
+  return localStorage.getItem('theme') ?? 'light';
 }
 // Called 10 times = 10 storage reads
 ```
@@ -118,33 +118,31 @@ function getTheme() {
 ### Correct: Map cache
 
 ```typescript
-const storageCache = new Map<string, string | null>()
+const storageCache = new Map<string, string | null>();
 
 function getLocalStorage(key: string) {
   if (!storageCache.has(key)) {
-    storageCache.set(key, localStorage.getItem(key))
+    storageCache.set(key, localStorage.getItem(key));
   }
-  return storageCache.get(key)
+  return storageCache.get(key);
 }
 
 function setLocalStorage(key: string, value: string) {
-  localStorage.setItem(key, value)
-  storageCache.set(key, value)  // keep cache in sync
+  localStorage.setItem(key, value);
+  storageCache.set(key, value); // keep cache in sync
 }
 ```
 
 ### Cookie caching:
 
 ```typescript
-let cookieCache: Record<string, string> | null = null
+let cookieCache: Record<string, string> | null = null;
 
 function getCookie(name: string) {
   if (!cookieCache) {
-    cookieCache = Object.fromEntries(
-      document.cookie.split('; ').map(c => c.split('='))
-    )
+    cookieCache = Object.fromEntries(document.cookie.split('; ').map((c) => c.split('=')));
   }
-  return cookieCache[name]
+  return cookieCache[name];
 }
 ```
 
@@ -154,14 +152,14 @@ If storage can change externally (another tab, server-set cookies), invalidate c
 
 ```typescript
 window.addEventListener('storage', (e) => {
-  if (e.key) storageCache.delete(e.key)
-})
+  if (e.key) storageCache.delete(e.key);
+});
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
-    storageCache.clear()
+    storageCache.clear();
   }
-})
+});
 ```
 
 **Note:** Use a Map (not a hook) so it works everywhere: utilities, event handlers, not just React components.
