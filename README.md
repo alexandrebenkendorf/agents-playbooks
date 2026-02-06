@@ -4,23 +4,27 @@
 
 ## 🚨 STOP - READ THIS FIRST 🚨
 
-**FOR AI AGENTS:** If a user asked you to "read and use" or "integrate" this repository, **DO NOT run any commands yet!**
+**FOR AI AGENTS:** If a user asked you to "read and use" or "integrate" this repository:
 
-**First, ask the user:**
+### YOU MUST ASK THIS QUESTION FIRST:
 
-> Which integration method would you like?
->
-> **1. Git Subtree** (Production - automatic updates)  
-> Run: `git subtree add --prefix=.agents/agents-playbooks https://github.com/alexandrebenkendorf/agents-playbook.git main --squash`
->
-> **2. Simple Clone** (Quick start - full control)  
-> Run: `git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks && rm -rf .agents/agents-playbooks/.git`
->
-> Please respond with **1** or **2**, then I'll execute the appropriate commands.
+```
+I can integrate the agents-playbook skills into your project.
 
-⚠️ **CRITICAL:** The repository MUST be cloned into `.agents/agents-playbooks/` (note the path with forward slash), NOT `agents-playbooks` or `.agents-playbooks`.
+Which method would you like?
 
-**Do not proceed until they choose.** See [Usage section](#-usage) for details.
+1. Git Subtree (Production - automatic updates)
+2. Simple Clone (Quick start - full control)
+
+Please respond with 1 or 2.
+```
+
+**DO NOT:**
+- ❌ Run ANY commands before asking
+- ❌ Look up commands before asking
+- ❌ Make assumptions about which method to use
+
+**ONLY AFTER the user responds**, look up the commands in the [Usage section](#-usage) below.
 
 ---
 
