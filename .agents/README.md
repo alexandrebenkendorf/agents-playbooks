@@ -2,35 +2,7 @@
 
 **This is the BASE repository for shared agent skills.**
 
----
-
-## ⚠️ CRITICAL INSTRUCTION FOR AI AGENTS ⚠️
-
-**STOP! Before running ANY commands:**
-
-When a user asks to "read and use" or "integrate" this repository, you MUST first ask this question:
-
----
-
-**Which integration method would you like?**
-
-**1. Git Subtree** (Production - automatic updates)
-   - `git subtree add --prefix=.agents/agents-playbooks https://github.com/alexandrebenkendorf/agents-playbook.git main --squash`
-   - Automatic updates, structured workflow, local overrides
-
-**2. Simple Clone** (Quick start - full control)
-   - `git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks`
-   - Simpler setup, edit directly, manual updates
-
-**Please respond with 1 or 2.**
-
----
-
-DO NOT proceed with setup commands until the user chooses.
-
----
-
-## Operational Documentation
+Operational documentation for AI agent skills and playbooks.
 
 ---
 
