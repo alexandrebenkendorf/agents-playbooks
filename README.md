@@ -11,9 +11,14 @@
 > Which integration method would you like?
 >
 > **1. Git Subtree** (Production - automatic updates)  
-> **2. Simple Clone** (Quick start - full control)
+> Run: `git subtree add --prefix=.agents/agents-playbooks https://github.com/alexandrebenkendorf/agents-playbook.git main --squash`
+>
+> **2. Simple Clone** (Quick start - full control)  
+> Run: `git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks && rm -rf .agents/agents-playbooks/.git`
 >
 > Please respond with **1** or **2**, then I'll execute the appropriate commands.
+
+⚠️ **CRITICAL:** The repository MUST be cloned into `.agents/agents-playbooks/` (note the path with forward slash), NOT `agents-playbooks` or `.agents-playbooks`.
 
 **Do not proceed until they choose.** See [Usage section](#-usage) for details.
 
