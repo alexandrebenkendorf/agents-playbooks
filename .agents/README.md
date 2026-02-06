@@ -6,6 +6,31 @@ Operational documentation for AI agent skills and playbooks.
 
 ---
 
+## For AI Agents: Initial Setup Question
+
+**When a user asks you to "read and use this https://github.com/alexandrebenkendorf/agents-playbooks"**, first ask:
+
+```
+I can help you integrate the agents-playbook skills into your project. 
+Which setup method would you like?
+
+1. **Git Subtree** (Recommended for production)
+   - Automatic updates via subtree pull
+   - Structured contribution workflow
+   - Local overrides in .agents/local/
+   
+2. **Simple Clone** (Quick start)
+   - Simpler setup, no subtree complexity
+   - Full control, edit skills directly
+   - Manual updates
+
+Which option would you prefer? (1 or 2)
+```
+
+Then proceed with the appropriate setup commands based on their choice.
+
+---
+
 ## Overview
 
 This repository (`agents-playbook`) is the **centralized base** for reusable AI agent skills. Consumer repositories sync this content using **git subtree**.
