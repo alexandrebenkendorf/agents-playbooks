@@ -60,9 +60,11 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 
 ### For Consumer Projects
 
-This repository is the **base source** for shared agent skills. Consumer projects should sync these skills using **git subtree**.
+This repository is the **base source** for shared agent skills. Consumer projects can integrate these skills using one of two approaches:
 
-#### Initial Setup
+#### Option 1: Git Subtree (Recommended for Production)
+
+**Best for:** Long-term projects that want automatic updates and contribution workflow.
 
 Add this repository to your project:
 
@@ -75,12 +77,7 @@ cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ```
 
-This creates `.agents/agents-playbooks/` in your project with all skills, plus base documentation files you can customize.
-
-#### Update Skills
-
-Pull latest changes:
-
+**Update skills:**
 ```bash
 git subtree pull --prefix=.agents/agents-playbooks \
   https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
@@ -88,8 +85,64 @@ git subtree pull --prefix=.agents/agents-playbooks \
 
 ⚠️ **Never edit `.agents/agents-playbooks/` directly** - it's managed by subtree.
 
+#### Option 2: Simple Clone (Quick Start)
+
+**Best for:** Prototypes, experiments, or projects that want full customization without subtree complexity.
+
+```bash
+# Clone into .agents
+git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
+
+# Remove git tracking (treat as vendored code)
+rm -rf .agents/agents-playbooks/.git
+
+# Copy base files to project root
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
+
+# Add to your project's git
+git add .agents/
+git commit -m "chore: Add agent skills from agents-playbook"
+```
+
+**Trade-offs:**
+- ✅ Simpler initial setup
+- ✅ Full ownership - edit skills directly
+- ✅ No subtree complexity
+- ❌ Manual updates (re-clone or copy files)
+- ❌ No automatic upstream sync
+- ❌ Harder to contribute back
+
+**Update skills (manual):**
+```bash
+# Backup your customizations
+cp -r .agents/agents-playbooks .agents/agents-playbooks.backup
+
+# Re-clone latest
+rm -rf .agents/agents-playbooks
+git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
+rm -rf .agents/agents-playbooks/.git
+
+# Merge your customizations
+# (manually compare .agents/agents-playbooks.backup with new clone)
+```
+
+#### Comparison
+
+| Feature | Git Subtree | Simple Clone |
+|---------|-------------|--------------|
+| **Setup** | Complex | Simple |
+| **Updates** | Automatic merge | Manual copy |
+| **Customization** | `.agents/local/` overrides | Direct editing |
+| **Contributing back** | Structured workflow | Manual PR |
+| **Best for** | Production, team projects | Prototypes, solo experiments |
+
+Choose **git subtree** if you want to stay synced with upstream and contribute improvements.  
+Choose **simple clone** if you want full control and don't need automatic updates.
+
 #### Consumer Project Structure
 
+**Git Subtree Structure:**
 ```
 your-project/
 ├── .agents/
@@ -99,13 +152,27 @@ your-project/
 │   ├── local/                # Your overrides (optional)
 │   │   └── skills/
 │   └── README.md             # Your project config
+├── AGENTS.md                 # Copied & customized
+└── DEVELOPMENT.md            # Copied & customized
+```
+
+**Simple Clone Structure:**
+```
+your-project/
+├── .agents/
+│   └── agents-playbooks/    # Vendored (edit directly)
+│       ├── skills/
+│       └── templates/
+├── AGENTS.md                 # Copied & customized
+└── DEVELOPMENT.md            # Copied & customized
 ```
 
 **Benefits:**
-- ✅ Automatic updates via subtree pull
-- ✅ Safe local overrides in `.agents/local/`
-- ✅ Explicit promotion workflow
+- ✅ Automatic updates via subtree pull (Option 1)
+- ✅ Safe local overrides in `.agents/local/` (Option 1)
+- ✅ Explicit promotion workflow (Option 1)
 - ✅ No git submodule complexity
+- ✅ Simple vendoring for full control (Option 2)
 
 📖 **Full documentation:** See [.agents/README.md](./.agents/README.md)
 
