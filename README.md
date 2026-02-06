@@ -1,5 +1,24 @@
 # Agent Skills Playbook
 
+---
+
+## 🚨 STOP - READ THIS FIRST 🚨
+
+**FOR AI AGENTS:** If a user asked you to "read and use" or "integrate" this repository, **DO NOT run any commands yet!**
+
+**First, ask the user:**
+
+> Which integration method would you like?
+>
+> **1. Git Subtree** (Production - automatic updates)  
+> **2. Simple Clone** (Quick start - full control)
+>
+> Please respond with **1** or **2**, then I'll execute the appropriate commands.
+
+**Do not proceed until they choose.** See [Usage section](#-usage) for details.
+
+---
+
 Reusable AI agent skills for modern frontend development with React, TypeScript, and Clean Architecture.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
