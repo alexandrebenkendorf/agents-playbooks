@@ -69,9 +69,13 @@ Add this repository to your project:
 ```bash
 git subtree add --prefix=.agents/agents-playbooks \
   https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+
+# Copy base files to project root
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ```
 
-This creates `.agents/agents-playbooks/` in your project with all skills.
+This creates `.agents/agents-playbooks/` in your project with all skills, plus base documentation files you can customize.
 
 #### Update Skills
 
@@ -129,6 +133,11 @@ Base skills synced from: [agents-playbook](https://github.com/alexandrebenkendor
 ```bash
 git subtree pull --prefix=.agents/agents-playbooks \
   https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+
+# Review base file changes
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
+# Reapply your customizations
 ```
 
 ## Local Overrides
@@ -152,7 +161,7 @@ cp -r .agents/agents-playbooks/skills/frontend/react-testing \
 5. Remove local override
 ```
 
-Update `AGENTS.md` in your project:
+Update `AGENTS.md` in your project (copied from base):
 
 ```markdown
 ## Order of precedence

@@ -1,5 +1,7 @@
 # Development Guide
 
+**For Consumer Projects:** Copy this file to your project root and customize with project-specific details (ticket prefix, commands, etc.) while keeping the core patterns.
+
 Welcome! This guide helps you navigate the coding standards, conventions, and best practices for this repository.
 
 ---

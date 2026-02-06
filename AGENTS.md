@@ -1,5 +1,7 @@
 # AGENTS
 
+**For Consumer Projects:** Copy this file to your project root and customize with project-specific rules (commands, repo composition, CI/CD, etc.) while keeping the precedence order and base patterns.
+
 Global, authoritative rules for this repository.
 
 ## Order of precedence

@@ -45,6 +45,17 @@ git subtree add --prefix=.agents/agents-playbooks \
 
 This creates `.agents/agents-playbooks/` in your repo with all skills.
 
+**Copy base files for your project:**
+```bash
+# Core documentation for human developers
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
+
+# Agent rules and precedence
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+
+# Customize both with your project specifics
+```
+
 ### Update Base Content
 
 Pull latest changes from this repository:
@@ -64,11 +75,23 @@ After subtree setup, consumer repos should have:
 .agents/
 ├── agents-playbooks/     # Synced from THIS repo (read-only)
 │   ├── skills/
-│   └── templates/
+│   ├── templates/
+│   ├── AGENTS.md         # Base agent rules
+│   └── DEVELOPMENT.md    # Base dev guide
 ├── local/                # Consumer-specific overrides (optional)
 │   └── .gitkeep
 └── README.md             # Consumer's config/documentation
+
+AGENTS.md                 # Copied & customized from base
+DEVELOPMENT.md            # Copied & customized from base
 ```
+
+**Recommended:** Copy both `AGENTS.md` and `DEVELOPMENT.md` to your project root:
+```bash
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
+```
+Customize with project-specific details while keeping the core patterns.
 
 ---
 
