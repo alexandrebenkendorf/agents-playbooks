@@ -114,20 +114,18 @@ git subtree pull --prefix=.agents/agents-playbooks \
 **Best for:** Prototypes, experiments, or projects that want full customization without subtree complexity.
 
 ```bash
-# Clone into .agents
+# Step 1: Clone into .agents directory
 git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
 
-# Remove git tracking (treat as vendored code)
+# Step 2: Remove git tracking (treat as vendored code)
 rm -rf .agents/agents-playbooks/.git
 
-# Copy base files to project root
+# Step 3: Copy base files to project root
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
-
-# Add to your project's git
-git add .agents/
-git commit -m "chore: Add agent skills from agents-playbook"
 ```
+
+✅ **Done!** You can now customize the files and commit when ready.
 
 **Trade-offs:**
 - ✅ Simpler initial setup
