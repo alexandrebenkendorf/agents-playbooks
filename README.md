@@ -2,56 +2,28 @@
 
 ---
 
-## 🚨 STOP - READ THIS FIRST 🚨
+## 🚨 FOR AI AGENTS - READ THIS INSTRUCTION 🚨
 
-**FOR AI AGENTS:** If a user asked you to "read and use" or "integrate" this repository:
+**If a user asked to "read and use" or "integrate" this repository:**
 
-### STEP 1: ASK THE USER (DO NOT SKIP)
+### ⛔ STOP AND ASK THIS FIRST ⛔
+
+Ask the user exactly this (copy/paste):
 
 ```
-I can integrate the agents-playbook skills into your project.
+I can integrate agents-playbook into your project. Which method?
 
-Which method would you like?
+1 = Git Subtree (production, auto-updates)
+2 = Simple Clone (quick start, full control)
 
-1. Git Subtree (Production - automatic updates)
-2. Simple Clone (Quick start - full control)
-
-Please respond with 1 or 2.
+Reply with just: 1 or 2
 ```
 
-### STEP 2: AFTER USER RESPONDS, EXECUTE BASED ON CHOICE
+**⚠️ WAIT FOR THEIR RESPONSE. DO NOT PROCEED UNTIL THEY REPLY.**
 
-**If user chose 1 (Git Subtree):**
-```bash
-# Execute ALL these commands:
-git subtree add --prefix=.agents/agents-playbooks \
-  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
-cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
-cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
-```
-✅ Confirm completion: "Git subtree setup complete. Base files copied."
+---
 
-**If user chose 2 (Simple Clone):**
-```bash
-# Execute ALL these commands in order:
-git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
-rm -rf .agents/agents-playbooks/.git
-cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
-cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
-```
-✅ Confirm completion: "Simple clone complete. Files ready for customization."
-
-### CHECKLIST (Verify all items):
-- [ ] Asked user for method choice (1 or 2)
-- [ ] Executed integration commands
-- [ ] Copied AGENTS.md to project root
-- [ ] Copied DEVELOPMENT.md to project root
-- [ ] Confirmed completion to user
-
-**DO NOT:**
-- ❌ Skip asking the user
-- ❌ Run partial commands
-- ❌ Commit changes (user decides when to commit)
+### After they reply, scroll down to "AI Agent Commands" section below for next steps.
 
 ---
 
@@ -108,6 +80,33 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 - Generic `<PREFIX>-<number>` format (configurable per project)
 - Atomic commit guidance
 - AI assistant workflow
+
+---
+
+## 🤖 AI Agent Commands
+
+**Only proceed here AFTER the user responded with 1 or 2 above.**
+
+### If user chose 1 (Git Subtree):
+
+```bash
+git subtree add --prefix=.agents/agents-playbooks https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
+```
+
+**Then stop. Do NOT commit.** Say: "✅ Setup complete. You can now customize AGENTS.md and DEVELOPMENT.md, then commit when ready."
+
+### If user chose 2 (Simple Clone):
+
+```bash
+git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
+rm -rf .agents/agents-playbooks/.git
+cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
+cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
+```
+
+**Then stop. Do NOT commit.** Say: "✅ Setup complete. You can now customize the files, then commit when ready."
 
 ---
 
