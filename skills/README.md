@@ -61,12 +61,12 @@ Git commit message conventions and formatting rules.
 
 ## For Consumer Projects
 
-Consumer repositories sync these skills via git subtree into `.agents/agents-playbooks/.agents/skills/`.
+Consumer repositories sync these skills via git subtree into `.agents/agents-playbooks/skills/`.
 
 **Precedence in consumer repos:**
 1. `/AGENTS.md`
-2. `/.agents/local/*` (consumer overrides)
-3. `/.agents/agents-playbooks/.agents/skills/*` (from this repo)
+2. `/.agents/local/skills/*` (consumer overrides)
+3. `/.agents/agents-playbooks/skills/*` (from this repo)
 4. Existing code and comments
 
 If instructions conflict, follow the higher-precedence source.
