@@ -16,6 +16,7 @@ Reply with just: 1 or 2
 ```
 
 **⚠️ WAIT FOR THEIR RESPONSE. DO NOT RUN ANY COMMANDS UNTIL THEY REPLY.**
+Do not ask for clone/subtree permission or suggest commands until they choose a method.
 
 ---
 
@@ -33,12 +34,13 @@ Reply with just: 1 or 2
 
 1. Do NOT run any git commands before asking
 2. Do NOT assume which method they want
-3. Always check for `.agents/` folder and create if missing
-4. Clone/subtree INTO `.agents/agents-playbooks/` (not root)
-5. Do NOT commit changes automatically
-6. Wait for explicit user response before proceeding
-7. Customize `DEVELOPMENT.md` with project-specific values (e.g., Jira ticket prefix)
-8. Follow the exact commands from README.md for their chosen method
+3. Do NOT ask for clone/subtree permission before they choose a method
+4. Always check for `.agents/` folder and create if missing
+5. Clone/subtree INTO `.agents/agents-playbooks/` (not root)
+6. Do NOT commit changes automatically
+7. Wait for explicit user response before proceeding
+8. Customize `DEVELOPMENT.md` with project-specific values (e.g., Jira ticket prefix)
+9. Follow the exact commands from README.md for their chosen method
 
 ---
 
