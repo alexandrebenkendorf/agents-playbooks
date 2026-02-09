@@ -48,7 +48,7 @@ Each component should:
 This skill currently uses a single SKILL.md file. To convert to rules-based structure:
 
 1. Create `rules/` directory
-2. Copy templates from `templates/`
+2. Copy templates from `.agents/templates/`
 3. Create `_sections.md` defining component structure categories
 4. Split SKILL.md content into individual rule files
 

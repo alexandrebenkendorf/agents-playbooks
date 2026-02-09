@@ -24,7 +24,7 @@ Reusable AI agent skills for modern frontend development with React, TypeScript,
 
 #### Framework-Agnostic
 
-**[`frontend/code-standards`](./skills/frontend/code-standards/)**
+**[`frontend/code-standards`](./.agents/skills/frontend/code-standards/)**
 - Naming conventions (React, TypeScript, DDD)
 - General coding standards (functions, control flow, DRY)
 - TypeScript best practices (type safety, inference, interface vs type)
@@ -36,7 +36,7 @@ Reusable AI agent skills for modern frontend development with React, TypeScript,
 
 #### React
 
-**[`frontend/react-best-practices`](./skills/frontend/react-best-practices/)**  
+**[`frontend/react-best-practices`](./.agents/skills/frontend/react-best-practices/)**  
 Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-skills)
 - 57 performance optimization rules across 8 categories
 - Eliminating waterfalls (async patterns, Suspense)
@@ -44,14 +44,14 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 - Server-side performance (caching, parallel fetching)
 - Re-render optimization (memo, state management)
 
-**[`frontend/react-component-structure`](./skills/frontend/react-component-structure/)**
+**[`frontend/react-component-structure`](./.agents/skills/frontend/react-component-structure/)**
 - Function declarations vs const (avoid React.FC)
 - Single Responsibility Principle for components
 - File organization patterns
 - When to extract helpers vs keep inline
 - Anti-patterns (god components, mixing concerns)
 
-**[`frontend/react-testing`](./skills/frontend/react-testing/)**
+**[`frontend/react-testing`](./.agents/skills/frontend/react-testing/)**
 - Vitest + React Testing Library patterns
 - Creating new tests (AAA pattern, it.each)
 - Legacy refactoring (Sinon → Vitest migration)
@@ -60,7 +60,7 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 
 ### Git
 
-**[`git/commit-conventions`](./skills/git/commit-conventions/)**
+**[`git/commit-conventions`](./.agents/skills/git/commit-conventions/)**
 - Conventional commit format with Jira tickets
 - Generic `<PREFIX>-<number>` format (configurable per project)
 - Atomic commit guidance
@@ -223,10 +223,10 @@ git subtree pull --prefix=.agents/agents-playbooks \
 your-project/
 ├── .agents/
 │   ├── agents-playbooks/    # Synced from this repo (read-only)
-│   │   ├── skills/
-│   │   └── templates/
+│   │   ├── .agents/skills/
+│   │   └── .agents/templates/
 │   ├── local/                # Your overrides (optional)
-│   │   └── skills/
+│   │   └── .agents/skills/
 │   └── README.md             # Your project config
 ├── AGENTS.md                 # Copied & customized
 └── DEVELOPMENT.md            # Copied & customized
@@ -237,8 +237,8 @@ your-project/
 your-project/
 ├── .agents/
 │   └── agents-playbooks/    # Vendored (edit directly)
-│       ├── skills/
-│       └── templates/
+│       ├── .agents/skills/
+│       └── .agents/templates/
 ├── AGENTS.md                 # Copied & customized
 └── DEVELOPMENT.md            # Copied & customized
 ```
@@ -289,8 +289,8 @@ To customize a skill:
 
 ```bash
 # Copy from base to local
-cp -r .agents/agents-playbooks/skills/frontend/react-testing \
-      .agents/local/skills/frontend/react-testing
+cp -r .agents/agents-playbooks/.agents/skills/frontend/react-testing \
+      .agents/local/.agents/skills/frontend/react-testing
 
 # Edit in .agents/local/ - AI agents will use your version
 ```
@@ -298,7 +298,7 @@ cp -r .agents/agents-playbooks/skills/frontend/react-testing \
 ## Promoting Local Skills
 
 1. Fork https://github.com/alexandrebenkendorf/agents-playbook
-2. Copy from `.agents/local/` to fork's `skills/`
+2. Copy from `.agents/local/` to fork's `.agents/skills/`
 3. Open PR to agents-playbook
 4. After merge: `git subtree pull ...`
 5. Remove local override
@@ -310,7 +310,7 @@ Update `AGENTS.md` in your project (copied from base):
 ## Order of precedence
 1. `/AGENTS.md`
 2. `/.agents/local/*` (your overrides)
-3. `/.agents/agents-playbooks/skills/*` (base)
+3. `/.agents/agents-playbooks/.agents/skills/*` (base)
 4. Existing code and comments
 
 If instructions conflict, follow the higher-precedence source.
@@ -336,10 +336,10 @@ skill-name/
 
 ### Templates
 
-Templates for creating new skills and rules are in `templates/`:
+Templates for creating new skills and rules are in `.agents/templates/`:
 
-- **`templates/_template.md`** - Rule structure with examples
-- **`templates/_sections.md`** - Section organization guide
+- **`.agents/templates/_template.md`** - Rule structure with examples
+- **`.agents/templates/_sections.md`** - Section organization guide
 
 Use these templates to maintain consistency across all skills.
 
@@ -347,7 +347,7 @@ Use these templates to maintain consistency across all skills.
 
 1. **Create skill directory:**
    ```bash
-   mkdir -p skills/<category>/<skill-name>
+   mkdir -p .agents/skills/<category>/<skill-name>
    ```
 
 2. **Add core files:**
@@ -356,9 +356,9 @@ Use these templates to maintain consistency across all skills.
 
 3. **For multi-rule skills, add rules directory:**
    ```bash
-   mkdir skills/<category>/<skill-name>/rules
-   cp templates/_template.md skills/<category>/<skill-name>/rules/
-   cp templates/_sections.md skills/<category>/<skill-name>/rules/
+   mkdir .agents/skills/<category>/<skill-name>/rules
+   cp .agents/templates/_template.md .agents/skills/<category>/<skill-name>/rules/
+   cp .agents/templates/_sections.md .agents/skills/<category>/<skill-name>/rules/
    ```
 
 4. **Create rules following the template:**
@@ -382,10 +382,10 @@ description: Brief description
 
 This repository is the source of truth for shared skills.
 
-1. Create skill directory: `skills/category/skill-name/`
+1. Create skill directory: `.agents/skills/category/skill-name/`
 2. Add `SKILL.md` and `README.md`
 3. For large skills, use `rules/` directory
-4. Update this README and `skills/README.md`
+4. Update this README and `.agents/skills/README.md`
 5. Test with a real project
 6. Document in CHANGELOG.md
 
@@ -394,7 +394,7 @@ This repository is the source of truth for shared skills.
 If you developed a useful skill in a consumer project's `.agents/local/`:
 
 1. **Fork this repository**
-2. **Copy skill** from your `.agents/local/` to fork's `skills/`
+2. **Copy skill** from your `.agents/local/` to fork's `.agents/skills/`
 3. **Generalize** - remove project-specific references
 4. **Test thoroughly**
 5. **Open PR** with clear description
@@ -402,7 +402,7 @@ If you developed a useful skill in a consumer project's `.agents/local/`:
 
 ### Updating Existing Skills
 
-1. Make changes in `skills/`
+1. Make changes in `.agents/skills/`
 2. Test with AI assistant
 3. Update version/changelog if significant
 4. Document changes in commit message

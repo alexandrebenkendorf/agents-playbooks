@@ -107,7 +107,7 @@ git commit -m "perf: PROJ-134719 Optimize database query for user search"
 "Review my staged changes and create a commit message"
 ```
 
-📖 [Full commit guidelines](./skills/git/commit-conventions/SKILL.md)
+📖 [Full commit guidelines](./.agents/skills/git/commit-conventions/SKILL.md)
 
 ---
 
@@ -214,10 +214,10 @@ function deleteUser(id: string): void {
 }
 ```
 
-📖 [Full coding standards](./skills/frontend/code-standards/)
-📖 [Clean Code Principles](./skills/frontend/code-standards/rules/clean-code-principles.md)
-📖 [SOLID Principles](./skills/frontend/code-standards/rules/solid-principles.md)
-📖 [Clean Architecture](./skills/frontend/code-standards/rules/clean-architecture.md)
+📖 [Full coding standards](./.agents/skills/frontend/code-standards/)
+📖 [Clean Code Principles](./.agents/skills/frontend/code-standards/rules/clean-code-principles.md)
+📖 [SOLID Principles](./.agents/skills/frontend/code-standards/rules/solid-principles.md)
+📖 [Clean Architecture](./.agents/skills/frontend/code-standards/rules/clean-architecture.md)
 
 ---
 
@@ -255,7 +255,7 @@ describe('ComponentName', () => {
 "Add tests for the UserProfile component"
 ```
 
-📖 [Full testing guidelines](./skills/frontend/react-testing/)
+📖 [Full testing guidelines](./.agents/skills/frontend/react-testing/)
 
 ---
 
@@ -287,7 +287,7 @@ describe('ComponentName', () => {
 - Avoid layout thrashing
 - Use CSS classes over inline styles
 
-📖 [Full performance patterns](./skills/frontend/code-standards/SKILL.md#-javascript-performance)
+📖 [Full performance patterns](./.agents/skills/frontend/code-standards/SKILL.md#-javascript-performance)
 
 ---
 
@@ -306,11 +306,11 @@ When asking AI assistants for help, reference the specific skill:
 
 ### Available Skills
 
-1. **[frontend/code-standards](./skills/frontend/code-standards/)** - Naming conventions, coding standards, TypeScript, Clean Code, SOLID, Clean Architecture, performance patterns
-2. **[frontend/react-component-structure](./skills/frontend/react-component-structure/)** - Function vs const, SRP, file organization
-3. **[frontend/react-testing](./skills/frontend/react-testing/)** - Vitest and React Testing Library patterns
-4. **[git/commit-conventions](./skills/git/commit-conventions/)** - Commit message format and atomic commits
-5. **[frontend/react-best-practices](./skills/frontend/react-best-practices/)** - React/Next.js performance optimization (Vercel Labs)
+1. **[frontend/code-standards](./.agents/skills/frontend/code-standards/)** - Naming conventions, coding standards, TypeScript, Clean Code, SOLID, Clean Architecture, performance patterns
+2. **[frontend/react-component-structure](./.agents/skills/frontend/react-component-structure/)** - Function vs const, SRP, file organization
+3. **[frontend/react-testing](./.agents/skills/frontend/react-testing/)** - Vitest and React Testing Library patterns
+4. **[git/commit-conventions](./.agents/skills/git/commit-conventions/)** - Commit message format and atomic commits
+5. **[frontend/react-best-practices](./.agents/skills/frontend/react-best-practices/)** - React/Next.js performance optimization (Vercel Labs)
 
 ### Skill Breakdown
 
@@ -407,7 +407,7 @@ Before considering work complete:
 ## Getting Help
 
 - **Coding questions?** Ask your AI assistant to reference our skills
-- **Unclear about a pattern?** Check the [skills directory](./skills/)
+- **Unclear about a pattern?** Check the [skills directory](./.agents/skills/)
 - **Found an issue?** Create a ticket in the project tracker
 - **Contributing a new skill?** See [Agents & Playbooks](#agents--playbooks)
 
@@ -423,7 +423,7 @@ Skills here are synced to consumer repositories via git subtree.
 
 This repository IS the source of truth:
 
-✅ **DO edit skills directly in `skills/`**  
+✅ **DO edit skills directly in `.agents/skills/`**  
 This is where skills are maintained and improved.
 
 ✅ **DO test changes with AI agents before committing**  
@@ -474,7 +474,7 @@ Projects that use these skills should:
 
 If you identify a new pattern or best practice:
 
-1. **Create or update skill in `skills/`**
+1. **Create or update skill in `.agents/skills/`**
 2. **Test with AI agents:** Verify the skill works as expected
 3. **Update documentation:** Keep SKILL.md and README.md current
 4. **Update DEVELOPMENT.md:** If it introduces patterns for human developers
