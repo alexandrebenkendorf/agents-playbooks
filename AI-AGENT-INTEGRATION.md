@@ -26,7 +26,8 @@ Reply with just: 1 or 2
 1. **Check if `.agents/` folder exists** in the target project
 2. If it does NOT exist, create it first: `mkdir -p .agents`
 3. **After integration, scan `.agents/` for skills**: read `.agents/README.md` (if present) and check for skill folders under `.agents/**/skills/*/SKILL.md`
-4. Then proceed with the commands from README.md
+4. **Customize `DEVELOPMENT.md` for the consumer project** (e.g., update Jira ticket prefix and any project-specific conventions)
+5. Then proceed with the commands from README.md
 
 **Critical Rules:**
 
@@ -36,7 +37,8 @@ Reply with just: 1 or 2
 4. Clone/subtree INTO `.agents/agents-playbooks/` (not root)
 5. Do NOT commit changes automatically
 6. Wait for explicit user response before proceeding
-7. Follow the exact commands from README.md for their chosen method
+7. Customize `DEVELOPMENT.md` with project-specific values (e.g., Jira ticket prefix)
+8. Follow the exact commands from README.md for their chosen method
 
 ---
 
