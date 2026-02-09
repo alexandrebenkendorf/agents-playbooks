@@ -30,7 +30,7 @@ Before you execute a task, you must check for additional skills that may be vend
 
 - Note: This repository is the source playbook, so `.agents/` often does **not** exist here. In consumer projects it usually does.
 - If `.agents/` exists, read `.agents/README.md` first (if present) and treat its listed skills as available.
-- Then scan for skill folders under `.agents/**/.agents/skills/*/SKILL.md`.
+- Then scan for skill folders under `.agents/**/skills/*/SKILL.md`.
 - If a skill is listed there or its description matches the task, you must use it, following the same trigger rules as this file.
 - If you did not check `.agents/`, state that explicitly and stop to check before proceeding.
 
