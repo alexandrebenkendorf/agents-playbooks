@@ -17,6 +17,7 @@ Reply with just: 1 or 2
 
 **⚠️ WAIT FOR THEIR RESPONSE. DO NOT RUN ANY COMMANDS UNTIL THEY REPLY.**
 Do not ask for clone/subtree permission or suggest commands until they choose a method.
+The **first response must be only the prompt above**. No extra text, no permission requests, no commands.
 
 ---
 

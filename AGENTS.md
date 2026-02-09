@@ -10,6 +10,8 @@
 
 👉 **[READ THE INTEGRATION INSTRUCTIONS](AI-AGENT-INTEGRATION.md)** 👈
 
+Integration behavior must follow the integration instructions exactly, including the requirement that the **first response** is only the method prompt (no extra text, no permission requests, no commands).
+
 ---
 
 Global, authoritative rules for this repository.
