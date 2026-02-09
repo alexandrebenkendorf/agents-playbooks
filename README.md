@@ -82,6 +82,8 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 
 # Then add subtree
 git subtree add --prefix=.agents/agents-playbooks https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+# If AGENTS.md/DEVELOPMENT.md do not exist, copy them.
+# If they already exist, replace with base versions and reapply your project-specific customizations.
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ```
@@ -97,11 +99,19 @@ cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 # Then clone
 git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
 rm -rf .agents/agents-playbooks/.git
+# If AGENTS.md/DEVELOPMENT.md do not exist, copy them.
+# If they already exist, replace with base versions and reapply your project-specific customizations.
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ```
 
 **Then stop. Do NOT commit.** Say: "✅ Setup complete. You can now customize the files, then commit when ready."
+
+### After Integration Checklist (Both Methods)
+
+1. Ensure `AGENTS.md` and `DEVELOPMENT.md` are customized for this project.
+1. If `.agents/README.md` exists, update it with the integration instructions and catalog from this README.
+1. If `.agents/README.md` does not exist, create it with the catalog and update instructions.
 
 ---
 
@@ -315,6 +325,15 @@ Update `AGENTS.md` in your project (copied from base):
 
 If instructions conflict, follow the higher-precedence source.
 ```
+
+### Consumer `.agents/README.md`
+
+If `.agents/README.md` exists, update it with the integration instructions and catalog from this README. If it does not exist, create it with the catalog and update instructions.
+
+Recommended contents:
+1. Integration method used (subtree or clone) and the update command.
+1. Skills catalog copied from `.agents/agents-playbooks/README.md` with links updated to `.agents/agents-playbooks/skills/...`.
+1. Local overrides guidance for `.agents/local/skills/`.
 
 ---
 

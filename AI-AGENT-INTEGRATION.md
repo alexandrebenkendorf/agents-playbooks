@@ -27,9 +27,15 @@ The **first response must be only the prompt above**. No extra text, no permissi
 
 1. **Check if `.agents/` folder exists** in the target project
 2. If it does NOT exist, create it first: `mkdir -p .agents`
-3. **After integration, scan `.agents/` for skills**: read `.agents/README.md` (if present) and check for skill folders under `.agents/local/skills/*/SKILL.md` and `.agents/agents-playbooks/skills/*/SKILL.md`
-4. **Customize `DEVELOPMENT.md` for the consumer project** (e.g., update Jira ticket prefix and any project-specific conventions)
-5. Then proceed with the commands from README.md
+3. **Check if `AGENTS.md` and `DEVELOPMENT.md` already exist** in the repo root
+   - If missing: plan to copy from `.agents/agents-playbooks/`
+   - If present: plan to update from the base versions, then reapply project-specific customizations
+4. **Check if `.agents/README.md` exists**
+   - If present: plan to update it with this repo's integration instructions and catalog
+   - If missing: plan to create it with the catalog and update instructions
+5. **After integration, scan `.agents/` for skills**: read `.agents/README.md` (if present) and check for skill folders under `.agents/local/skills/*/SKILL.md` and `.agents/agents-playbooks/skills/*/SKILL.md`
+6. **Customize `DEVELOPMENT.md` for the consumer project** (e.g., update Jira ticket prefix and any project-specific conventions)
+7. Then proceed with the commands from README.md
 
 **Critical Rules:**
 
@@ -40,8 +46,10 @@ The **first response must be only the prompt above**. No extra text, no permissi
 5. Clone/subtree INTO `.agents/agents-playbooks/` (not root)
 6. Do NOT commit changes automatically
 7. Wait for explicit user response before proceeding
-8. Customize `DEVELOPMENT.md` with project-specific values (e.g., Jira ticket prefix)
-9. Follow the exact commands from README.md for their chosen method
+8. If `AGENTS.md`/`DEVELOPMENT.md` exist, update from base then reapply project customizations
+9. Ensure `.agents/README.md` exists and reflects the catalog + integration instructions
+10. Customize `DEVELOPMENT.md` with project-specific values (e.g., Jira ticket prefix)
+11. Follow the exact commands from README.md for their chosen method
 
 ---
 
