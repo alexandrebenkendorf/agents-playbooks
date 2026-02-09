@@ -62,7 +62,7 @@ Each commit should represent ONE logical change:
 To convert to rules-based structure:
 
 1. Create `rules/` directory
-2. Copy templates from `.agents/templates/`
+2. Copy templates from `templates/`
 3. Create sections:
    - `format-` - Message format rules
    - `type-` - Commit type guidelines

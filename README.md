@@ -24,7 +24,7 @@ Reusable AI agent skills for modern frontend development with React, TypeScript,
 
 #### Framework-Agnostic
 
-**[`frontend/code-standards`](./.agents/skills/frontend/code-standards/)**
+**[`frontend/code-standards`](./skills/frontend/code-standards/)**
 - Naming conventions (React, TypeScript, DDD)
 - General coding standards (functions, control flow, DRY)
 - TypeScript best practices (type safety, inference, interface vs type)
@@ -36,7 +36,7 @@ Reusable AI agent skills for modern frontend development with React, TypeScript,
 
 #### React
 
-**[`frontend/react-best-practices`](./.agents/skills/frontend/react-best-practices/)**  
+**[`frontend/react-best-practices`](./skills/frontend/react-best-practices/)**  
 Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-skills)
 - 57 performance optimization rules across 8 categories
 - Eliminating waterfalls (async patterns, Suspense)
@@ -44,14 +44,14 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 - Server-side performance (caching, parallel fetching)
 - Re-render optimization (memo, state management)
 
-**[`frontend/react-component-structure`](./.agents/skills/frontend/react-component-structure/)**
+**[`frontend/react-component-structure`](./skills/frontend/react-component-structure/)**
 - Function declarations vs const (avoid React.FC)
 - Single Responsibility Principle for components
 - File organization patterns
 - When to extract helpers vs keep inline
 - Anti-patterns (god components, mixing concerns)
 
-**[`frontend/react-testing`](./.agents/skills/frontend/react-testing/)**
+**[`frontend/react-testing`](./skills/frontend/react-testing/)**
 - Vitest + React Testing Library patterns
 - Creating new tests (AAA pattern, it.each)
 - Legacy refactoring (Sinon → Vitest migration)
@@ -60,7 +60,7 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 
 ### Git
 
-**[`git/commit-conventions`](./.agents/skills/git/commit-conventions/)**
+**[`git/commit-conventions`](./skills/git/commit-conventions/)**
 - Conventional commit format with Jira tickets
 - Generic `<PREFIX>-<number>` format (configurable per project)
 - Atomic commit guidance
@@ -72,9 +72,15 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 
 **Only proceed here AFTER the user responded with 1 or 2 above.**
 
+**⚠️ IMPORTANT: First check if `.agents/` folder exists. If not, run: `mkdir -p .agents`**
+
 ### If user chose 1 (Git Subtree):
 
 ```bash
+# First ensure .agents exists (check first!)
+[ ! -d .agents ] && mkdir -p .agents
+
+# Then add subtree
 git subtree add --prefix=.agents/agents-playbooks https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
@@ -85,6 +91,10 @@ cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ### If user chose 2 (Simple Clone):
 
 ```bash
+# First ensure .agents exists (check first!)
+[ ! -d .agents ] && mkdir -p .agents
+
+# Then clone
 git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
 rm -rf .agents/agents-playbooks/.git
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
@@ -108,10 +118,14 @@ This repository is the **base source** for shared agent skills. Consumer project
 Add this repository to your project:
 
 ```bash
+# Step 1: Ensure .agents directory exists
+mkdir -p .agents
+
+# Step 2: Add as subtree
 git subtree add --prefix=.agents/agents-playbooks \
   https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
 
-# Copy base files to project root
+# Step 3: Copy base files to project root
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ```
@@ -129,13 +143,16 @@ git subtree pull --prefix=.agents/agents-playbooks \
 **Best for:** Prototypes, experiments, or projects that want full customization without subtree complexity.
 
 ```bash
-# Step 1: Clone into .agents directory
+# Step 1: Ensure .agents directory exists
+mkdir -p .agents
+
+# Step 2: Clone into .agents directory
 git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
 
-# Step 2: Remove git tracking (treat as vendored code)
+# Step 3: Remove git tracking (treat as vendored code)
 rm -rf .agents/agents-playbooks/.git
 
-# Step 3: Copy base files to project root
+# Step 4: Copy base files to project root
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ```
@@ -231,7 +248,7 @@ your-project/
 - ✅ No git submodule complexity
 - ✅ Simple vendoring for full control (Option 2)
 
-📖 **Full documentation:** See [.agents/README.md](./.agents/README.md)
+📖 **Full documentation:** See [README.md](./README.md)
 
 ---
 
@@ -239,7 +256,7 @@ your-project/
 
 ### Consumer Project Setup
 
-Create `.agents/README.md` in your project with configuration:
+Create `README.md` in your project with configuration:
 
 ```markdown
 # Project Agent Skills
@@ -279,7 +296,7 @@ cp -r .agents/agents-playbooks/skills/frontend/react-testing \
 ## Promoting Local Skills
 
 1. Fork https://github.com/alexandrebenkendorf/agents-playbook
-2. Copy from `.agents/local/` to fork's `.agents/skills/`
+2. Copy from `.agents/local/` to fork's `skills/`
 3. Open PR to agents-playbook
 4. After merge: `git subtree pull ...`
 5. Remove local override
@@ -317,10 +334,10 @@ skill-name/
 
 ### Templates
 
-Templates for creating new skills and rules are in `.agents/templates/`:
+Templates for creating new skills and rules are in `templates/`:
 
-- **`.agents/templates/_template.md`** - Rule structure with examples
-- **`.agents/templates/_sections.md`** - Section organization guide
+- **`templates/_template.md`** - Rule structure with examples
+- **`templates/_sections.md`** - Section organization guide
 
 Use these templates to maintain consistency across all skills.
 
@@ -328,7 +345,7 @@ Use these templates to maintain consistency across all skills.
 
 1. **Create skill directory:**
    ```bash
-   mkdir -p .agents/skills/<category>/<skill-name>
+   mkdir -p skills/<category>/<skill-name>
    ```
 
 2. **Add core files:**
@@ -337,9 +354,9 @@ Use these templates to maintain consistency across all skills.
 
 3. **For multi-rule skills, add rules directory:**
    ```bash
-   mkdir .agents/skills/<category>/<skill-name>/rules
-   cp .agents/templates/_template.md .agents/skills/<category>/<skill-name>/rules/
-   cp .agents/templates/_sections.md .agents/skills/<category>/<skill-name>/rules/
+   mkdir skills/<category>/<skill-name>/rules
+   cp templates/_template.md skills/<category>/<skill-name>/rules/
+   cp templates/_sections.md skills/<category>/<skill-name>/rules/
    ```
 
 4. **Create rules following the template:**
@@ -363,10 +380,10 @@ description: Brief description
 
 This repository is the source of truth for shared skills.
 
-1. Create skill directory: `.agents/skills/category/skill-name/`
+1. Create skill directory: `skills/category/skill-name/`
 2. Add `SKILL.md` and `README.md`
 3. For large skills, use `rules/` directory
-4. Update this README and `.agents/skills/README.md`
+4. Update this README and `skills/README.md`
 5. Test with a real project
 6. Document in CHANGELOG.md
 
@@ -375,7 +392,7 @@ This repository is the source of truth for shared skills.
 If you developed a useful skill in a consumer project's `.agents/local/`:
 
 1. **Fork this repository**
-2. **Copy skill** from your `.agents/local/` to fork's `.agents/skills/`
+2. **Copy skill** from your `.agents/local/` to fork's `skills/`
 3. **Generalize** - remove project-specific references
 4. **Test thoroughly**
 5. **Open PR** with clear description
@@ -383,7 +400,7 @@ If you developed a useful skill in a consumer project's `.agents/local/`:
 
 ### Updating Existing Skills
 
-1. Make changes in `.agents/skills/`
+1. Make changes in `skills/`
 2. Test with AI assistant
 3. Update version/changelog if significant
 4. Document changes in commit message

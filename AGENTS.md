@@ -17,7 +17,7 @@ Global, authoritative rules for this repository.
 ## Order of precedence
 
 1. `/AGENTS.md`
-2. `/.agents/skills/*`
+2. `/skills/*`
 3. Existing code and comments
 
 If instructions conflict, follow the higher-precedence source and mention the conflict.
@@ -26,11 +26,11 @@ If instructions conflict, follow the higher-precedence source and mention the co
 
 If asked to "copy" or "create a skill based on" a skill from skills.sh (e.g. vercel-labs/agent-skills):
 
-- DO vendor the skill **as-is** under `/.agents/skills/<skill-name>/`
+- DO vendor the skill **as-is** under `/skills/<skill-name>/`
 - A vendored skill folder must contain at least `SKILL.md` (and may include `README.md`, `metadata.json`).
 - DO NOT create extra namespaces like `guidelines/`.
 - DO NOT split a single skill into many "rules/\*.md" files unless the upstream skill is already structured that way.
-- After copying, add the skill to `/.agents/skills/README.md`.
+- After copying, add the skill to `/skills/README.md`.
 - Check if the references are correct and update them if needed (usually the references are pointing to the repo path and we need to reference the local).
 
 ---

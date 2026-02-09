@@ -21,15 +21,21 @@ Reply with just: 1 or 2
 
 ## After They Reply
 
-See the "AI Agent Commands" section in [README.md](README.md) for the exact commands to run based on their choice.
+### Before Running Any Commands:
+
+1. **Check if `.agents/` folder exists** in the target project
+2. If it does NOT exist, create it first: `mkdir -p .agents`
+3. Then proceed with the commands from README.md
 
 **Critical Rules:**
 
 1. Do NOT run any git commands before asking
 2. Do NOT assume which method they want
-3. Do NOT commit changes automatically
-4. Wait for explicit user response before proceeding
-5. Follow the exact commands from README.md for their chosen method
+3. Always check for `.agents/` folder and create if missing
+4. Clone/subtree INTO `.agents/agents-playbooks/` (not root)
+5. Do NOT commit changes automatically
+6. Wait for explicit user response before proceeding
+7. Follow the exact commands from README.md for their chosen method
 
 ---
 

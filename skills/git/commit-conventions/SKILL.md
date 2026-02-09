@@ -11,7 +11,7 @@ Guidelines for creating properly formatted commit messages with Jira ticket numb
 
 ## Configuration
 
-**Set your Jira project prefix in `.agents/README.md`:**
+**Set your Jira project prefix in `README.md`:**
 
 ```markdown
 # Project Configuration
@@ -127,7 +127,7 @@ git commit -m "perf: PROJ-134719 Optimize database query for user search"
    - Performance improvements → `perf`
    - Build/CI changes → `build` or `ci`
 6. ✅ **Extract the ticket number** from the current branch name
-   - Read project's Jira prefix from `.agents/README.md` if available
+   - Read project's Jira prefix from `README.md` if available
    - Or detect from branch name pattern (e.g., `PROJ-`, `TASK-`, etc.)
 7. ✅ **Generate a properly formatted commit message** based on actual changes
 8. ✅ **Execute the commit** with the generated message (only if changes are cohesive)

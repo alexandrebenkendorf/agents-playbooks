@@ -71,4 +71,4 @@ Consumer repositories sync these skills via git subtree into `.agents/agents-pla
 
 If instructions conflict, follow the higher-precedence source.
 
-📖 **Full documentation:** [../.agents/README.md](../README.md)
+📖 **Full documentation:** [../README.md](../README.md)

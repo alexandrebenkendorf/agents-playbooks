@@ -66,7 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Documentation:**
 - Repository README with skills catalog, usage guide, contributing guidelines
-- .agents/README.md template for project configuration
+- README.md template for project configuration
 - MIT License
 - This CHANGELOG
 
