@@ -35,6 +35,14 @@ Guidelines for creating properly formatted commit messages with Jira ticket numb
 - `<ticket-number>` = Jira ticket number
 - `<description>` = Imperative description
 
+### No-ticket exception
+
+If there is **no ticket in the branch name** and **recent commits do not include tickets**, omit the ticket and use:
+
+```
+<type>: <description>
+```
+
 ### Commit Types
 
 | Type       | Usage                                                                                                  |
@@ -69,6 +77,7 @@ Guidelines for creating properly formatted commit messages with Jira ticket numb
 - Extract the ticket number from your branch name
   - Example: `PROJ-134713-FE-Add-GitHub-unittest.instructions.md-for-vitest` → `PROJ-134713`
   - Example: `TASK-456-implement-user-auth` → `TASK-456`
+- **If the branch has no ticket and recent commits do not include tickets**, omit the ticket and use `<type>: <description>`.
 
 ---
 
@@ -129,8 +138,10 @@ git commit -m "perf: PROJ-134719 Optimize database query for user search"
 6. ✅ **Extract the ticket number** from the current branch name
    - Read project's Jira prefix from `README.md` if available
    - Or detect from branch name pattern (e.g., `PROJ-`, `TASK-`, etc.)
-7. ✅ **Generate a properly formatted commit message** based on actual changes
-8. ✅ **Execute the commit** with the generated message (only if changes are cohesive)
+   - **If no ticket is present and recent commits do not include tickets, omit the ticket**
+7. ✅ **Check recent commit messages** to match local conventions (e.g., whether tickets are included)
+8. ✅ **Generate a properly formatted commit message** based on actual changes
+9. ✅ **Execute the commit** with the generated message (only if changes are cohesive)
 
 ### Atomic Commits
 

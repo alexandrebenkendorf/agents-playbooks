@@ -22,6 +22,16 @@ Global, authoritative rules for this repository.
 
 If instructions conflict, follow the higher-precedence source and mention the conflict.
 
+### Required skill discovery (before starting any task)
+
+Before you execute a task, you must check for additional skills that may be vendored into the project:
+
+- Note: This repository is the source playbook, so `.agents/` often does **not** exist here. In consumer projects it usually does.
+- If `.agents/` exists, read `.agents/README.md` first (if present) and treat its listed skills as available.
+- Then scan for skill folders under `.agents/**/skills/*/SKILL.md`.
+- If a skill is listed there or its description matches the task, you must use it, following the same trigger rules as this file.
+- If you did not check `.agents/`, state that explicitly and stop to check before proceeding.
+
 ### Vendoring external skills (copy, don't install)
 
 If asked to "copy" or "create a skill based on" a skill from skills.sh (e.g. vercel-labs/agent-skills):

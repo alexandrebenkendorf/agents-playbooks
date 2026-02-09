@@ -25,7 +25,8 @@ Reply with just: 1 or 2
 
 1. **Check if `.agents/` folder exists** in the target project
 2. If it does NOT exist, create it first: `mkdir -p .agents`
-3. Then proceed with the commands from README.md
+3. **After integration, scan `.agents/` for skills**: read `.agents/README.md` (if present) and check for skill folders under `.agents/**/skills/*/SKILL.md`
+4. Then proceed with the commands from README.md
 
 **Critical Rules:**
 

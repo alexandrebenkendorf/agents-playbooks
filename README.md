@@ -109,7 +109,9 @@ cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 
 ### For Consumer Projects
 
-This repository is the **base source** for shared agent skills. Consumer projects can integrate these skills using one of two approaches:
+This repository is the **base source** for shared agent skills. It typically does **not** contain a `.agents/` folder.
+You only create `.agents/` when **integrating this playbook into another project** (see options below).
+Consumer projects can integrate these skills using one of two approaches:
 
 #### Option 1: Git Subtree (Recommended for Production)
 
