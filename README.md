@@ -81,7 +81,7 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 [ ! -d .agents ] && mkdir -p .agents
 
 # Then add subtree
-git subtree add --prefix=.agents/agents-playbooks https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+git subtree add --prefix=.agents/agents-playbooks https://github.com/alexandrebenkendorf/agents-playbooks.git main --squash
 # If AGENTS.md/DEVELOPMENT.md do not exist, copy them.
 # If they already exist, replace with base versions and reapply your project-specific customizations.
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
@@ -97,7 +97,7 @@ cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 [ ! -d .agents ] && mkdir -p .agents
 
 # Then clone
-git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
+git clone https://github.com/alexandrebenkendorf/agents-playbooks.git .agents/agents-playbooks
 rm -rf .agents/agents-playbooks/.git
 # If AGENTS.md/DEVELOPMENT.md do not exist, copy them.
 # If they already exist, replace with base versions and reapply your project-specific customizations.
@@ -135,7 +135,7 @@ mkdir -p .agents
 
 # Step 2: Add as subtree
 git subtree add --prefix=.agents/agents-playbooks \
-  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+  https://github.com/alexandrebenkendorf/agents-playbooks.git main --squash
 
 # Step 3: Copy base files to project root
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
@@ -145,7 +145,7 @@ cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 **Update skills:**
 ```bash
 git subtree pull --prefix=.agents/agents-playbooks \
-  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+  https://github.com/alexandrebenkendorf/agents-playbooks.git main --squash
 ```
 
 ⚠️ **Never edit `.agents/agents-playbooks/` directly** - it's managed by subtree.
@@ -159,7 +159,7 @@ git subtree pull --prefix=.agents/agents-playbooks \
 mkdir -p .agents
 
 # Step 2: Clone into .agents directory
-git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
+git clone https://github.com/alexandrebenkendorf/agents-playbooks.git .agents/agents-playbooks
 
 # Step 3: Remove git tracking (treat as vendored code)
 rm -rf .agents/agents-playbooks/.git
@@ -186,7 +186,7 @@ cp -r .agents/agents-playbooks .agents/agents-playbooks.backup
 
 # Re-clone latest
 rm -rf .agents/agents-playbooks
-git clone https://github.com/alexandrebenkendorf/agents-playbook.git .agents/agents-playbooks
+git clone https://github.com/alexandrebenkendorf/agents-playbooks.git .agents/agents-playbooks
 rm -rf .agents/agents-playbooks/.git
 
 # Merge your customizations
@@ -221,7 +221,7 @@ git commit -m "chore: Current state of agents-playbooks"
 
 # From now on, use subtree pull for updates
 git subtree pull --prefix=.agents/agents-playbooks \
-  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+  https://github.com/alexandrebenkendorf/agents-playbooks.git main --squash
 ```
 
 **No deletion or re-setup needed** - the directory structure is already production-ready. You're simply switching from manual updates to git subtree updates.
@@ -285,7 +285,7 @@ Base skills synced from: [agents-playbook](https://github.com/alexandrebenkendor
 
 ```bash
 git subtree pull --prefix=.agents/agents-playbooks \
-  https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+  https://github.com/alexandrebenkendorf/agents-playbooks.git main --squash
 
 # Review base file changes
 cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md

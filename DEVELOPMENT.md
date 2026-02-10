@@ -448,7 +448,7 @@ Projects that use these skills should:
 1. **Sync via git subtree:**
    ```bash
    git subtree add --prefix=.agents/agents-playbooks \
-     https://github.com/alexandrebenkendorf/agents-playbook.git main --squash
+    https://github.com/alexandrebenkendorf/agents-playbooks.git main --squash
    ```
 
 2. **Create `.agents/local/skills/` for overrides:**
