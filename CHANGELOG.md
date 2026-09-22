@@ -9,6 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `frontend/module-federation` skill, vendored and adapted from the official Module Federation `mf` skill
+  - `README.md` and catalog entries in `README.md` / `skills/README.md`
+  - `SHARED-SUBPATH` check for packages shared by exact name only (`react` vs `react/`)
+  - Observability Plugin / Divebell guidance as the preferred runtime evidence source
+  - `runtime-types` sub-skill: fetching `@mf-types` when remotes are registered only at runtime
+    (`dts.generateTypes: false` + `consumeTypes.remoteTypeUrls`, the `publicPath: 'auto'` pitfall,
+    `mf dts` wrapper script, and `NODE_EXTRA_CA_CERTS` handling for mkcert / corporate CAs)
+  - `RUNTIME_ONLY_SUSPECTED` type-check scenario that routes to the new sub-skill
+  - `perf`: remote HMR (`dev.remoteHmr`) compatibility matrix — Vite host + Vite remote requires
+    matching `@vitejs/plugin-react` / `vite` / `@module-federation/vite`, while Rspack/Webpack hosts
+    serve compiled output and interoperate with any remote
+
+### Fixed
+- **module-federation**: flattened the extra `mf/` namespace to `skills/frontend/module-federation/`
+- **module-federation**: reference files pointed at a non-existent `.agents/local/skills/module-federation/mf/scripts/` path; now resolved via `<skill-dir>` (SKILL.md Step 0)
+- **module-federation**: `perf` recommended `dev.disableAssetsAnalyze`, which does not exist — the real option is `manifest.disableAssetsAnalyze`, and it disables resource preloading
+- **module-federation**: `config-check` mapped async entry to `RUNTIME-006`; it is `RUNTIME-005`
+- **module-federation**: `docs` topic map targeted the old documentation site structure
+- **module-federation**: MFContext now documents `project.root`, `mfConfig.externals`, `bundler.experiments.asyncStartup`, and `buildArtifacts.*`, which the scripts already relied on
+- **module-federation**: bundler detection no longer derives from the MF config filename (always yielded `unknown`)
+- **module-federation**: `shared-config-check` read shared versions from `manifest.exposes` instead of `manifest.shared`
+- **module-federation**: `module-info` returned an always-`undefined` `hasSsr`, a hardcoded `null` `typesApi`, and did not follow HTTP redirects
+- **module-federation**: `integrate` listed `vite.config` in bundler detection but had no Vite branch, so Vite projects hit a dead end — added the `@module-federation/vite` pattern, plus Vite in context detection and the `CONFIG-PLUGIN` recommendation
+- **module-federation**: `CONFIG-ASYNC-ENTRY` no longer fires for Vite or Next.js, where `experiments.asyncStartup` does not apply
+- **module-federation**: `type-check` converted to CommonJS, tolerates JSONC `tsconfig.json`, and reports producer vs consumer type scenarios based on `mfRole`
+
 ### Planned
 - Additional framework support (upon request)
 - Additional performance patterns

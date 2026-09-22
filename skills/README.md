@@ -33,6 +33,21 @@ React-specific best practices including:
 - Rendering optimization (hydration, content visibility, SVG)
 - Advanced patterns (useLatest, event handler refs, init once)
 
+#### `frontend/module-federation`
+**Source:** [module-federation.io/ai/skill](https://module-federation.io/ai/skill) (vendored)  
+**Local:** [SKILL.md](frontend/module-federation/SKILL.md) | [README.md](frontend/module-federation/README.md)
+
+All-in-one Module Federation 2.0 skill that routes to focused sub-skills:
+- Documentation lookup via `llms.txt` (fetches only relevant pages)
+- Project MF context collection (bundler, role, config, artifacts)
+- Integration into Rsbuild / Modern.js / Rspack / Webpack / Vite / Next.js projects
+- Build config checks (plugin choice, async entry, exposes keys and paths)
+- Shared dependency diagnostics (externals conflicts, transformImport, multi-version)
+- Type diagnostics (`@mf-types`, DTS generation, tsconfig paths)
+- Runtime-only remotes: fetching `@mf-types` via `remoteTypeUrls` + `mf dts`, incl. TLS/CA setup
+- Runtime error triage (`RUNTIME-001` / `RUNTIME-008`)
+- Bridge usage checks and local dev performance tuning
+
 #### `frontend/react-component-structure`
 **Source:** [alexandrebenkendorf/agents-playbooks](https://github.com/alexandrebenkendorf/agents-playbooks)  
 **Local:** [SKILL.md](frontend/react-component-structure/SKILL.md) | [README.md](frontend/react-component-structure/README.md)

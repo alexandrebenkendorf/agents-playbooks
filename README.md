@@ -58,6 +58,17 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 - TypeScript testing patterns
 - Common patterns and quick reference
 
+#### Module Federation
+
+**[`frontend/module-federation`](./skills/frontend/module-federation/)**  
+Vendored from the official [Module Federation `mf` skill](https://module-federation.io/ai/skill)
+- Docs lookup that fetches only the relevant pages (no full-doc dumps)
+- Project context detection (bundler, MF role, config, build artifacts)
+- Integration into Rsbuild / Modern.js / Rspack / Webpack / Vite / Next.js
+- Config, shared dependency, type, and Bridge diagnostics
+- Runtime-only remotes: fetching `@mf-types` via `remoteTypeUrls` + `mf dts`
+- Runtime error triage (`RUNTIME-001` / `RUNTIME-008`)
+
 ### Git
 
 **[`git/commit-conventions`](./skills/git/commit-conventions/)**
@@ -445,6 +456,7 @@ If you developed a useful skill in a consumer project's `.agents/local/skills/`:
 | Skill | Files | Lines | Token-Optimized? |
 |-------|-------|-------|------------------|
 | **frontend/code-standards** | 16 files | ~2,500 | ✅ Yes (modular by topic) |
+| **frontend/module-federation** | 19 files | ~1,900 | ✅ Yes (on-demand sub-skills) |
 | **frontend/react-best-practices** | 47 files | ~3,000 | ✅ Yes (vendored, modular) |
 | **frontend/react-component-structure** | 1 file | ~300 | ✅ Yes (focused single file) |
 | **frontend/react-testing** | 4 files | ~800 | ✅ Yes (task-specific routing) |
