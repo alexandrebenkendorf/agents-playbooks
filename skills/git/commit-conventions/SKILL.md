@@ -1,5 +1,5 @@
 ---
-name: Git Commit Conventions
+name: commit-conventions
 description: Conventional commit format and workflow with Jira ticket integration
 ---
 

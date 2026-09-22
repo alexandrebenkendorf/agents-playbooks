@@ -21,7 +21,7 @@ Comprehensive coding standards covering:
 - Performance optimization (arrays, control flow, DOM, caching)
 
 #### `frontend/react-best-practices`
-**Source:** [alexandrebenkendorf/agents-playbooks](https://github.com/alexandrebenkendorf/agents-playbooks)  
+**Source:** [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) (vendored, MIT)  
 **Local:** [SKILL.md](frontend/react-best-practices/SKILL.md) | [README.md](frontend/react-best-practices/README.md) | [Quick Ref](frontend/react-best-practices/quick-ref/performance-top10.md)
 
 React-specific best practices including:

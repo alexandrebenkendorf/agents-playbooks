@@ -1,5 +1,5 @@
 ---
-name: Vitest Testing Guidelines
+name: react-testing
 description: Comprehensive testing guidelines for Vitest with React Testing Library
 ---
 

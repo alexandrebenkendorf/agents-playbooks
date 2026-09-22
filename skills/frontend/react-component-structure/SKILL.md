@@ -1,5 +1,5 @@
 ---
-name: React Component Structure
+name: react-component-structure
 description: Best practices for structuring React components - function declarations, file organization, and Single Responsibility Principle
 ---
 

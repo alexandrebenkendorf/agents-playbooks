@@ -399,10 +399,13 @@ Use these templates to maintain consistency across all skills.
 **SKILL.md frontmatter:**
 ```yaml
 ---
-name: Skill Name
+name: skill-name
 description: Brief description
 ---
 ```
+
+`name` must be lowercase letters, numbers, and hyphens only, and must match the skill's folder name exactly.
+Use `description` for the human-readable summary.
 
 ---
 

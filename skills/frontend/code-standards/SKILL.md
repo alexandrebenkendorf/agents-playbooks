@@ -1,5 +1,5 @@
 ---
-name: Frontend Code Standards
+name: code-standards
 description: Code standards and conventions for React, TypeScript, and domain-driven front-end architecture
 ---
 

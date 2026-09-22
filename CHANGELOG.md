@@ -23,6 +23,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     serve compiled output and interoperate with any remote
 
 ### Fixed
+- **All skills**: `name` in `SKILL.md` frontmatter must be lowercase letters, numbers, and hyphens
+  only and match the folder name (Agent Skills format). Renamed `Frontend Code Standards`,
+  `React Component Structure`, `Vitest Testing Guidelines`, `Git Commit Conventions`, and
+  `vercel-react-best-practices` accordingly, and corrected the frontmatter example in `README.md`
+  that documented the invalid `name: Skill Name` form
+- **skills/README.md**: `react-best-practices` credited this repository as its source instead of
+  `vercel-labs/agent-skills`
 - **module-federation**: flattened the extra `mf/` namespace to `skills/frontend/module-federation/`
 - **module-federation**: reference files pointed at a non-existent `.agents/local/skills/module-federation/mf/scripts/` path; now resolved via `<skill-dir>` (SKILL.md Step 0)
 - **module-federation**: `perf` recommended `dev.disableAssetsAnalyze`, which does not exist — the real option is `manifest.disableAssetsAnalyze`, and it disables resource preloading
