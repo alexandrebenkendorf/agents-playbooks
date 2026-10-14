@@ -21,7 +21,15 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
   else
     base=$remote_sha
   fi
-  git cat-file -e "$base^{commit}" 2>/dev/null || continue
+  if ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+    # Remote tip not fetched locally: fall back to the default branch merge-base
+    base=$(git merge-base "$local_sha" origin/main 2>/dev/null || true)
+    if [ -z "$base" ]; then
+      echo "pre-push: remote base commit missing locally; run 'git fetch' and retry (or SKIP_CODEX_REVIEW=1)"
+      status=1
+      continue
+    fi
+  fi
   [ "$(git rev-list --count "$base..$local_sha")" = "0" ] && continue
 
   echo "pre-push: Codex reviewing $(git rev-parse --short "$base")..$(git rev-parse --short "$local_sha")"
