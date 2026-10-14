@@ -330,20 +330,21 @@ attachIdleHandlers(session);
 function waitForNetworkIdle(maxMs = timeout) {
   return new Promise((resolve) => {
     let done = false;
-    const cb = () => {
-      if (done) return;
-      done = true;
-      lastWait = { earlyStop: true, timedOut: false };
-      resolve();
-    };
-    idleCallbacks.add(cb);
-    scheduleIdle();
-    setTimeout(() => {
+    const budgetTimer = setTimeout(() => {
       if (done) return;
       done = true;
       lastWait = { earlyStop: false, timedOut: true };
       resolve();
     }, maxMs);
+    const cb = () => {
+      if (done) return;
+      done = true;
+      clearTimeout(budgetTimer);
+      lastWait = { earlyStop: true, timedOut: false };
+      resolve();
+    };
+    idleCallbacks.add(cb);
+    scheduleIdle();
   });
 }
 

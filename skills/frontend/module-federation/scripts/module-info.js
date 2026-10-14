@@ -27,9 +27,25 @@ function extractRemoteUrl(remoteValue) {
   return atIndex >= 0 ? raw.slice(atIndex + 1) : raw;
 }
 
+function getPathname(url) {
+  try {
+    return new URL(url).pathname;
+  } catch (err) {
+    return url.split(/[?#]/)[0];
+  }
+}
+
+function isManifestUrl(url) {
+  return getPathname(url).endsWith('.json');
+}
+
 function getPublicPath(remoteEntry) {
-  const lastSlash = remoteEntry.lastIndexOf('/');
-  return lastSlash >= 0 ? remoteEntry.slice(0, lastSlash + 1) : `${remoteEntry}/`;
+  try {
+    return new URL('.', remoteEntry).href;
+  } catch (err) {
+    const lastSlash = remoteEntry.lastIndexOf('/');
+    return lastSlash >= 0 ? remoteEntry.slice(0, lastSlash + 1) : `${remoteEntry}/`;
+  }
 }
 
 function fetchJson(url, redirectsLeft = 5) {
@@ -138,7 +154,7 @@ async function main(ctx, moduleName, explicitUrl) {
   }
 
   const publicPath = getPublicPath(entry);
-  const manifestUrl = entry.endsWith('.json') ? entry : `${publicPath}mf-manifest.json`;
+  const manifestUrl = isManifestUrl(entry) ? entry : `${publicPath}mf-manifest.json`;
   const manifestRes = await fetchJson(manifestUrl);
   const manifest = manifestRes.ok ? extractManifestInfo(manifestRes.data) : null;
   const metaData = manifest && manifest.metaData;
@@ -147,7 +163,7 @@ async function main(ctx, moduleName, explicitUrl) {
   const remoteEntryMeta = (metaData && metaData.remoteEntry) || {};
   const remoteEntryName = remoteEntryMeta.name || 'remoteEntry.js';
   const remoteEntryDir = remoteEntryMeta.path ? withTrailingSlash(remoteEntryMeta.path) : '';
-  const remoteEntry = entry.endsWith('.json') ? resolveResource(base, remoteEntryDir, remoteEntryName) : entry;
+  const remoteEntry = isManifestUrl(entry) ? resolveResource(base, remoteEntryDir, remoteEntryName) : entry;
   const { typesZip, typesApi } = resolveTypeUrls(base, metaData);
 
   const result = {
