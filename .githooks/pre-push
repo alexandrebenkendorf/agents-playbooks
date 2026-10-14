@@ -43,9 +43,12 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
   diff=$(git diff "$base" "$local_sha")
   out=$(printf '%s\n\n%s\n' "$PROMPT" "$diff" | codex review - 2>&1)
   rc=$?
-  echo "$out" | awk '/^codex$/{buf=""; next} {buf=buf $0 "\n"} END{printf "%s", buf}' | tail -60
+  # Final review text only (after the last "codex" marker); intermediate logs are ignored
+  final=$(echo "$out" | awk '/^codex$/{buf=""; next} {buf=buf $0 "\n"} END{printf "%s", buf}')
+  echo "$final" | tail -60
 
-  if [ $rc -ne 0 ] || echo "$out" | grep -qE '^- \[P[0-3]\]'; then
+  # Pass only if the review ran, produced a final result, and has no [P0]-[P3] finding at any indent
+  if [ $rc -ne 0 ] || [ -z "$final" ] || echo "$final" | grep -qE '^[[:space:]]*(- )?\[P[0-3]\]'; then
     echo "pre-push: Codex review did not pass; push blocked (SKIP_CODEX_REVIEW=1 to override)"
     status=1
   fi

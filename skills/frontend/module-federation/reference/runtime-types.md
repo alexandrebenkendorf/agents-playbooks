@@ -193,7 +193,7 @@ If the bundler watches the project, ignore the types folder or type updates caus
 ```ts
 // webpack / rspack
 watchOptions: {
-  ignored: ['**/node_modules/**', '**/@mf-types/**'];
+  ignored: ['**/node_modules/**', '**/@mf-types/**'],
 }
 ```
 

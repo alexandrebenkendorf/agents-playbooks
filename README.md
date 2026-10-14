@@ -395,7 +395,6 @@ cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 # Reapply your customizations
 ```
-````
 
 ## Local Overrides
 
@@ -416,20 +415,20 @@ cp -r .agents/agents-playbooks/skills/frontend/react-testing \
 3. Open PR to agents-playbook
 4. After merge: `git subtree pull ...`
 5. Remove local override
-
 ````
 
 Update `AGENTS.md` in your project (copied from base):
 
 ```markdown
 ## Order of precedence
+
 1. `/AGENTS.md`
 2. `/.agents/local/skills/*` (your overrides)
 3. `/.agents/agents-playbooks/skills/*` (base)
 4. Existing code and comments
 
 If instructions conflict, follow the higher-precedence source.
-````
+```
 
 ### Consumer `.agents/README.md`
 
