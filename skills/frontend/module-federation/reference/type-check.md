@@ -31,7 +31,7 @@ The script is role-aware: it only reports `TYPE_GENERATION_FAILED` for producers
 
 ### Scenario: `TYPE_GENERATION_FAILED` (Problem 1 — Producer type files not generated)
 
-The producer failed to generate type files (TYPE-001 error).
+The producer failed to generate type files (TYPE-001 error). The script looks for `@mf-types.zip` / `@mf-types.d.ts` in the build output dir (`dist`, `build`, `output`, `.output`). A missing project-root `@mf-types` folder is not a failure for a producer: that folder only holds types consumed from remotes. When artifacts are found the script reports `PRODUCER_TYPES_PUBLISHED` (info) instead. If the project uses a custom `dts.generateTypes.outputDir`, check that path by hand.
 
 **If `enhancedVersion` > `2.0.1`** (result field `canReadDiagnostics: true`):
 

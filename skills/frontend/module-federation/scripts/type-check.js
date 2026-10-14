@@ -46,6 +46,22 @@ function parseJsonc(text) {
   return JSON.parse(withoutComments);
 }
 
+// A producer publishes @mf-types.zip / @mf-types.d.ts in the bundler output dir; the project-root
+// @mf-types folder only holds types consumed from remotes (and is deleted after generation by default).
+const PRODUCER_OUTPUT_DIRS = ['dist', 'build', 'output', '.output'];
+const PRODUCER_TYPE_FILES = ['@mf-types.zip', '@mf-types.d.ts'];
+
+function findProducerTypeArtifacts(projectRoot) {
+  const found = [];
+  for (const dir of PRODUCER_OUTPUT_DIRS) {
+    for (const file of PRODUCER_TYPE_FILES) {
+      const artifactPath = path.join(projectRoot, dir, file);
+      if (fs.existsSync(artifactPath)) found.push(artifactPath);
+    }
+  }
+  return found;
+}
+
 function main(ctx) {
   const projectRoot = ctx.project && ctx.project.root;
   const mfRole = (ctx.project && ctx.project.mfRole) || 'unknown';
@@ -124,11 +140,13 @@ function main(ctx) {
       canReadDiagnostics = canReadDiagnostics || diagnosticsExists;
     }
 
+    const producerArtifacts = isProducer ? findProducerTypeArtifacts(projectRoot) : [];
+
     const typeGenFailedResult = {
       code: 'TYPE-001',
       severity: 'error',
       scenario: 'TYPE_GENERATION_FAILED',
-      message: '@mf-types directory not found. Type generation may have failed on the producer side.',
+      message: `No producer type artifacts found (${PRODUCER_TYPE_FILES.join(' or ')} in ${PRODUCER_OUTPUT_DIRS.join(', ')}). Type generation may have failed on the producer side.`,
       canReadDiagnostics,
       context: {},
     };
@@ -142,8 +160,19 @@ function main(ctx) {
     }
 
     // A missing @mf-types means different things depending on which side of the federation this is.
-    if (isProducer) {
+    // The producer's own output is checked separately from consumed types: @mf-types at the root is not it.
+    if (isProducer && producerArtifacts.length === 0) {
       results.push(typeGenFailedResult);
+    }
+
+    if (isProducer && producerArtifacts.length > 0) {
+      results.push({
+        code: 'TYPE-001',
+        severity: 'info',
+        scenario: 'PRODUCER_TYPES_PUBLISHED',
+        message: 'Producer type artifacts found in the build output. A missing root @mf-types folder is expected.',
+        context: { producerArtifacts },
+      });
     }
 
     if (isConsumer) {
