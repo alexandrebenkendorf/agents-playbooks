@@ -362,6 +362,16 @@ When asking AI assistants for help, reference the specific skill:
 
 ---
 
+## Codex Review on Push
+
+A tracked `pre-push` hook (`.githooks/pre-push`) sends the diff of the commits being pushed to `codex review` and blocks the push when Codex reports findings (`[P0]`-`[P3]`) or fails to run.
+
+- Enable once per clone: `git config core.hooksPath .githooks`
+- Requires the `codex` CLI, logged in
+- Bypass for a single push: `SKIP_CODEX_REVIEW=1 git push`
+
+---
+
 ## Project Commands
 
 ```bash

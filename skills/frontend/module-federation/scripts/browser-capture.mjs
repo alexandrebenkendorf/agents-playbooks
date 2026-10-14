@@ -560,7 +560,12 @@ if (clickTarget) {
             returnByValue: true,
           });
         }
-        await waitAfterAction(effectiveActionWait, actionWaitBudgetMs);
+        const readyBudgetLeft = readyDeadline - Date.now();
+        if (effectiveActionWait !== 'none' && readyState?.result?.value === 'loading' && readyBudgetLeft <= 0) {
+          lastWait = { earlyStop: false, timedOut: true };
+        } else {
+          await waitAfterAction(effectiveActionWait, Math.max(0, readyBudgetLeft));
+        }
         tabTransition = {
           fromTabId,
           toTabId,

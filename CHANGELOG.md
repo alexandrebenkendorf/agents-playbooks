@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- `module-federation/scripts/tests/`: `node --test` coverage for `module-info.js` URL parsing/redirects and the `browser-capture.mjs` destination-tab wait
+- `.githooks/pre-push`: Codex review of pushed commits, blocking on findings (documented in `DEVELOPMENT.md`)
 - `design/*` skills (16) and `tooling/playwright-cli`, vendored from upstream
   - `design/awesome-design-md` (VoltAgent, 84 brand DESIGN.md files), `design/web-design-guidelines`
     (Vercel; rules snapshot in `rules.md` with `update.sh` and `FETCH_LOG.md`), and the Taste Skill pack

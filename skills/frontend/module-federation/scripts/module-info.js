@@ -188,14 +188,18 @@ async function main(ctx, moduleName, explicitUrl) {
   process.stdout.write(JSON.stringify({ result }, null, 2) + '\n');
 }
 
-const args = parseArgs(process.argv);
+module.exports = { extractRemoteUrl, fetchJson };
 
-if (!args.module) {
-  process.stderr.write('Error: --module <module-name> is required\n');
-  process.exit(1);
+if (require.main === module) {
+  const args = parseArgs(process.argv);
+
+  if (!args.module) {
+    process.stderr.write('Error: --module <module-name> is required\n');
+    process.exit(1);
+  }
+
+  main(JSON.parse(args.context || '{}'), args.module, args.url || null).catch((err) => {
+    process.stderr.write(`Error: ${err.message}\n`);
+    process.exit(1);
+  });
 }
-
-main(JSON.parse(args.context || '{}'), args.module, args.url || null).catch((err) => {
-  process.stderr.write(`Error: ${err.message}\n`);
-  process.exit(1);
-});
