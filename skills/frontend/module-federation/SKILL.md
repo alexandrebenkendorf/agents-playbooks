@@ -12,11 +12,11 @@ Throughout this skill and its reference files, `<skill-dir>` means **the directo
 SKILL.md**. Resolve it once and substitute it into every path. Depending on how the playbook was
 integrated it is one of:
 
-| Layout                               | `<skill-dir>`                                                     |
-| ------------------------------------ | ----------------------------------------------------------------- |
-| This repository                      | `skills/frontend/module-federation`                               |
-| Consumer, git subtree / simple clone | `.agents/agents-playbooks/skills/frontend/module-federation`      |
-| Consumer, local override             | `.agents/local/skills/frontend/module-federation`                 |
+| Layout                               | `<skill-dir>`                                                |
+| ------------------------------------ | ------------------------------------------------------------ |
+| This repository                      | `skills/frontend/module-federation`                          |
+| Consumer, git subtree / simple clone | `.agents/agents-playbooks/skills/frontend/module-federation` |
+| Consumer, local override             | `.agents/local/skills/frontend/module-federation`            |
 
 ## Step 1: Identify the sub-skill
 
@@ -38,19 +38,19 @@ Parse `$ARGUMENTS` and map to a reference file in the `reference/` directory (sa
 
 **If no explicit sub-command is found**, detect intent from the full input:
 
-| Signal in input                                                                                                                                                             | Reference file               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| Question about MF concepts, API, configuration options                                                                                                                      | `reference/docs.md`          |
-| "integrate", "add MF", "setup", "scaffold", "new project"                                                                                                                   | `reference/integrate.md`     |
-| "type error", "TS error", "@mf-types", "dts", "typescript"                                                                                                                  | `reference/type-check.md`    |
+| Signal in input                                                                                                                                                              | Reference file               |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| Question about MF concepts, API, configuration options                                                                                                                       | `reference/docs.md`          |
+| "integrate", "add MF", "setup", "scaffold", "new project"                                                                                                                    | `reference/integrate.md`     |
+| "type error", "TS error", "@mf-types", "dts", "typescript"                                                                                                                   | `reference/type-check.md`    |
 | "runtime-only remotes", "registerRemotes", "loadRemote types", "remoteTypeUrls", "fetch types", "mf dts", "generateTypes false", "consume types only", "NODE_EXTRA_CA_CERTS" | `reference/runtime-types.md` |
-| "shared", "singleton", "duplicate", "antd", "transformImport"                                                                                                               | `reference/shared-deps.md`   |
-| "slow", "HMR", "performance", "build speed", "ts-go", "remoteHmr", "fast refresh", "preamble"                                                                              | `reference/perf.md`          |
-| "plugin", "asyncStartup", "exposes key", "config"                                                                                                                           | `reference/config-check.md`  |
-| "bridge", "sub-app", "export-app", "createRemoteAppComponent"                                                                                                               | `reference/bridge-check.md`  |
-| "RUNTIME-001", "RUNTIME-008", "runtime error code", "remote entry load failed", "ScriptNetworkError", "ScriptExecutionError", "container missing", "window[remoteEntryKey]" | `reference/runtime-error.md` |
-| "manifest", "remoteEntry URL", "module info", "publicPath"                                                                                                                  | `reference/module-info.md`   |
-| "context", "what is configured", "MF role", "bundler"                                                                                                                       | `reference/context.md`       |
+| "shared", "singleton", "duplicate", "antd", "transformImport"                                                                                                                | `reference/shared-deps.md`   |
+| "slow", "HMR", "performance", "build speed", "ts-go", "remoteHmr", "fast refresh", "preamble"                                                                                | `reference/perf.md`          |
+| "plugin", "asyncStartup", "exposes key", "config"                                                                                                                            | `reference/config-check.md`  |
+| "bridge", "sub-app", "export-app", "createRemoteAppComponent"                                                                                                                | `reference/bridge-check.md`  |
+| "RUNTIME-001", "RUNTIME-008", "runtime error code", "remote entry load failed", "ScriptNetworkError", "ScriptExecutionError", "container missing", "window[remoteEntryKey]"  | `reference/runtime-error.md` |
+| "manifest", "remoteEntry URL", "module info", "publicPath"                                                                                                                   | `reference/module-info.md`   |
+| "context", "what is configured", "MF role", "bundler"                                                                                                                        | `reference/context.md`       |
 
 If still ambiguous, show the user the sub-command table above and ask them to pick.
 

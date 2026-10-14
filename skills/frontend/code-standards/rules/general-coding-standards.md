@@ -75,23 +75,23 @@ function createBooking(
   checkIn: Date,
   checkOut: Date,
   price: number,
-  currency: string
+  currency: string,
 ) {
   // ...
 }
 
 // ✅ Do
 interface CreateBookingOptions {
-  memberId: string
-  unitId: string
-  checkIn: Date
-  checkOut: Date
-  price: number
-  currency: string
+  memberId: string;
+  unitId: string;
+  checkIn: Date;
+  checkOut: Date;
+  price: number;
+  currency: string;
 }
 
 function createBooking(options: CreateBookingOptions) {
-  const { memberId, unitId, checkIn, checkOut, price, currency } = options
+  const { memberId, unitId, checkIn, checkOut, price, currency } = options;
   // ...
 }
 ```
@@ -158,33 +158,33 @@ function getDiscountedPrice(price: number, discount?: number) {
   if (discount != null) {
     if (discount > 0) {
       if (discount < 1) {
-        return price * (1 - discount)
+        return price * (1 - discount);
       } else {
-        return 0
+        return 0;
       }
     } else {
-      return price
+      return price;
     }
   } else {
-    return price
+    return price;
   }
 }
 
 // ✅ Early returns
 function getDiscountedPrice(price: number, discount?: number) {
   if (discount == null) {
-    return price
+    return price;
   }
 
   if (discount <= 0) {
-    return price
+    return price;
   }
 
   if (discount >= 1) {
-    return 0
+    return 0;
   }
 
-  return price * (1 - discount)
+  return price * (1 - discount);
 }
 ```
 
@@ -196,31 +196,31 @@ In 99% of cases, you don't need `else` if you use early returns properly.
 // ❌ Don't chain if/else
 function getUserRole(user: User): string {
   if (user.isAdmin) {
-    return 'admin'
+    return 'admin';
   } else if (user.isModerator) {
-    return 'moderator'
+    return 'moderator';
   } else if (user.isPremium) {
-    return 'premium'
+    return 'premium';
   } else {
-    return 'user'
+    return 'user';
   }
 }
 
 // ✅ Do use early returns (no else needed)
 function getUserRole(user: User): string {
   if (user.isAdmin) {
-    return 'admin'
+    return 'admin';
   }
 
   if (user.isModerator) {
-    return 'moderator'
+    return 'moderator';
   }
 
   if (user.isPremium) {
-    return 'premium'
+    return 'premium';
   }
 
-  return 'user'
+  return 'user';
 }
 ```
 
@@ -254,22 +254,22 @@ Declare variables as close as possible to where they are used.
 ```ts
 // ❌ Don't declare early
 function processOrder(orderId: string) {
-  const userId = getCurrentUserId()
-  const timestamp = Date.now()
-  const logger = getLogger()
+  const userId = getCurrentUserId();
+  const timestamp = Date.now();
+  const logger = getLogger();
 
   // ... 20 lines of other code
 
   // userId finally used here
-  const order = getOrder(orderId, userId)
+  const order = getOrder(orderId, userId);
 }
 
 // ✅ Do declare close to usage
 function processOrder(orderId: string) {
   // ... other code
 
-  const userId = getCurrentUserId()
-  const order = getOrder(orderId, userId)
+  const userId = getCurrentUserId();
+  const order = getOrder(orderId, userId);
 }
 ```
 
@@ -283,12 +283,14 @@ Don't write multiple variable declarations on the same line.
 
 ```ts
 // ❌ Don't
-const x = 1, y = 2, z = 3
+const x = 1,
+  y = 2,
+  z = 3;
 
 // ✅ Do
-const x = 1
-const y = 2
-const z = 3
+const x = 1;
+const y = 2;
+const z = 3;
 ```
 
 ### Blank Lines in Functions
@@ -298,21 +300,21 @@ Don't add blank lines inside functions/methods. Keep flow tight and readable.
 ```ts
 // ❌ Don't
 function calculateTotal(items: Item[]) {
-  const subtotal = items.reduce((sum, item) => sum + item.price, 0)
+  const subtotal = items.reduce((sum, item) => sum + item.price, 0);
 
-  const tax = subtotal * 0.21
+  const tax = subtotal * 0.21;
 
-  const total = subtotal + tax
+  const total = subtotal + tax;
 
-  return total
+  return total;
 }
 
 // ✅ Do
 function calculateTotal(items: Item[]) {
-  const subtotal = items.reduce((sum, item) => sum + item.price, 0)
-  const tax = subtotal * 0.21
-  const total = subtotal + tax
-  return total
+  const subtotal = items.reduce((sum, item) => sum + item.price, 0);
+  const tax = subtotal * 0.21;
+  const total = subtotal + tax;
+  return total;
 }
 ```
 
@@ -359,7 +361,7 @@ function retryRequest() {
 }
 
 // ✅ Do
-const MAX_RETRY_ATTEMPTS = 3
+const MAX_RETRY_ATTEMPTS = 3;
 
 function retryRequest() {
   for (let attempt = 0; attempt < MAX_RETRY_ATTEMPTS; attempt += 1) {

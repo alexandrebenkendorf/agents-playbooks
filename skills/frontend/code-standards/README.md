@@ -13,28 +13,33 @@ Comprehensive coding standards for TypeScript, JavaScript, and React development
 ## Categories
 
 ### 1. Naming Conventions
+
 - React component naming
 - TypeScript naming
 - DDD (Domain-Driven Design) naming
 
 ### 2. General Standards
+
 - Function design
 - Control flow optimization
 - DRY principles
 
 ### 3. TypeScript Best Practices
+
 - Type safety
 - Type inference
 - Interface vs Type
 - Generics usage
 
 ### 4. Clean Code Principles
+
 - Meaningful names
 - Functions should do one thing
 - Error handling with exceptions
 - Comments and documentation
 
 ### 5. SOLID Principles
+
 - Single Responsibility Principle (SRP)
 - Open/Closed Principle (OCP)
 - Liskov Substitution Principle (LSP)
@@ -42,18 +47,21 @@ Comprehensive coding standards for TypeScript, JavaScript, and React development
 - Dependency Inversion Principle (DIP)
 
 ### 6. Clean Architecture
+
 - Layers and boundaries
 - Entities and use cases
 - Adapters and frameworks
 - Dependency rules
 
 ### 7. Performance Optimization
+
 - DOM performance
 - Caching strategies
 - Data structures
 - Array optimization
 
 ### 8. Helper Functions
+
 - Formatters (dates, currency, strings)
 - Validators (email, URLs, inputs)
 - Parsers (JSON, URLs, data transformation)
@@ -77,6 +85,7 @@ Comprehensive coding standards for TypeScript, JavaScript, and React development
 ## Usage
 
 Reference this skill when:
+
 - Writing new code
 - Reviewing code
 - Refactoring existing code

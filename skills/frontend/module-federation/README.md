@@ -8,12 +8,12 @@ Module Federation team, with paths and references adapted to this playbook.
 
 ## What it covers
 
-| Sub-command     | Purpose                                                                     |
-| --------------- | --------------------------------------------------------------------------- |
+| Sub-command     | Purpose                                                                      |
+| --------------- | ---------------------------------------------------------------------------- |
 | `docs`          | Answer MF questions by fetching only the relevant page from `llms.txt`       |
 | `context`       | Collect the project's MF context (bundler, role, config, deps, artifacts)    |
 | `module-info`   | Inspect a remote's manifest — publicPath, remoteEntry, types, exposes        |
-| `integrate`     | Add provider / consumer MF config to an existing project                    |
+| `integrate`     | Add provider / consumer MF config to an existing project                     |
 | `type-check`    | Diagnose `@mf-types`, DTS generation, and tsconfig `paths` problems          |
 | `runtime-types` | Fetch `@mf-types` when remotes are registered at runtime only                |
 | `shared-deps`   | Detect shared/externals conflicts, `transformImport` breakage, multi-version |

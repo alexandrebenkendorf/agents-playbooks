@@ -102,11 +102,11 @@ it can work at all depends on how the remote's dev server serves code.
 
 ### Requirements
 
-| Host bundler          | Remote bundler   | Remote HMR                                                       |
-| --------------------- | ---------------- | ---------------------------------------------------------------- |
-| Vite                  | Vite             | ✅ Works — **only** if the React refresh toolchain matches (below) |
-| Vite                  | Rspack / Webpack | ❌ Not supported                                                   |
-| Rspack / Webpack      | any              | ✅ Works — no toolchain alignment needed                           |
+| Host bundler     | Remote bundler   | Remote HMR                                                         |
+| ---------------- | ---------------- | ------------------------------------------------------------------ |
+| Vite             | Vite             | ✅ Works — **only** if the React refresh toolchain matches (below) |
+| Vite             | Rspack / Webpack | ❌ Not supported                                                   |
+| Rspack / Webpack | any              | ✅ Works — no toolchain alignment needed                           |
 
 ### Why
 
@@ -125,7 +125,7 @@ it can work at all depends on how the remote's dev server serves code.
 
 Pin these to the **same version** in the host and every remote:
 
-- `@vitejs/plugin-react`  ← the one that actually breaks refresh when it drifts
+- `@vitejs/plugin-react` ← the one that actually breaks refresh when it drifts
 - `vite`
 - `@module-federation/vite` — keep aligned as well; the manifest/shared handling changes between
   minors, and a host on `1.20.x` against a remote on `1.21.x` is a real source of drift
@@ -149,4 +149,3 @@ If the remote is not Vite, or the toolchains cannot be aligned, do not fight it.
 
 - run the host on Rspack for local development, which HMRs against any remote, or
 - accept a rebuild-and-refresh loop for remote changes and keep HMR for host-local code only
-

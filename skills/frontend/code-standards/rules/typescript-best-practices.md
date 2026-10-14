@@ -13,11 +13,11 @@ Prefer `unknown` with type assertions over `any` for better type safety.
 ```ts
 // ✅ Do - Use unknown with type assertion
 const fileUpload = element.querySelector('.file-upload') as unknown as {
-  dropzone: { files: unknown[] }
-}
+  dropzone: { files: unknown[] };
+};
 
 // ❌ Don't - Using any
-const fileUpload = element.querySelector('.file-upload') as any
+const fileUpload = element.querySelector('.file-upload') as any;
 ```
 
 **Rule of thumb:**
@@ -43,20 +43,20 @@ Avoid explicit return types for **internal implementation** functions. Let TypeS
 ```ts
 // ❌ Don't (usually unnecessary for internal code)
 function calculateTotal(items: Item[]): number {
-  return items.reduce((sum, item) => sum + item.price, 0)
+  return items.reduce((sum, item) => sum + item.price, 0);
 }
 
 function logMessage(message: string): void {
-  console.log(message)
+  console.log(message);
 }
 
 // ✅ Do
 function calculateTotal(items: Item[]) {
-  return items.reduce((sum, item) => sum + item.price, 0)
+  return items.reduce((sum, item) => sum + item.price, 0);
 }
 
 function logMessage(message: string) {
-  console.log(message)
+  console.log(message);
 }
 ```
 
@@ -230,9 +230,7 @@ When you have a type guard function, use it to both narrow types AND validate, a
 ```ts
 // Type guard function
 function isTrackedElement(el: unknown): el is TrackedElement {
-  return el instanceof HTMLInputElement ||
-         el instanceof HTMLSelectElement ||
-         el instanceof HTMLTextAreaElement;
+  return el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement;
 }
 
 // ❌ Don't - Redundant checks

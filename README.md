@@ -25,6 +25,7 @@ Reusable AI agent skills for modern frontend development with React, TypeScript,
 #### Framework-Agnostic
 
 **[`frontend/code-standards`](./skills/frontend/code-standards/)**
+
 - Naming conventions (React, TypeScript, DDD)
 - General coding standards (functions, control flow, DRY)
 - TypeScript best practices (type safety, inference, interface vs type)
@@ -38,6 +39,7 @@ Reusable AI agent skills for modern frontend development with React, TypeScript,
 
 **[`frontend/react-best-practices`](./skills/frontend/react-best-practices/)**  
 Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-skills)
+
 - 57 performance optimization rules across 8 categories
 - Eliminating waterfalls (async patterns, Suspense)
 - Bundle size optimization (dynamic imports, tree-shaking)
@@ -45,6 +47,7 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 - Re-render optimization (memo, state management)
 
 **[`frontend/react-component-structure`](./skills/frontend/react-component-structure/)**
+
 - Function declarations vs const (avoid React.FC)
 - Single Responsibility Principle for components
 - File organization patterns
@@ -52,6 +55,7 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 - Anti-patterns (god components, mixing concerns)
 
 **[`frontend/react-testing`](./skills/frontend/react-testing/)**
+
 - Vitest + React Testing Library patterns
 - Creating new tests (AAA pattern, it.each)
 - Legacy refactoring (Sinon → Vitest migration)
@@ -62,6 +66,7 @@ Vendored from [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-sk
 
 **[`frontend/module-federation`](./skills/frontend/module-federation/)**  
 Vendored from the official [Module Federation `mf` skill](https://module-federation.io/ai/skill)
+
 - Docs lookup that fetches only the relevant pages (no full-doc dumps)
 - Project context detection (bundler, MF role, config, build artifacts)
 - Integration into Rsbuild / Modern.js / Rspack / Webpack / Vite / Next.js
@@ -72,6 +77,7 @@ Vendored from the official [Module Federation `mf` skill](https://module-federat
 ### Git
 
 **[`git/commit-conventions`](./skills/git/commit-conventions/)**
+
 - Conventional commit format with Jira tickets
 - Generic `<PREFIX>-<number>` format (configurable per project)
 - Atomic commit guidance
@@ -80,56 +86,73 @@ Vendored from the official [Module Federation `mf` skill](https://module-federat
 ### Design
 
 **[`design/awesome-design-md`](./skills/design/awesome-design-md/)**
+
 - 84 brand DESIGN.md design-system references (colors, type, spacing, components) for building UI like a named site
 
 **[`design/web-design-guidelines`](./skills/design/web-design-guidelines/)**
+
 - Review UI code against Vercel's Web Interface Guidelines; rules vendored in `rules.md`, refreshed weekly or on demand with `update.sh`, logged in `FETCH_LOG.md`
 
 **[`design/design-taste-frontend`](./skills/design/design-taste-frontend/)**
+
 - Taste Skill v2 default: anti-slop art direction for marketing and public pages (not for dashboards or app screens); scripts need Node 22+ and Chrome/Edge
 
 **[`design/design-taste-frontend-v1`](./skills/design/design-taste-frontend-v1/)**
+
 - Taste Skill v1, legacy original
 
 **[`design/design-taste-frontend-v2-experimental`](./skills/design/design-taste-frontend-v2-experimental/)**
+
 - Taste Skill earlier experimental v2, single-file dial-driven version
 
 **[`design/gpt-taste`](./skills/design/gpt-taste/)**
+
 - Stricter taste variant tuned for GPT/Codex (GSAP motion, AIDA structure)
 
 **[`design/redesign-existing-projects`](./skills/design/redesign-existing-projects/)**
+
 - Audit an existing site or app and upgrade it without breaking functionality
 
 **[`design/full-output-enforcement`](./skills/design/full-output-enforcement/)**
+
 - Complete output only: no placeholders, clean handling of token-limit splits
 
 **[`design/image-to-code`](./skills/design/image-to-code/)**
+
 - Generate design images first, analyze them, then implement the site to match (needs an image-generation tool)
 
 **[`design/high-end-visual-design`](./skills/design/high-end-visual-design/)**
+
 - Style variant: high-end agency look (fonts, spacing, shadows, motion)
 
 **[`design/minimalist-ui`](./skills/design/minimalist-ui/)**
+
 - Style variant: clean editorial, warm monochrome, flat bento grids
 
 **[`design/industrial-brutalist-ui`](./skills/design/industrial-brutalist-ui/)**
+
 - Style variant: Swiss print meets military terminal, rigid grids
 
 **[`design/stitch-design-taste`](./skills/design/stitch-design-taste/)**
+
 - Google Stitch-compatible rules with a DESIGN.md export
 
 **[`design/imagegen-frontend-web`](./skills/design/imagegen-frontend-web/)**
+
 - Image generation: one design reference image per web section; images only, no code
 
 **[`design/imagegen-frontend-mobile`](./skills/design/imagegen-frontend-mobile/)**
+
 - Image generation: premium mobile app screen concepts; images only, no code
 
 **[`design/brandkit`](./skills/design/brandkit/)**
+
 - Image generation: brand-guidelines boards and logo systems
 
 ### Tooling
 
 **[`tooling/playwright-cli`](./skills/tooling/playwright-cli/)**
+
 - Drive a real browser to see the app (open, snapshot, screenshot, click through); needs `npm i -g @playwright/cli` and `playwright-cli install-browser`
 
 ---
@@ -209,6 +232,7 @@ cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ```
 
 **Update skills:**
+
 ```bash
 git subtree pull --prefix=.agents/agents-playbooks \
   https://github.com/alexandrebenkendorf/agents-playbooks.git main --squash
@@ -238,6 +262,7 @@ cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 ✅ **Done!** You can now customize the files and commit when ready.
 
 **Trade-offs:**
+
 - ✅ Simpler initial setup
 - ✅ Full ownership - edit skills directly
 - ✅ No subtree complexity
@@ -246,6 +271,7 @@ cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 - ❌ Harder to contribute back
 
 **Update skills (manual):**
+
 ```bash
 # Backup your customizations
 cp -r .agents/agents-playbooks .agents/agents-playbooks.backup
@@ -261,13 +287,13 @@ rm -rf .agents/agents-playbooks/.git
 
 #### Comparison
 
-| Feature | Git Subtree | Simple Clone |
-|---------|-------------|--------------|
-| **Setup** | Complex | Simple |
-| **Updates** | Automatic merge | Manual copy |
-| **Customization** | `.agents/local/skills/` overrides | Direct editing |
-| **Contributing back** | Structured workflow | Manual PR |
-| **Best for** | Production, team projects | Prototypes, solo experiments |
+| Feature               | Git Subtree                       | Simple Clone                 |
+| --------------------- | --------------------------------- | ---------------------------- |
+| **Setup**             | Complex                           | Simple                       |
+| **Updates**           | Automatic merge                   | Manual copy                  |
+| **Customization**     | `.agents/local/skills/` overrides | Direct editing               |
+| **Contributing back** | Structured workflow               | Manual PR                    |
+| **Best for**          | Production, team projects         | Prototypes, solo experiments |
 
 Choose **git subtree** if you want to stay synced with upstream and contribute improvements.  
 Choose **simple clone** if you want full control and don't need automatic updates.
@@ -295,6 +321,7 @@ git subtree pull --prefix=.agents/agents-playbooks \
 #### Consumer Project Structure
 
 **Git Subtree Structure:**
+
 ```
 your-project/
 ├── .agents/
@@ -309,6 +336,7 @@ your-project/
 ```
 
 **Simple Clone Structure:**
+
 ```
 your-project/
 ├── .agents/
@@ -320,6 +348,7 @@ your-project/
 ```
 
 **Benefits:**
+
 - ✅ Automatic updates via subtree pull (Option 1)
 - ✅ Safe local overrides in `.agents/local/skills/` (Option 1)
 - ✅ Explicit promotion workflow (Option 1)
@@ -336,7 +365,7 @@ your-project/
 
 Create `README.md` in your project with configuration:
 
-```markdown
+````markdown
 # Project Agent Skills
 
 Base skills synced from: [agents-playbook](https://github.com/alexandrebenkendorf/agents-playbook)
@@ -358,6 +387,7 @@ cp .agents/agents-playbooks/AGENTS.md ./AGENTS.md
 cp .agents/agents-playbooks/DEVELOPMENT.md ./DEVELOPMENT.md
 # Reapply your customizations
 ```
+````
 
 ## Local Overrides
 
@@ -378,7 +408,8 @@ cp -r .agents/agents-playbooks/skills/frontend/react-testing \
 3. Open PR to agents-playbook
 4. After merge: `git subtree pull ...`
 5. Remove local override
-```
+
+````
 
 Update `AGENTS.md` in your project (copied from base):
 
@@ -390,13 +421,14 @@ Update `AGENTS.md` in your project (copied from base):
 4. Existing code and comments
 
 If instructions conflict, follow the higher-precedence source.
-```
+````
 
 ### Consumer `.agents/README.md`
 
 If `.agents/README.md` exists, update it with the integration instructions and catalog from this README. If it does not exist, create it with the catalog and update instructions.
 
 Recommended contents:
+
 1. Integration method used (subtree or clone) and the update command.
 1. Skills catalog copied from `.agents/agents-playbooks/README.md` with links updated to `.agents/agents-playbooks/skills/...`.
 1. Local overrides guidance for `.agents/local/skills/`.
@@ -431,6 +463,7 @@ Use these templates to maintain consistency across all skills.
 ### Creating a New Skill
 
 1. **Create skill directory:**
+
    ```bash
    mkdir -p skills/<category>/<skill-name>
    ```
@@ -440,6 +473,7 @@ Use these templates to maintain consistency across all skills.
    - `SKILL.md` - Quick reference with frontmatter
 
 3. **For multi-rule skills, add rules directory:**
+
    ```bash
    mkdir skills/<category>/<skill-name>/rules
    cp templates/_template.md skills/<category>/<skill-name>/rules/
@@ -452,6 +486,7 @@ Use these templates to maintain consistency across all skills.
    - Include clear examples and impact levels
 
 **SKILL.md frontmatter:**
+
 ```yaml
 ---
 name: skill-name
@@ -511,37 +546,38 @@ If you developed a useful skill in a consumer project's `.agents/local/skills/`:
 
 ## 📖 Skill Breakdown
 
-| Skill | Files | Lines | Token-Optimized? |
-|-------|-------|-------|------------------|
-| **frontend/code-standards** | 16 files | ~2,500 | ✅ Yes (modular by topic) |
-| **frontend/module-federation** | 19 files | ~1,900 | ✅ Yes (on-demand sub-skills) |
-| **frontend/react-best-practices** | 47 files | ~3,000 | ✅ Yes (vendored, modular) |
-| **frontend/react-component-structure** | 1 file | ~300 | ✅ Yes (focused single file) |
-| **frontend/react-testing** | 4 files | ~800 | ✅ Yes (task-specific routing) |
-| **git/commit-conventions** | 1 file | ~200 | ✅ Yes (focused single file) |
-| **design/awesome-design-md** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/web-design-guidelines** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/design-taste-frontend** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/design-taste-frontend-v1** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/design-taste-frontend-v2-experimental** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/gpt-taste** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/redesign-existing-projects** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/full-output-enforcement** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/image-to-code** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/high-end-visual-design** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/minimalist-ui** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/industrial-brutalist-ui** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/stitch-design-taste** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/imagegen-frontend-web** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/imagegen-frontend-mobile** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **design/brandkit** | see folder | n/a | ✅ Yes (loaded on demand) |
-| **tooling/playwright-cli** | see folder | n/a | ✅ Yes (loaded on demand) |
+| Skill                                            | Files      | Lines  | Token-Optimized?               |
+| ------------------------------------------------ | ---------- | ------ | ------------------------------ |
+| **frontend/code-standards**                      | 16 files   | ~2,500 | ✅ Yes (modular by topic)      |
+| **frontend/module-federation**                   | 19 files   | ~1,900 | ✅ Yes (on-demand sub-skills)  |
+| **frontend/react-best-practices**                | 47 files   | ~3,000 | ✅ Yes (vendored, modular)     |
+| **frontend/react-component-structure**           | 1 file     | ~300   | ✅ Yes (focused single file)   |
+| **frontend/react-testing**                       | 4 files    | ~800   | ✅ Yes (task-specific routing) |
+| **git/commit-conventions**                       | 1 file     | ~200   | ✅ Yes (focused single file)   |
+| **design/awesome-design-md**                     | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/web-design-guidelines**                 | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/design-taste-frontend**                 | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/design-taste-frontend-v1**              | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/design-taste-frontend-v2-experimental** | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/gpt-taste**                             | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/redesign-existing-projects**            | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/full-output-enforcement**               | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/image-to-code**                         | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/high-end-visual-design**                | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/minimalist-ui**                         | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/industrial-brutalist-ui**               | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/stitch-design-taste**                   | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/imagegen-frontend-web**                 | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/imagegen-frontend-mobile**              | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **design/brandkit**                              | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **tooling/playwright-cli**                       | see folder | n/a    | ✅ Yes (loaded on demand)      |
 
 ---
 
 ## 🔄 Version History
 
 ### v1.0.0 (Initial Release)
+
 - Frontend code standards (TypeScript, Clean Code, SOLID, Clean Architecture)
 - React best practices (vendored from Vercel Labs)
 - React component structure

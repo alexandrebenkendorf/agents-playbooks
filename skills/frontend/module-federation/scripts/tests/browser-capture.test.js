@@ -41,7 +41,18 @@ async function run(destReadyState, timeoutMs) {
     json: async () => (url.endsWith('/json/list') ? (++listCalls <= 2 ? [tabA] : [tabA, tabB]) : {}),
   });
   const fakeProcess = {
-    argv: ['node', 'script', '--tab-id', 'a', '--click', 'open', '--action-wait', 'domcontentloaded', 'unused', String(timeoutMs)],
+    argv: [
+      'node',
+      'script',
+      '--tab-id',
+      'a',
+      '--click',
+      'open',
+      '--action-wait',
+      'domcontentloaded',
+      'unused',
+      String(timeoutMs),
+    ],
     stderr: { write() {} },
     stdout: { write: (s) => (output += s) },
     version: process.version,

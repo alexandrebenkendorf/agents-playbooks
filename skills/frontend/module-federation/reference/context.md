@@ -84,28 +84,28 @@ every check script via `--context`:
     "root": "/absolute/path/to/project", // required by config-check and type-check
     "name": "my-app",
     "packageManager": "pnpm",
-    "mfRole": "host" // host | remote | host+remote | unknown
+    "mfRole": "host", // host | remote | host+remote | unknown
   },
   "bundler": {
     "name": "rsbuild", // rsbuild | rspack | webpack | vite | modernjs | nextjs | unknown
     "configFile": "module-federation.config.ts",
     "bundlerConfigFile": "rsbuild.config.ts",
     "experiments": {
-      "asyncStartup": null // true | false | null (null = could not determine)
-    }
+      "asyncStartup": null, // true | false | null (null = could not determine)
+    },
   },
   "mfConfig": {
     "remotes": {},
     "exposes": {},
     "shared": {},
-    "externals": {} // object or array; {} when absent
+    "externals": {}, // object or array; {} when absent
   },
   "dependencies": {}, // flat map of dependencies + devDependencies
   "latestErrorEvent": null, // contents of .mf/diagnostics/latest.json, if present
   "buildArtifacts": {
     "mfManifest": null, // contents of dist/mf-manifest.json, if present
-    "mfStats": null // contents of dist/mf-stats.json, if present
-  }
+    "mfStats": null, // contents of dist/mf-stats.json, if present
+  },
 }
 ```
 

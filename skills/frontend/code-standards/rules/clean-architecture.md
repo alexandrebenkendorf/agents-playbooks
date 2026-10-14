@@ -49,7 +49,7 @@ export class User {
   constructor(
     public readonly id: string,
     public readonly email: string,
-    private passwordHash: string
+    private passwordHash: string,
   ) {}
 
   verifyPassword(password: string): boolean {
@@ -131,7 +131,7 @@ export interface EmailService {
 export class RegisterUserUseCase {
   constructor(
     private userRepository: UserRepository,
-    private emailService: EmailService
+    private emailService: EmailService,
   ) {}
 
   async execute(email: string, password: string): Promise<User> {
@@ -195,7 +195,11 @@ export class UserRepositoryImpl implements UserRepository {
 
   async save(user: User): Promise<void> {
     // Convert domain entity to database format
-    await db.query('INSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)', [user.id, user.email, user['passwordHash']]);
+    await db.query('INSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)', [
+      user.id,
+      user.email,
+      user['passwordHash'],
+    ]);
   }
 }
 ```
@@ -264,15 +268,8 @@ export function RegisterForm({ registerUserUseCase }: RegisterFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <input value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button type="submit">Register</button>
       {error && <p>{error}</p>}
     </form>
@@ -337,15 +334,19 @@ Switch databases without touching business logic.
 
 ```ts
 // PostgreSQL implementation
-class PostgresUserRepository implements UserRepository { /* ... */ }
+class PostgresUserRepository implements UserRepository {
+  /* ... */
+}
 
 // MongoDB implementation
-class MongoUserRepository implements UserRepository { /* ... */ }
+class MongoUserRepository implements UserRepository {
+  /* ... */
+}
 
 // Use case doesn't care!
-const useCase = new RegisterUserUseCase(postgresRepo, emailService)
+const useCase = new RegisterUserUseCase(postgresRepo, emailService);
 // OR
-const useCase = new RegisterUserUseCase(mongoRepo, emailService)
+const useCase = new RegisterUserUseCase(mongoRepo, emailService);
 ```
 
 ### 4. UI Independence

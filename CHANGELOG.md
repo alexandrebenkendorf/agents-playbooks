@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Prettier config (`.prettierrc`, `.prettierignore`) and local format/syntax/test checks in the pre-push hook; repo formatted once
 - `module-federation/scripts/tests/`: `node --test` coverage for `module-info.js` URL parsing/redirects and the `browser-capture.mjs` destination-tab wait
 - `.githooks/pre-push`: Codex review of pushed commits, blocking on findings (documented in `DEVELOPMENT.md`)
 - `design/*` skills (16) and `tooling/playwright-cli`, vendored from upstream
@@ -31,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     serve compiled output and interoperate with any remote
 
 ### Fixed
+
 - `frontend/module-federation` `module-info.js`: keep `@` inside remote URLs and resolve resources from the manifest URL after redirects; `browser-capture.mjs`: apply the action wait on the destination tab after following a new tab
 - `frontend/module-federation` `module-info.js`: read the `entry` field of object-form (Vite) remotes; `browser-capture.mjs`: track unique request IDs so redirects do not leave network-idle waiting
 - `frontend/module-federation` `module-info.js`: classify manifest URLs by pathname (query strings kept for fetching); `browser-capture.mjs`: clear the network-idle timeout once idle is reached
@@ -58,6 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **module-federation**: `type-check` converted to CommonJS, tolerates JSONC `tsconfig.json`, and reports producer vs consumer type scenarios based on `mfRole`
 
 ### Planned
+
 - Additional framework support (upon request)
 - Additional performance patterns
 - Backend/API testing patterns
@@ -69,6 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 **Frontend Skills:**
+
 - `frontend/code-standards` (16 files, ~2500 lines)
   - React naming conventions (components, hooks, folders)
   - TypeScript naming conventions (types, interfaces, utilities)
@@ -106,6 +110,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Common patterns and quick reference
 
 **Git Skills:**
+
 - `git/commit-conventions` (1 file, ~200 lines)
   - Generic Jira format with `<PREFIX>` placeholder
   - Conventional commit types (feat, fix, docs, refactor, etc.)
@@ -113,6 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - AI assistant workflow (git diff analysis, unstaging recommendations)
 
 **Documentation:**
+
 - Repository README with skills catalog, usage guide, contributing guidelines
 - README.md template for project configuration
 - MIT License
@@ -121,6 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Token Efficiency
 
 Achieved 60-75% token reduction for common tasks through modular skill structure:
+
 - Creating component: 73% reduction (1500 → 400 tokens)
 - Adding tests: 84% reduction (1240 → 200 tokens)
 - Creating helper: 69% reduction (480 → 150 tokens)
@@ -135,9 +142,9 @@ Achieved 60-75% token reduction for common tasks through modular skill structure
 
 ## Version History Summary
 
-| Version | Date | Key Changes |
-|---------|------|-------------|
-| 1.0.0 | 2025-01-XX | Initial release with 6 skills |
+| Version | Date       | Key Changes                   |
+| ------- | ---------- | ----------------------------- |
+| 1.0.0   | 2025-01-XX | Initial release with 6 skills |
 
 ---
 

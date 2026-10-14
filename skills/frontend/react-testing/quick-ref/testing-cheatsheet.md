@@ -81,25 +81,25 @@ await waitFor(() => {
 
 ```typescript
 // Mock functions
-const mockFn = vi.fn()
-const mockFn = vi.fn().mockReturnValue('value')
-const mockFn = vi.fn().mockResolvedValue({ data: 'async' })
+const mockFn = vi.fn();
+const mockFn = vi.fn().mockReturnValue('value');
+const mockFn = vi.fn().mockResolvedValue({ data: 'async' });
 
 // Mock modules
 vi.mock('./api', () => ({
-  fetchUser: vi.fn().mockResolvedValue({ name: 'John' })
-}))
+  fetchUser: vi.fn().mockResolvedValue({ name: 'John' }),
+}));
 
 // Spy on methods
-const spy = vi.spyOn(object, 'method')
-spy.mockReturnValue('value')
-spy.mockRestore()
+const spy = vi.spyOn(object, 'method');
+spy.mockReturnValue('value');
+spy.mockRestore();
 
 // Mock timers
-vi.useFakeTimers()
-vi.advanceTimersByTime(1000)
-vi.runAllTimers()
-vi.useRealTimers()
+vi.useFakeTimers();
+vi.advanceTimersByTime(1000);
+vi.runAllTimers();
+vi.useRealTimers();
 ```
 
 ## Common Assertions

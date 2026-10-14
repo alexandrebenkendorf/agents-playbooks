@@ -13,23 +13,27 @@ Testing patterns and best practices for React using Vitest + React Testing Libra
 ## Categories
 
 ### 1. Creating New Tests
+
 - AAA (Arrange, Act, Assert) pattern
 - Descriptive test names
 - `it.each()` for parameterized tests
 - Setup and teardown best practices
 
 ### 2. Common Patterns
+
 - User event simulation
 - Async testing patterns
 - Mock strategies
 - Component rendering patterns
 
 ### 3. TypeScript Testing
+
 - Type-safe mocks
 - Generic test utilities
 - Type assertions in tests
 
 ### 4. Legacy Refactoring
+
 - Migrating from Sinon to Vitest
 - Converting Enzyme to React Testing Library
 - Updating assertion patterns
@@ -38,15 +42,16 @@ Testing patterns and best practices for React using Vitest + React Testing Libra
 ## Quick Reference
 
 **Basic Test Structure:**
+
 ```typescript
 describe('Component', () => {
   it('should render correctly', () => {
     // Arrange
     render(<Component />)
-    
+
     // Act
     const button = screen.getByRole('button')
-    
+
     // Assert
     expect(button).toBeInTheDocument()
   })
@@ -67,6 +72,7 @@ describe('Component', () => {
 ## Usage
 
 Reference this skill when:
+
 - Writing new tests
 - Refactoring existing tests
 - Migrating from legacy testing tools

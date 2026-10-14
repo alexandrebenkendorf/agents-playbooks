@@ -79,39 +79,39 @@ Use exceptions for error handling, not return codes.
 ```ts
 // ❌ Bad (error codes)
 function deleteUser(id: string): number {
-  if (!userExists(id)) return -1
-  if (!hasPermission()) return -2
+  if (!userExists(id)) return -1;
+  if (!hasPermission()) return -2;
   // delete logic
-  return 0
+  return 0;
 }
 
 // Caller must remember what each code means
-const result = deleteUser('123')
+const result = deleteUser('123');
 if (result === -1) {
-  console.error('User not found')
+  console.error('User not found');
 } else if (result === -2) {
-  console.error('Permission denied')
+  console.error('Permission denied');
 }
 
 // ✅ Good (exceptions)
 function deleteUser(id: string): void {
   if (!userExists(id)) {
-    throw new UserNotFoundError(id)
+    throw new UserNotFoundError(id);
   }
   if (!hasPermission()) {
-    throw new UnauthorizedError()
+    throw new UnauthorizedError();
   }
   // delete logic
 }
 
 // Caller gets clear error context
 try {
-  deleteUser('123')
+  deleteUser('123');
 } catch (error) {
   if (error instanceof UserNotFoundError) {
-    console.error('User not found')
+    console.error('User not found');
   } else if (error instanceof UnauthorizedError) {
-    console.error('Permission denied')
+    console.error('Permission denied');
   }
 }
 ```
@@ -182,14 +182,14 @@ Keep functions short and focused.
 function processOrder(order: Order): void {
   // Validate order (10 lines)
   if (!order.items || order.items.length === 0) {
-    throw new Error('No items')
+    throw new Error('No items');
   }
   // ... more validation
 
   // Calculate total (15 lines)
-  let total = 0
+  let total = 0;
   for (const item of order.items) {
-    total += item.price * item.quantity
+    total += item.price * item.quantity;
   }
   // ... tax calculations, discounts
 
@@ -202,21 +202,21 @@ function processOrder(order: Order): void {
 
 // ✅ Good (small, focused functions)
 function processOrder(order: Order): void {
-  validateOrder(order)
-  const total = calculateOrderTotal(order)
-  saveOrder(order, total)
-  sendOrderConfirmation(order)
+  validateOrder(order);
+  const total = calculateOrderTotal(order);
+  saveOrder(order, total);
+  sendOrderConfirmation(order);
 }
 
 function validateOrder(order: Order): void {
   if (!order.items || order.items.length === 0) {
-    throw new ValidationError('Order must have at least one item')
+    throw new ValidationError('Order must have at least one item');
   }
 }
 
 function calculateOrderTotal(order: Order): number {
-  const subtotal = order.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  return applyTaxAndDiscounts(subtotal, order)
+  const subtotal = order.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  return applyTaxAndDiscounts(subtotal, order);
 }
 ```
 
@@ -231,22 +231,22 @@ Functions should either change state (command) or return data (query), but not b
 ```ts
 // ❌ Bad (query with side effect)
 function getUserBalance(userId: string): number {
-  logAccess(userId) // Side effect in a query!
-  return database.getBalance(userId)
+  logAccess(userId); // Side effect in a query!
+  return database.getBalance(userId);
 }
 
 // ✅ Good (separate command from query)
 function logUserAccess(userId: string): void {
-  logAccess(userId) // Command: changes state
+  logAccess(userId); // Command: changes state
 }
 
 function getUserBalance(userId: string): number {
-  return database.getBalance(userId) // Query: returns data
+  return database.getBalance(userId); // Query: returns data
 }
 
 // Usage
-logUserAccess(userId)
-const balance = getUserBalance(userId)
+logUserAccess(userId);
+const balance = getUserBalance(userId);
 ```
 
 See [general-coding-standards.md](general-coding-standards.md) for more on Command-Query Separation.
@@ -275,15 +275,11 @@ When checking if any of several conditions is true, use an array with `.some(Boo
 ```ts
 // ❌ Don't - Chain with || triggers ESLint warnings
 const isValid =
-  (id && validIds.includes(id)) ||
-  (name && validNames.includes(name)) ||
-  (role && validRoles.includes(role));
+  (id && validIds.includes(id)) || (name && validNames.includes(name)) || (role && validRoles.includes(role));
 
 // ❌ Don't - Using ?? is incorrect for boolean conditions
 const isValid =
-  (id && validIds.includes(id)) ??
-  (name && validNames.includes(name)) ??
-  (role && validRoles.includes(role));
+  (id && validIds.includes(id)) ?? (name && validNames.includes(name)) ?? (role && validRoles.includes(role));
 
 // ✅ Do - Array with .some(Boolean)
 const isValid = [

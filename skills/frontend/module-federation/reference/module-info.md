@@ -33,17 +33,17 @@ node <skill-dir>/scripts/module-info.js --context '{}' --module '<module-name>' 
 
 ## Step 3: Present the result
 
-| Field         | Description                                             |
-| ------------- | ------------------------------------------------------- |
+| Field         | Description                                               |
+| ------------- | --------------------------------------------------------- |
 | `entry`       | The entry URL that was resolved (manifest or remoteEntry) |
-| `publicPath`  | Base URL of the remote                                  |
-| `remoteEntry` | Full URL to the remote entry script                     |
-| `typesZip`    | URL to `@mf-types.zip`                                  |
-| `typesApi`    | URL to the API types file (`null` when not published)   |
-| `hasSsr`      | Whether SSR build artifacts were detected               |
-| `exposes`     | Modules this remote exposes                             |
-| `remotes`     | Remotes this module depends on                          |
-| `shared`      | Shared dependencies declared by this module             |
+| `publicPath`  | Base URL of the remote                                    |
+| `remoteEntry` | Full URL to the remote entry script                       |
+| `typesZip`    | URL to `@mf-types.zip`                                    |
+| `typesApi`    | URL to the API types file (`null` when not published)     |
+| `hasSsr`      | Whether SSR build artifacts were detected                 |
+| `exposes`     | Modules this remote exposes                               |
+| `remotes`     | Remotes this module depends on                            |
+| `shared`      | Shared dependencies declared by this module               |
 
 If `result.error` is set, surface it directly and stop. If `result.manifestError` is set, the
 manifest could not be fetched — report it and note that `exposes` / `remotes` / `shared` are empty

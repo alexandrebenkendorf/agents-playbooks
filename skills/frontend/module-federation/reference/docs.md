@@ -23,25 +23,25 @@ Read the page descriptions in the index and select the 1–3 pages most relevant
 
 **Quick topic map:**
 
-| User asks about                                                                        | Look in section                                      |
-| -------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| What is MF / concepts / glossary / getting started                                     | `Guide` → `start/`                                   |
-| CLI, CSS isolation, type hints, manifest & snapshot                                    | `Guide` → `basic/`                                   |
-| Runtime API, `loadRemote`, MF instance, runtime hooks, runtime plugins                 | `Guide` → `runtime/`                                 |
-| Bridge, `createBridgeComponent`, `createRemoteAppComponent`, `createLazyComponent`     | `Guide` → `bridge/`                                  |
-| Data fetching, data cache, prefetch                                                    | `Guide` → `data/`                                    |
-| Tree shaking, multiple share scopes, runtime size, manifest/stats field reference      | `Guide` → `advanced/`                                |
-| Debug mode, Chrome DevTool, Divebell, global variables                                 | `Guide` → `debug/`                                   |
-| Error codes, runtime / build / type errors                                             | `Guide` → `troubleshooting/`                         |
-| Deployment, Zephyr                                                                     | `Guide` → `deployment/`                              |
-| Build plugin setup for Rsbuild / Rslib / Rstest / Vite                                 | `Integrations` → `build-tool/`                       |
-| Bundler setup for Rspack / Webpack / Metro                                             | `Integrations` → `bundler/`                          |
-| Modern.js / Next.js / Angular integration                                              | `Integrations` → `framework/`                        |
-| Monorepo, Nx                                                                           | `Integrations` → `framework/monorepos/`              |
-| React practice, i18n, CRA, Vue Bridge                                                  | `Integrations` → `practice/`                         |
-| `name`, `filename`, `exposes`, `remotes`, `shared`, `dts`, `manifest`, `shareStrategy` | `Configuration`                                      |
-| Retry plugin, observability plugin, node plugin, custom plugin authoring               | `Plugins`                                            |
-| Async startup, release notes, MF 2.0 background                                        | `Blog`                                               |
+| User asks about                                                                        | Look in section                         |
+| -------------------------------------------------------------------------------------- | --------------------------------------- |
+| What is MF / concepts / glossary / getting started                                     | `Guide` → `start/`                      |
+| CLI, CSS isolation, type hints, manifest & snapshot                                    | `Guide` → `basic/`                      |
+| Runtime API, `loadRemote`, MF instance, runtime hooks, runtime plugins                 | `Guide` → `runtime/`                    |
+| Bridge, `createBridgeComponent`, `createRemoteAppComponent`, `createLazyComponent`     | `Guide` → `bridge/`                     |
+| Data fetching, data cache, prefetch                                                    | `Guide` → `data/`                       |
+| Tree shaking, multiple share scopes, runtime size, manifest/stats field reference      | `Guide` → `advanced/`                   |
+| Debug mode, Chrome DevTool, Divebell, global variables                                 | `Guide` → `debug/`                      |
+| Error codes, runtime / build / type errors                                             | `Guide` → `troubleshooting/`            |
+| Deployment, Zephyr                                                                     | `Guide` → `deployment/`                 |
+| Build plugin setup for Rsbuild / Rslib / Rstest / Vite                                 | `Integrations` → `build-tool/`          |
+| Bundler setup for Rspack / Webpack / Metro                                             | `Integrations` → `bundler/`             |
+| Modern.js / Next.js / Angular integration                                              | `Integrations` → `framework/`           |
+| Monorepo, Nx                                                                           | `Integrations` → `framework/monorepos/` |
+| React practice, i18n, CRA, Vue Bridge                                                  | `Integrations` → `practice/`            |
+| `name`, `filename`, `exposes`, `remotes`, `shared`, `dts`, `manifest`, `shareStrategy` | `Configuration`                         |
+| Retry plugin, observability plugin, node plugin, custom plugin authoring               | `Plugins`                               |
+| Async startup, release notes, MF 2.0 background                                        | `Blog`                                  |
 
 ## Step 3: Fetch the specific page(s)
 

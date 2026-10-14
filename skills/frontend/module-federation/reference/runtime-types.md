@@ -32,8 +32,8 @@ that the `mf dts` CLI can read. That file can exist purely for types.
 
 Keep two lists. They answer different questions and change for different reasons:
 
-| File               | Answers                                          | Used by                    |
-| ------------------ | ------------------------------------------------ | -------------------------- |
+| File               | Answers                                           | Used by                    |
+| ------------------ | ------------------------------------------------- | -------------------------- |
 | `remotes.ts`       | Where do I load this remote from **at runtime**?  | App bootstrap              |
 | `remotes.build.ts` | Where do I download this remote's **types** from? | `module-federation.config` |
 
@@ -128,7 +128,7 @@ export default createModuleFederationConfig({
           abortOnError: false, // a producer being down must not fail the build
           remoteTypeUrls: REMOTE_BUILD_CONFIGS.reduce(
             (acc, remote) => ({ ...acc, ...createRemoteTypeUrls(remote, isDev) }),
-            {}
+            {},
           ),
         },
       }
@@ -192,7 +192,9 @@ If the bundler watches the project, ignore the types folder or type updates caus
 
 ```ts
 // webpack / rspack
-watchOptions: { ignored: ['**/node_modules/**', '**/@mf-types/**'] }
+watchOptions: {
+  ignored: ['**/node_modules/**', '**/@mf-types/**'];
+}
 ```
 
 Add `@mf-types/` to `.gitignore` — it is a build artifact.
@@ -207,8 +209,8 @@ already handles retries, zip extraction, and the API declaration file.
 ```jsonc
 {
   "scripts": {
-    "mf:types": "node scripts/mf-types.mjs"
-  }
+    "mf:types": "node scripts/mf-types.mjs",
+  },
 }
 ```
 
@@ -235,8 +237,8 @@ script into the dev loop:
 {
   "scripts": {
     "predev": "npm run mf:types",
-    "dev": "vite"
-  }
+    "dev": "vite",
+  },
 }
 ```
 

@@ -5,6 +5,7 @@ Guidelines for structuring React components following best practices.
 ## Overview
 
 This skill covers:
+
 - Function declarations vs const arrow functions
 - When to avoid React.FC
 - Single Responsibility Principle for components
@@ -17,6 +18,7 @@ This skill covers:
 ### Function Declarations Over Const
 
 Use function declarations for React components:
+
 - Better debugging (named functions in stack traces)
 - Hoisting allows flexible file organization
 - Clearer intent as a component
@@ -24,6 +26,7 @@ Use function declarations for React components:
 ### Single Responsibility Principle
 
 Each component should:
+
 - Do one thing well
 - Have a clear, focused purpose
 - Be easy to name descriptively
@@ -55,6 +58,7 @@ This skill currently uses a single SKILL.md file. To convert to rules-based stru
 ## Usage
 
 Reference this skill when:
+
 - Creating new React components
 - Reviewing component structure
 - Refactoring existing components

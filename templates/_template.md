@@ -6,7 +6,7 @@ Template for creating new rules in skill documentation.
 
 ## Basic Template
 
-```markdown
+````markdown
 ---
 title: Rule Title Here
 impact: MEDIUM
@@ -35,7 +35,7 @@ const good = example()
 \```
 
 Reference: [Link to documentation or resource](https://example.com)
-```
+````
 
 ---
 
@@ -82,8 +82,8 @@ Explain WHAT the rule is about and WHY it matters.
 ```markdown
 ## Defer Await Until Needed
 
-Sequential `await` statements create waterfalls that serialize network requests. 
-Each await blocks execution, adding latency. Deferring await until you need 
+Sequential `await` statements create waterfalls that serialize network requests.
+Each await blocks execution, adding latency. Deferring await until you need
 the value allows parallel execution.
 ```
 
@@ -91,38 +91,38 @@ the value allows parallel execution.
 
 Demonstrate the anti-pattern with clear explanation.
 
-```markdown
+````markdown
 **Incorrect (creates sequential waterfall):**
 
 \```typescript
 async function getUser() {
-  const user = await fetchUser()      // ⏳ Wait 100ms
-  const posts = await fetchPosts()    // ⏳ Wait 100ms
-  return { user, posts }              // Total: 200ms
+const user = await fetchUser() // ⏳ Wait 100ms
+const posts = await fetchPosts() // ⏳ Wait 100ms
+return { user, posts } // Total: 200ms
 }
 \```
-```
+````
 
 ### 3. Show Correct Pattern
 
 Provide the recommended approach with explanation.
 
-```markdown
+````markdown
 **Correct (parallel execution):**
 
 \```typescript
 async function getUser() {
-  const userPromise = fetchUser()     // Start immediately
-  const postsPromise = fetchPosts()   // Start immediately
-  
-  const [user, posts] = await Promise.all([
-    userPromise,
-    postsPromise
-  ])                                  // Total: 100ms
-  return { user, posts }
+const userPromise = fetchUser() // Start immediately
+const postsPromise = fetchPosts() // Start immediately
+
+const [user, posts] = await Promise.all([
+userPromise,
+postsPromise
+]) // Total: 100ms
+return { user, posts }
 }
 \```
-```
+````
 
 ### 4. Add Context & References
 

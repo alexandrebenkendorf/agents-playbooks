@@ -45,10 +45,14 @@ describe('MyComponent', () => {
 
 ```typescript
 // ✅ CORRECT
-function setup(value?: Nullable<string>) { /* ... */ }
+function setup(value?: Nullable<string>) {
+  /* ... */
+}
 
 // ❌ WRONG
-function setup(value?: string | null) { /* ... */ }
+function setup(value?: string | null) {
+  /* ... */
+}
 ```
 
 ### Global Vitest Imports

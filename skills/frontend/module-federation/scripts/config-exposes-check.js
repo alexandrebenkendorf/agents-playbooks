@@ -137,7 +137,8 @@ function checkAsyncEntry(ctx, results) {
   // asyncStartup is a webpack/rspack-family experiment; Vite and Next.js handle entry init differently.
   if (bundler === 'vite' || bundler === 'nextjs') return;
 
-  let note = 'Set `experiments.asyncStartup = true` in your bundler config, or use a manual async entry (bootstrap.js).';
+  let note =
+    'Set `experiments.asyncStartup = true` in your bundler config, or use a manual async entry (bootstrap.js).';
   if (bundler === 'rspack') {
     note += ' Note: Rspack requires version > 1.7.4 for this option.';
   }

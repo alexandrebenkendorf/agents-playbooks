@@ -222,12 +222,7 @@ import { TestContainer } from '../test/helpers/test-container.test';
 import { getJsonRequestBody } from '../test/helpers/mock.vitest';
 
 // ✅ NEW
-import {
-  createBackendServerResponse,
-  createEmptyServerResponse,
-  getJsonRequestBody,
-  TestContainer,
-} from '@/test';
+import { createBackendServerResponse, createEmptyServerResponse, getJsonRequestBody, TestContainer } from '@/test';
 ```
 
 ## Common Mistakes to Avoid

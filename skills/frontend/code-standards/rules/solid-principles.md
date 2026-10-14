@@ -55,33 +55,33 @@ class User {
   constructor(private data: UserData) {}
 
   getData(): UserData {
-    return this.data
+    return this.data;
   }
 }
 
 // Responsibility: Persist users
 class UserRepository {
   save(user: User): Promise<void> {
-    return database.save(user.getData())
+    return database.save(user.getData());
   }
 
   findById(id: string): Promise<User | null> {
-    const data = await database.findById(id)
-    return data ? new User(data) : null
+    const data = await database.findById(id);
+    return data ? new User(data) : null;
   }
 }
 
 // Responsibility: Send user emails
 class UserEmailService {
   sendWelcomeEmail(user: User): Promise<void> {
-    return emailService.send(user.getData().email, 'Welcome')
+    return emailService.send(user.getData().email, 'Welcome');
   }
 }
 
 // Responsibility: Generate user reports
 class UserReportGenerator {
   generate(user: User): Report {
-    return reportGenerator.create(user.getData())
+    return reportGenerator.create(user.getData());
   }
 }
 ```

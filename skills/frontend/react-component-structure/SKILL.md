@@ -22,8 +22,8 @@ const UserProfile = ({ name, email }: Props) => {
       <h1>{name}</h1>
       <p>{email}</p>
     </div>
-  )
-}
+  );
+};
 
 // Or worse
 const UserProfile: React.FC<Props> = ({ name, email }) => {
@@ -32,8 +32,8 @@ const UserProfile: React.FC<Props> = ({ name, email }) => {
       <h1>{name}</h1>
       <p>{email}</p>
     </div>
-  )
-}
+  );
+};
 ```
 
 ### ✅ Do

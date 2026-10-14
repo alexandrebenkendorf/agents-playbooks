@@ -40,7 +40,7 @@ function stripVersionPrefix(version) {
 function parseJsonc(text) {
   const withoutComments = text
     .replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*$)|(\/\*[\s\S]*?\*\/)/gm, (match, lineComment, blockComment) =>
-      lineComment || blockComment ? '' : match
+      lineComment || blockComment ? '' : match,
     )
     .replace(/,(\s*[}\]])/g, '$1');
   return JSON.parse(withoutComments);
@@ -57,7 +57,7 @@ function main(ctx) {
 
   const hasTsconfig = tsconfigPath && fs.existsSync(tsconfigPath);
   const hasTypescript = Boolean(
-    (ctx.dependencies && ctx.dependencies.typescript) || (ctx.devDependencies && ctx.devDependencies.typescript)
+    (ctx.dependencies && ctx.dependencies.typescript) || (ctx.devDependencies && ctx.devDependencies.typescript),
   );
 
   if (!projectRoot) {
@@ -65,7 +65,8 @@ function main(ctx) {
       code: 'TYPE-001',
       severity: 'warning',
       scenario: 'ENV_INCOMPLETE',
-      message: 'project.root is missing from MFContext. Re-run the context sub-skill so it emits an absolute project root.',
+      message:
+        'project.root is missing from MFContext. Re-run the context sub-skill so it emits an absolute project root.',
       context: {},
     });
 

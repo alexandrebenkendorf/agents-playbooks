@@ -5,6 +5,7 @@ Guidelines for creating properly formatted commit messages with Jira ticket inte
 ## Overview
 
 This skill provides:
+
 - Conventional commit format
 - Jira ticket number integration
 - Commit type guidelines (feat, fix, docs, etc.)
@@ -18,6 +19,7 @@ This skill provides:
 ```
 
 **Example:**
+
 ```bash
 feat: PROJ-12345 Add user authentication flow
 fix: TASK-678 Resolve memory leak in component unmounting
@@ -41,6 +43,7 @@ docs: JIRA-910 Update API documentation
 ## AI Assistant Workflow
 
 When committing changes, the AI should:
+
 1. Run `git status` to see modified files
 2. Run `git diff --staged` to review actual changes
 3. Analyze changes to determine commit type
@@ -52,6 +55,7 @@ When committing changes, the AI should:
 ## Atomic Commits
 
 Each commit should represent ONE logical change:
+
 - ✅ Single feature addition
 - ✅ Single bug fix
 - ✅ Single refactoring
@@ -72,6 +76,7 @@ To convert to rules-based structure:
 ## Usage
 
 Reference this skill when:
+
 - Committing changes
 - Reviewing commit messages
 - Setting up git hooks

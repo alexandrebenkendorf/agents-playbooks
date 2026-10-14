@@ -367,8 +367,11 @@ When asking AI assistants for help, reference the specific skill:
 A tracked `pre-push` hook (`.githooks/pre-push`) sends the diff of the commits being pushed to `codex review` and blocks the push when Codex reports findings (`[P0]`-`[P3]`) or fails to run.
 
 - Enable once per clone: `git config core.hooksPath .githooks`
+- Local checks run first and always: `prettier --check`, `bash -n` (plus `shellcheck` if installed), and `node --test` for the module-federation scripts
+- Prettier config lives in `.prettierrc`; vendored upstream skills (`skills/design/`, `skills/tooling/playwright-cli/`, `skills/frontend/react-best-practices/`) are excluded in `.prettierignore`
+- Format locally with `npx prettier@3 --write .`
 - Requires the `codex` CLI, logged in
-- Bypass for a single push: `SKIP_CODEX_REVIEW=1 git push`
+- Skip only the Codex review for a single push: `SKIP_CODEX_REVIEW=1 git push`
 
 ---
 
@@ -456,6 +459,7 @@ Skills should be portable across projects.
 Projects that use these skills should:
 
 1. **Sync via git subtree:**
+
    ```bash
    git subtree add --prefix=.agents/agents-playbooks \
     https://github.com/alexandrebenkendorf/agents-playbooks.git main --squash

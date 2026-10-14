@@ -5,16 +5,28 @@ const { extractRemoteUrl, fetchJson } = require('../module-info.js');
 
 test('extractRemoteUrl strips a name@ prefix', () => {
   assert.strictEqual(extractRemoteUrl('app@https://cdn.test/remoteEntry.js'), 'https://cdn.test/remoteEntry.js');
-  assert.strictEqual(extractRemoteUrl('@scope/app@https://cdn.test/mf-manifest.json'), 'https://cdn.test/mf-manifest.json');
+  assert.strictEqual(
+    extractRemoteUrl('@scope/app@https://cdn.test/mf-manifest.json'),
+    'https://cdn.test/mf-manifest.json',
+  );
 });
 
 test('extractRemoteUrl keeps @ inside URLs', () => {
-  assert.strictEqual(extractRemoteUrl('https://cdn.test/@org/app/remoteEntry.js'), 'https://cdn.test/@org/app/remoteEntry.js');
-  assert.strictEqual(extractRemoteUrl('https://user@host.test/mf-manifest.json'), 'https://user@host.test/mf-manifest.json');
+  assert.strictEqual(
+    extractRemoteUrl('https://cdn.test/@org/app/remoteEntry.js'),
+    'https://cdn.test/@org/app/remoteEntry.js',
+  );
+  assert.strictEqual(
+    extractRemoteUrl('https://user@host.test/mf-manifest.json'),
+    'https://user@host.test/mf-manifest.json',
+  );
 });
 
 test('extractRemoteUrl supports Vite object remotes', () => {
-  assert.strictEqual(extractRemoteUrl({ entry: 'https://cdn.test/mf-manifest.json' }), 'https://cdn.test/mf-manifest.json');
+  assert.strictEqual(
+    extractRemoteUrl({ entry: 'https://cdn.test/mf-manifest.json' }),
+    'https://cdn.test/mf-manifest.json',
+  );
   assert.strictEqual(extractRemoteUrl({ external: 'app@https://cdn.test/a.js' }), 'https://cdn.test/a.js');
   assert.strictEqual(extractRemoteUrl({}), null);
 });

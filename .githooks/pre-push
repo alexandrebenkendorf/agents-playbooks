@@ -2,8 +2,19 @@
 # Pre-push: have Codex review the commits being pushed; block when it reports
 # findings (lines like "- [P2] ...") or fails to run.
 # Enable once per clone: git config core.hooksPath .githooks
-# Requires: codex CLI, logged in. Bypass: SKIP_CODEX_REVIEW=1 git push
+# Runs local checks first (format, shell syntax, tests), then the Codex review.
+# Requires: codex CLI (logged in) and node/npx. shellcheck is used when installed.
+# Bypass the review only: SKIP_CODEX_REVIEW=1 git push; the local checks always run.
 set -u
+
+# Local checks (run against the working tree)
+echo "pre-push: running local checks"
+npx --yes prettier@3 --check . >/dev/null 2>&1 || { echo "pre-push: format check failed; run 'npx prettier@3 --write .'"; exit 1; }
+bash -n .githooks/pre-push || exit 1
+if command -v shellcheck >/dev/null 2>&1; then
+  shellcheck .githooks/pre-push || exit 1
+fi
+node --test skills/frontend/module-federation/scripts/tests/*.test.js >/dev/null 2>&1 || { echo "pre-push: node tests failed; run 'node --test skills/frontend/module-federation/scripts/tests/*.test.js'"; exit 1; }
 
 [ "${SKIP_CODEX_REVIEW:-}" = "1" ] && { echo "pre-push: Codex review skipped"; exit 0; }
 command -v codex >/dev/null 2>&1 || { echo "pre-push: codex CLI not found (install it or SKIP_CODEX_REVIEW=1)"; exit 1; }

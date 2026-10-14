@@ -93,7 +93,7 @@ if (!targetUrl && !tabId) {
   process.stderr.write(
     'Usage:\n' +
       '  node capture.mjs <url> [timeout_ms] [--vars v1,v2] [--keep-tab] [--click "text"] [--dump-dom] [--eval "expr"] [--wait-until auto|domcontentloaded|networkidle|timeout] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-entries] [--entries-limit N]\n' +
-      '  node capture.mjs --tab-id <id> [--click "text"] [--vars v1,v2] [--dump-dom] [--close] [--eval "expr"] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-follow-new-tab]\n'
+      '  node capture.mjs --tab-id <id> [--click "text"] [--vars v1,v2] [--dump-dom] [--close] [--eval "expr"] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-follow-new-tab]\n',
   );
   process.exit(1);
 }
@@ -110,14 +110,14 @@ if (entriesLimitRaw != null && (!Number.isInteger(entriesLimit) || entriesLimit 
 
 if (waitUntilRaw != null && parsedWaitUntil == null) {
   process.stderr.write(
-    `Invalid --wait-until: ${waitUntilRaw}. Valid values: auto, domcontentloaded, networkidle, timeout.\n`
+    `Invalid --wait-until: ${waitUntilRaw}. Valid values: auto, domcontentloaded, networkidle, timeout.\n`,
   );
   process.exit(1);
 }
 
 if (actionWaitRaw != null && parsedActionWait == null) {
   process.stderr.write(
-    `Invalid --action-wait: ${actionWaitRaw}. Valid values: auto, networkidle, domcontentloaded, timeout, none.\n`
+    `Invalid --action-wait: ${actionWaitRaw}. Valid values: auto, networkidle, domcontentloaded, timeout, none.\n`,
   );
   process.exit(1);
 }
@@ -195,7 +195,7 @@ try {
       '  CHROME=$(find /Applications ~/Applications -name "Google Chrome" -path "*/MacOS/Google Chrome" 2>/dev/null | head -1)\n' +
       '  killall "Google Chrome" 2>/dev/null; sleep 1\n' +
       '  "$CHROME" --remote-debugging-port=9222 --user-data-dir="$HOME/Library/Application Support/Google/Chrome" &\n\n' +
-      'This uses your REAL Chrome profile — all cookies and login sessions are preserved.\n'
+      'This uses your REAL Chrome profile — all cookies and login sessions are preserved.\n',
   );
   process.exit(1);
 }
@@ -233,7 +233,7 @@ function attachLogHandlers(s) {
   s.on('Runtime.consoleAPICalled', ({ type, args: a, stackTrace }) => {
     const msg = a
       .map((x) =>
-        x.type === 'string' ? x.value : x.description ? x.description : x.value != null ? String(x.value) : x.type
+        x.type === 'string' ? x.value : x.description ? x.description : x.value != null ? String(x.value) : x.type,
       )
       .join(' ');
     const f = stackTrace?.callFrames?.[0];
@@ -510,7 +510,7 @@ if (clickTarget) {
     process.stderr.write(`  Warning: element not found for \"${clickTarget}\"\\n`);
   } else {
     process.stderr.write(
-      `  Clicked: <${clickResult.tag}> \"${clickResult.text}\" (${clickResult.matchStrategy}/${clickResult.matchType})\\n`
+      `  Clicked: <${clickResult.tag}> \"${clickResult.text}\" (${clickResult.matchStrategy}/${clickResult.matchType})\\n`,
     );
     // wait briefly for click-triggered requests to start, then wait by action mode
     await new Promise((r) => setTimeout(r, 200));
@@ -820,7 +820,7 @@ if (varNames.length) {
       variables[varName] = { exists: false, error: String(e.message) };
     }
     process.stderr.write(
-      `  ${varName}: ${variables[varName].exists ? 'found' : 'not found'}${variables[varName].skippedPaths?.length ? ` (${variables[varName].skippedPaths.length} paths skipped)` : ''}\n`
+      `  ${varName}: ${variables[varName].exists ? 'found' : 'not found'}${variables[varName].skippedPaths?.length ? ` (${variables[varName].skippedPaths.length} paths skipped)` : ''}\n`,
     );
   }
 

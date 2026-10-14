@@ -21,7 +21,10 @@ function parseArgs(argv) {
 }
 
 function extractRemoteUrl(remoteValue) {
-  const raw = typeof remoteValue === 'string' ? remoteValue : (remoteValue && (remoteValue.external || remoteValue.entry)) || null;
+  const raw =
+    typeof remoteValue === 'string'
+      ? remoteValue
+      : (remoteValue && (remoteValue.external || remoteValue.entry)) || null;
   if (!raw) return null;
   // Strip only a "name@" prefix (optionally scoped) that precedes a URL; keep "@" inside URLs.
   const prefixed = raw.match(/^(?:@[^/@\s]+\/)?[^/:@\s]+@((?:https?:)?\/\/.*|\/.*|\.{1,2}\/.*)$/);
@@ -141,8 +144,8 @@ async function main(ctx, moduleName, explicitUrl) {
             availableRemotes: Object.keys(remotes),
           },
           null,
-          2
-        ) + '\n'
+          2,
+        ) + '\n',
       );
       return;
     }

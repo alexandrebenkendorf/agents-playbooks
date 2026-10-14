@@ -134,9 +134,7 @@ const mockResponse = vi.fn().mockResolvedValue(createEmptyServerResponse());
 fetchMock.post('/api/save', mockResponse);
 
 // For fetch (data returned):
-const mockResponse = vi.fn().mockResolvedValue(
-  createBackendServerResponse({ id: 1, name: 'Test' })
-);
+const mockResponse = vi.fn().mockResolvedValue(createBackendServerResponse({ id: 1, name: 'Test' }));
 fetchMock.get('/api/fetch', mockResponse);
 
 // Verify the mock was called:
