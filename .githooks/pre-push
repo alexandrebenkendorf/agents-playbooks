@@ -17,23 +17,19 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
   if [ "$remote_sha" = "$ZERO" ]; then
     # New branch: compare against the default branch's merge-base
     base=$(git merge-base "$local_sha" origin/main 2>/dev/null || true)
-    [ -z "$base" ] && base=$(git rev-list --max-parents=0 "$local_sha" | tail -1)
+    [ -z "$base" ] && base=$(git hash-object -t tree /dev/null) # no shared history: review everything
   else
     base=$remote_sha
-  fi
-  if ! git cat-file -e "$base^{commit}" 2>/dev/null; then
-    # Remote tip not fetched locally: fall back to the default branch merge-base
-    base=$(git merge-base "$local_sha" origin/main 2>/dev/null || true)
-    if [ -z "$base" ]; then
-      echo "pre-push: remote base commit missing locally; run 'git fetch' and retry (or SKIP_CODEX_REVIEW=1)"
+    if ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+      echo "pre-push: remote tip $base is missing locally; run 'git fetch' and retry (or SKIP_CODEX_REVIEW=1)"
       status=1
       continue
     fi
   fi
-  [ "$(git rev-list --count "$base..$local_sha")" = "0" ] && continue
+  [ "$base" = "$local_sha" ] && continue
 
   echo "pre-push: Codex reviewing $(git rev-parse --short "$base")..$(git rev-parse --short "$local_sha")"
-  diff=$(git diff "$base..$local_sha")
+  diff=$(git diff "$base" "$local_sha")
   out=$(printf '%s\n\n%s\n' "$PROMPT" "$diff" | codex review - 2>&1)
   rc=$?
   echo "$out" | awk '/^codex$/{buf=""; next} {buf=buf $0 "\n"} END{printf "%s", buf}' | tail -60
