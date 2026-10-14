@@ -83,6 +83,14 @@ Vendored from the official [Module Federation `mf` skill](https://module-federat
 - Atomic commit guidance
 - AI assistant workflow
 
+### Communication
+
+**[`communication/plain-language`](./skills/communication/plain-language/)**
+
+- Plain words, result first, jargon explained once
+- Every caveat comes with an action or is removed
+- Offers to elaborate when the developer does not follow
+
 ### Design
 
 **[`design/awesome-design-md`](./skills/design/awesome-design-md/)**
@@ -554,6 +562,7 @@ If you developed a useful skill in a consumer project's `.agents/local/skills/`:
 | **frontend/react-component-structure**           | 1 file     | ~300   | ✅ Yes (focused single file)   |
 | **frontend/react-testing**                       | 4 files    | ~800   | ✅ Yes (task-specific routing) |
 | **git/commit-conventions**                       | 1 file     | ~200   | ✅ Yes (focused single file)   |
+| **communication/plain-language**                 | 1 file     | ~70    | ✅ Yes (focused single file)   |
 | **design/awesome-design-md**                     | see folder | n/a    | ✅ Yes (loaded on demand)      |
 | **design/web-design-guidelines**                 | see folder | n/a    | ✅ Yes (loaded on demand)      |
 | **design/design-taste-frontend**                 | see folder | n/a    | ✅ Yes (loaded on demand)      |

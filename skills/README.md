@@ -82,6 +82,19 @@ Testing best practices covering:
 
 Git commit message conventions and formatting rules.
 
+### Communication Skills
+
+#### `communication/plain-language`
+
+**Source:** [alexandrebenkendorf/agents-playbooks](https://github.com/alexandrebenkendorf/agents-playbooks)  
+**Local:** [SKILL.md](communication/plain-language/SKILL.md)
+
+Plain-word replies for developers:
+
+- Short words, result first, jargon explained once
+- Every caveat must carry an action (do this, decide this) or be dropped
+- Asks to elaborate when the developer does not follow
+
 ### Design Skills
 
 #### `design/awesome-design-md`

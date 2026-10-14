@@ -63,6 +63,7 @@ If asked to "copy" or "create a skill based on" a skill from skills.sh (e.g. ver
 - Keep changes minimal and incremental.
 - Prefer explicit contracts at boundaries; inference inside implementations.
 - Avoid nested ternaries for non-trivial logic.
+- Replies follow `skills/communication/plain-language`: plain words, result first, and every caveat comes with an action (or is dropped).
 
 ---
 
