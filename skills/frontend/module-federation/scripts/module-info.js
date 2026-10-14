@@ -23,8 +23,9 @@ function parseArgs(argv) {
 function extractRemoteUrl(remoteValue) {
   const raw = typeof remoteValue === 'string' ? remoteValue : (remoteValue && (remoteValue.external || remoteValue.entry)) || null;
   if (!raw) return null;
-  const atIndex = raw.indexOf('@');
-  return atIndex >= 0 ? raw.slice(atIndex + 1) : raw;
+  // Strip only a "name@" prefix (optionally scoped) that precedes a URL; keep "@" inside URLs.
+  const prefixed = raw.match(/^(?:@[^/@\s]+\/)?[^/:@\s]+@((?:https?:)?\/\/.*|\/.*|\.{1,2}\/.*)$/);
+  return prefixed ? prefixed[1] : raw;
 }
 
 function getPathname(url) {
@@ -75,7 +76,7 @@ function fetchJson(url, redirectsLeft = 5) {
         res.on('data', (chunk) => (data += chunk));
         res.on('end', () => {
           try {
-            resolve({ ok: true, data: JSON.parse(data) });
+            resolve({ ok: true, data: JSON.parse(data), url });
           } catch {
             resolve({ ok: false, error: `Failed to parse JSON from ${url}` });
           }
@@ -157,9 +158,12 @@ async function main(ctx, moduleName, explicitUrl) {
   const manifestUrl = isManifestUrl(entry) ? entry : `${publicPath}mf-manifest.json`;
   const manifestRes = await fetchJson(manifestUrl);
   const manifest = manifestRes.ok ? extractManifestInfo(manifestRes.data) : null;
+  // Relative resources resolve against the manifest's final location after any redirects.
+  const resolvedManifestUrl = (manifestRes.ok && manifestRes.url) || manifestUrl;
+  const resourceFallback = isManifestUrl(entry) ? getPublicPath(resolvedManifestUrl) : publicPath;
   const metaData = manifest && manifest.metaData;
 
-  const base = resolveBase(publicPath, manifestUrl, metaData);
+  const base = resolveBase(resourceFallback, resolvedManifestUrl, metaData);
   const remoteEntryMeta = (metaData && metaData.remoteEntry) || {};
   const remoteEntryName = remoteEntryMeta.name || 'remoteEntry.js';
   const remoteEntryDir = remoteEntryMeta.path ? withTrailingSlash(remoteEntryMeta.path) : '';

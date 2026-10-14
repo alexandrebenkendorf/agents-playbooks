@@ -543,10 +543,24 @@ if (clickTarget) {
           session.send('Log.enable'),
           session.send('Page.enable'),
         ]);
-        const readyState = await session.send('Runtime.evaluate', {
+        // The earlier wait ran on the original tab; wait on the destination before continuing.
+        const readyDeadline = Date.now() + actionWaitBudgetMs;
+        let readyState = await session.send('Runtime.evaluate', {
           expression: 'document.readyState',
           returnByValue: true,
         });
+        while (
+          effectiveActionWait !== 'none' &&
+          readyState?.result?.value === 'loading' &&
+          Date.now() < readyDeadline
+        ) {
+          await new Promise((r) => setTimeout(r, 100));
+          readyState = await session.send('Runtime.evaluate', {
+            expression: 'document.readyState',
+            returnByValue: true,
+          });
+        }
+        await waitAfterAction(effectiveActionWait, actionWaitBudgetMs);
         tabTransition = {
           fromTabId,
           toTabId,
