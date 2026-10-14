@@ -61,9 +61,19 @@ async function run(destReadyState, timeoutMs) {
     },
   };
 
-  const started = Date.now();
-  await new AsyncFunction('process', 'fetch', 'WebSocket', source)(fakeProcess, fakeFetch, FakeWebSocket);
-  return { result: JSON.parse(output), elapsedMs: Date.now() - started };
+  // Record the delays the script asks for, so tests can check wait budgets without depending on wall-clock time
+  const delays = [];
+  const recordingSetTimeout = (fn, ms, ...rest) => {
+    delays.push(ms);
+    return setTimeout(fn, ms, ...rest);
+  };
+  await new AsyncFunction('process', 'fetch', 'WebSocket', 'setTimeout', source)(
+    fakeProcess,
+    fakeFetch,
+    FakeWebSocket,
+    recordingSetTimeout,
+  );
+  return { result: JSON.parse(output), delays };
 }
 
 test('destination tab still loading at the deadline reports a timeout, not an early stop', async () => {
@@ -80,8 +90,8 @@ test('destination tab that is ready reports an early stop', async () => {
   assert.strictEqual(result.earlyStop, true);
 });
 
-// Total = 200ms click delay + 500ms source-tab wait + one 600ms destination budget (previously a second 600ms)
+// Long waits (>= 400ms) are full action-wait budgets: one on the source tab. The destination tab must not start another.
 test('destination wait spends its budget once', async () => {
-  const { elapsedMs } = await run('loading', 600);
-  assert.ok(elapsedMs < 1500, `took ${elapsedMs}ms for a 600ms budget`);
+  const { delays } = await run('loading', 600);
+  assert.strictEqual(delays.filter((ms) => ms >= 400).length, 1, `delays: ${delays.join(',')}`);
 });
