@@ -81,10 +81,32 @@ function extractManifestInfo(manifest) {
   };
 }
 
-function resolveTypeUrls(publicPath, metaData) {
+function withTrailingSlash(url) {
+  return url.endsWith('/') ? url : `${url}/`;
+}
+
+// Base for resources: metaData.publicPath when it is a real location, else the entry's directory.
+function resolveBase(fallbackPublicPath, manifestUrl, metaData) {
+  const declared = metaData && metaData.publicPath;
+  if (!declared || declared === 'auto') {
+    return fallbackPublicPath;
+  }
+  try {
+    return withTrailingSlash(new URL(declared, manifestUrl).href);
+  } catch (err) {
+    return fallbackPublicPath;
+  }
+}
+
+function resolveResource(base, dir, name) {
+  return new URL(`${dir || ''}${name}`, base).href;
+}
+
+function resolveTypeUrls(base, metaData) {
   const types = (metaData && metaData.types) || {};
-  const zip = types.zip ? new URL(types.zip, publicPath).href : `${publicPath}@mf-types.zip`;
-  const api = types.api ? new URL(types.api, publicPath).href : null;
+  const dir = types.path ? withTrailingSlash(types.path) : '';
+  const zip = resolveResource(base, dir, types.zip || '@mf-types.zip');
+  const api = types.api ? resolveResource(base, dir, types.api) : null;
   return { typesZip: zip, typesApi: api };
 }
 
@@ -121,14 +143,17 @@ async function main(ctx, moduleName, explicitUrl) {
   const manifest = manifestRes.ok ? extractManifestInfo(manifestRes.data) : null;
   const metaData = manifest && manifest.metaData;
 
-  const remoteEntryName = (metaData && metaData.remoteEntry && metaData.remoteEntry.name) || 'remoteEntry.js';
-  const remoteEntry = entry.endsWith('.json') ? `${publicPath}${remoteEntryName}` : entry;
-  const { typesZip, typesApi } = resolveTypeUrls(publicPath, metaData);
+  const base = resolveBase(publicPath, manifestUrl, metaData);
+  const remoteEntryMeta = (metaData && metaData.remoteEntry) || {};
+  const remoteEntryName = remoteEntryMeta.name || 'remoteEntry.js';
+  const remoteEntryDir = remoteEntryMeta.path ? withTrailingSlash(remoteEntryMeta.path) : '';
+  const remoteEntry = entry.endsWith('.json') ? resolveResource(base, remoteEntryDir, remoteEntryName) : entry;
+  const { typesZip, typesApi } = resolveTypeUrls(base, metaData);
 
   const result = {
     moduleName,
     entry,
-    publicPath: (metaData && metaData.publicPath) || publicPath,
+    publicPath: base,
     remoteEntry,
     typesZip,
     typesApi,

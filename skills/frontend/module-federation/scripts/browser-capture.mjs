@@ -226,64 +226,68 @@ await session.open();
 const logs = [];
 const stamp = () => new Date().toISOString();
 
-session.on('Runtime.consoleAPICalled', ({ type, args: a, stackTrace }) => {
-  const msg = a
-    .map((x) =>
-      x.type === 'string' ? x.value : x.description ? x.description : x.value != null ? String(x.value) : x.type
-    )
-    .join(' ');
-  const f = stackTrace?.callFrames?.[0];
-  logs.push({
-    t: stamp(),
-    level: type === 'warning' ? 'warn' : type,
-    msg,
-    stack: f ? `${f.url}:${f.lineNumber + 1}:${f.columnNumber + 1}` : null,
-  });
-});
-
-session.on('Runtime.exceptionThrown', ({ exceptionDetails: ex }) => {
-  const msg = ex.exception?.description ?? ex.text ?? 'Unknown exception';
-  const f = ex.stackTrace?.callFrames?.[0];
-  logs.push({
-    t: stamp(),
-    level: 'error',
-    msg,
-    stack: f ? `${f.url}:${f.lineNumber + 1}` : null,
-  });
-});
-
-session.on('Network.responseReceived', ({ response }) => {
-  if (response.status < 400) return;
-  logs.push({
-    t: stamp(),
-    level: response.status >= 500 ? 'error' : 'warn',
-    msg: `[HTTP] ${response.status} ${response.statusText} — ${response.url}`,
-    stack: null,
-  });
-});
-
 const pendingUrls = new Map();
-session.on('Network.requestWillBeSent', ({ requestId, request }) => pendingUrls.set(requestId, request.url));
-session.on('Network.loadingFailed', ({ requestId, errorText, blockedReason, canceled }) => {
-  if (canceled) return;
-  logs.push({
-    t: stamp(),
-    level: 'error',
-    msg: `[network] ${blockedReason ?? errorText} — ${pendingUrls.get(requestId) ?? '?'}`,
-    stack: null,
-  });
-  pendingUrls.delete(requestId);
-});
 
-session.on('Log.entryAdded', ({ entry }) => {
-  if (entry.level === 'verbose') return;
-  logs.push({
-    t: stamp(),
-    level: entry.level === 'warning' ? 'warn' : entry.level,
-    msg: entry.text,
-    stack: entry.url ? `${entry.url}:${entry.lineNumber ?? 0}` : null,
+// Registered on every session, so a followed tab keeps feeding the same capture.
+function attachLogHandlers(s) {
+  s.on('Runtime.consoleAPICalled', ({ type, args: a, stackTrace }) => {
+    const msg = a
+      .map((x) =>
+        x.type === 'string' ? x.value : x.description ? x.description : x.value != null ? String(x.value) : x.type
+      )
+      .join(' ');
+    const f = stackTrace?.callFrames?.[0];
+    logs.push({
+      t: stamp(),
+      level: type === 'warning' ? 'warn' : type,
+      msg,
+      stack: f ? `${f.url}:${f.lineNumber + 1}:${f.columnNumber + 1}` : null,
+    });
   });
-});
+
+  s.on('Runtime.exceptionThrown', ({ exceptionDetails: ex }) => {
+    const msg = ex.exception?.description ?? ex.text ?? 'Unknown exception';
+    const f = ex.stackTrace?.callFrames?.[0];
+    logs.push({
+      t: stamp(),
+      level: 'error',
+      msg,
+      stack: f ? `${f.url}:${f.lineNumber + 1}` : null,
+    });
+  });
+
+  s.on('Network.responseReceived', ({ response }) => {
+    if (response.status < 400) return;
+    logs.push({
+      t: stamp(),
+      level: response.status >= 500 ? 'error' : 'warn',
+      msg: `[HTTP] ${response.status} ${response.statusText} — ${response.url}`,
+      stack: null,
+    });
+  });
+
+  s.on('Network.requestWillBeSent', ({ requestId, request }) => pendingUrls.set(requestId, request.url));
+  s.on('Network.loadingFailed', ({ requestId, errorText, blockedReason, canceled }) => {
+    if (canceled) return;
+    logs.push({
+      t: stamp(),
+      level: 'error',
+      msg: `[network] ${blockedReason ?? errorText} — ${pendingUrls.get(requestId) ?? '?'}`,
+      stack: null,
+    });
+    pendingUrls.delete(requestId);
+  });
+
+  s.on('Log.entryAdded', ({ entry }) => {
+    if (entry.level === 'verbose') return;
+    logs.push({
+      t: stamp(),
+      level: entry.level === 'warning' ? 'warn' : entry.level,
+      msg: entry.text,
+      stack: entry.url ? `${entry.url}:${entry.lineNumber ?? 0}` : null,
+    });
+  });
+}
 
 // ── reusable network-idle waiter ──────────────────────────────────────────────
 
@@ -304,19 +308,24 @@ function scheduleIdle() {
   }
 }
 
-session.on('Network.requestWillBeSent', () => {
-  inflight++;
-  clearTimeout(idleTimer);
-  idleTimer = null;
-});
-session.on('Network.loadingFinished', () => {
-  inflight = Math.max(0, inflight - 1);
-  scheduleIdle();
-});
-session.on('Network.loadingFailed', () => {
-  inflight = Math.max(0, inflight - 1);
-  scheduleIdle();
-});
+function attachIdleHandlers(s) {
+  s.on('Network.requestWillBeSent', () => {
+    inflight++;
+    clearTimeout(idleTimer);
+    idleTimer = null;
+  });
+  s.on('Network.loadingFinished', () => {
+    inflight = Math.max(0, inflight - 1);
+    scheduleIdle();
+  });
+  s.on('Network.loadingFailed', () => {
+    inflight = Math.max(0, inflight - 1);
+    scheduleIdle();
+  });
+}
+
+attachLogHandlers(session);
+attachIdleHandlers(session);
 
 function waitForNetworkIdle(maxMs = timeout) {
   return new Promise((resolve) => {
@@ -523,6 +532,9 @@ if (clickTarget) {
         tab = newTarget;
         session = new Session(tab.webSocketDebuggerUrl);
         await session.open();
+        attachLogHandlers(session);
+        attachIdleHandlers(session);
+        inflight = 0;
         await Promise.all([
           session.send('Runtime.enable'),
           session.send('Network.enable'),

@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     serve compiled output and interoperate with any remote
 
 ### Fixed
+- `frontend/module-federation` `module-info.js`: resolve remote entry and type URLs from `metaData.publicPath` and `remoteEntry.path` instead of the manifest URL directory
+- `frontend/module-federation` `browser-capture.mjs`: re-register console, exception, network and log handlers when following a new tab
 - `frontend/module-federation` `browser-capture.mjs`: keep regex escapes in the injected `--vars` serializer, bound the page-load wait by `timeout_ms`, and report navigation errors (closing the new tab)
 - **All skills**: `name` in `SKILL.md` frontmatter must be lowercase letters, numbers, and hyphens
   only and match the folder name (Agent Skills format). Renamed `Frontend Code Standards`,
