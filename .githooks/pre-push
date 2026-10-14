@@ -43,8 +43,8 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
   diff=$(git diff "$base" "$local_sha")
   out=$(printf '%s\n\n%s\n' "$PROMPT" "$diff" | codex review - 2>&1)
   rc=$?
-  # Final review text only (after the last "codex" marker); intermediate logs are ignored
-  final=$(echo "$out" | awk '/^codex$/{buf=""; next} {buf=buf $0 "\n"} END{printf "%s", buf}')
+  # Final review text only (after the last "codex" marker); empty if the marker is missing
+  final=$(echo "$out" | awk '/^codex$/{buf=""; seen=1; next} {buf=buf $0 "\n"} END{if (seen) printf "%s", buf}')
   echo "$final" | tail -60
 
   # Pass only if the review ran, produced a final result, and has no [P0]-[P3] finding at any indent
