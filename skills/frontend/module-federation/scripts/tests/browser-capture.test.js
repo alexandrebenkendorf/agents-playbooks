@@ -95,3 +95,67 @@ test('destination wait spends its budget once', async () => {
   const { delays } = await run('loading', 600);
   assert.strictEqual(delays.filter((ms) => ms >= 400).length, 1, `delays: ${delays.join(',')}`);
 });
+
+// Navigation to a new tab. The fake page fires `firedEvents` after Page.navigate and never fires the others,
+// like a page whose DOM is ready but whose slow image keeps the load event pending.
+async function navigate(extraArgs, firedEvents, timeoutMs) {
+  const tab = { id: 'n', url: 'about:blank', webSocketDebuggerUrl: 'ws://n', type: 'page' };
+  let output = '';
+  const warnings = [];
+
+  class FakeWebSocket {
+    constructor() {
+      this.listeners = {};
+      setTimeout(() => this.listeners.open?.({}), 0);
+    }
+    addEventListener(name, fn) {
+      this.listeners[name] = fn;
+    }
+    emit(message) {
+      this.listeners.message({ data: JSON.stringify(message) });
+    }
+    send(raw) {
+      const msg = JSON.parse(raw);
+      queueMicrotask(() => {
+        this.emit({ id: msg.id, result: {} });
+        if (msg.method === 'Page.navigate') {
+          firedEvents.forEach((method) => this.emit({ method, params: {} }));
+        }
+      });
+    }
+    close() {}
+  }
+
+  const fakeFetch = async (url) => ({ json: async () => (url.endsWith('/json/new') ? tab : {}) });
+  const fakeProcess = {
+    argv: ['node', 'script', 'http://page.test/', String(timeoutMs), ...extraArgs],
+    stderr: { write: (text) => text.includes('did not fire') && warnings.push(text) },
+    stdout: { write: (s) => (output += s) },
+    version: process.version,
+    exit() {
+      throw new Error('exit');
+    },
+  };
+
+  await new AsyncFunction('process', 'fetch', 'WebSocket', source)(fakeProcess, fakeFetch, FakeWebSocket);
+  return { result: JSON.parse(output), warnings };
+}
+
+test('domcontentloaded mode does not wait for the load event', async () => {
+  const { result, warnings } = await navigate(['--wait-until', 'domcontentloaded'], ['Page.domContentEventFired'], 300);
+  assert.strictEqual(result.timedOut, false);
+  assert.deepStrictEqual(warnings, []);
+});
+
+test('the default mode also does not wait for the load event', async () => {
+  const { result, warnings } = await navigate([], ['Page.domContentEventFired'], 300);
+  assert.strictEqual(result.timedOut, false);
+  assert.deepStrictEqual(warnings, []);
+});
+
+test('an expired navigation deadline reports timedOut', async () => {
+  const { result, warnings } = await navigate(['--wait-until', 'domcontentloaded'], [], 300);
+  assert.strictEqual(result.timedOut, true);
+  assert.strictEqual(result.earlyStop, false);
+  assert.strictEqual(warnings.length, 1);
+});

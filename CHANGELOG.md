@@ -34,6 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `module-federation` `type-check.js`: a producer is no longer flagged `TYPE_GENERATION_FAILED` just because the project-root `@mf-types` folder is missing. That folder holds consumed types; the producer's `@mf-types.zip` / `@mf-types.d.ts` are checked in the build output dir (`dist`, `build`, `output`, `.output`) and reported as `PRODUCER_TYPES_PUBLISHED`
+- `module-federation` `browser-capture.mjs`: navigation in `domcontentloaded` (and default) mode waits for `Page.domContentEventFired` instead of the load event, so slow images no longer cost the full timeout; an expired navigation deadline now reports `timedOut: true`
+
 - `frontend/module-federation` `module-info.js`: keep `@` inside remote URLs and resolve resources from the manifest URL after redirects; `browser-capture.mjs`: apply the action wait on the destination tab after following a new tab
 - `frontend/module-federation` `module-info.js`: read the `entry` field of object-form (Vite) remotes; `browser-capture.mjs`: track unique request IDs so redirects do not leave network-idle waiting
 - `frontend/module-federation` `module-info.js`: classify manifest URLs by pathname (query strings kept for fetching); `browser-capture.mjs`: clear the network-idle timeout once idle is reached

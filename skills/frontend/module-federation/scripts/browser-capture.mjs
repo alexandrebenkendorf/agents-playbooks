@@ -390,7 +390,10 @@ const tStart = Date.now();
 
 if (!tabId && targetUrl) {
   const navigateStart = Date.now();
-  const pageLoaded = new Promise((r) => session.on('Page.loadEventFired', r));
+  // domcontentloaded mode must not wait for slow sub-resources (images etc.), which delay the load event
+  const navigationEvent =
+    effectiveWaitUntil === 'domcontentloaded' ? 'Page.domContentEventFired' : 'Page.loadEventFired';
+  const pageLoaded = new Promise((r) => session.on(navigationEvent, r));
   const navigation = await session.send('Page.navigate', { url: targetUrl });
   if (navigation?.errorText) {
     process.stderr.write(`Navigation failed: ${navigation.errorText} — ${targetUrl}\n`);
@@ -407,7 +410,7 @@ if (!tabId && targetUrl) {
   const loadResult = await Promise.race([pageLoaded.then(() => 'loaded'), loadTimeout]);
   clearTimeout(loadTimer);
   if (loadResult === 'timeout') {
-    process.stderr.write(`  Warning: page load event did not fire within ${timeout}ms, continuing\n`);
+    process.stderr.write(`  Warning: ${navigationEvent} did not fire within ${timeout}ms, continuing\n`);
   }
   if (!disableEarlyStop && effectiveWaitUntil === 'networkidle') {
     await waitForNetworkIdle(navigateWaitBudgetMs);
@@ -416,6 +419,9 @@ if (!tabId && targetUrl) {
   } else {
     // timeout-only
     await new Promise((r) => setTimeout(r, timeout));
+    lastWait = { earlyStop: false, timedOut: true };
+  }
+  if (loadResult === 'timeout') {
     lastWait = { earlyStop: false, timedOut: true };
   }
   timings.navigateMs = Date.now() - navigateStart;
