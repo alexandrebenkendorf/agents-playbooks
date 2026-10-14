@@ -380,8 +380,24 @@ const tStart = Date.now();
 if (!tabId && targetUrl) {
   const navigateStart = Date.now();
   const pageLoaded = new Promise((r) => session.on('Page.loadEventFired', r));
-  await session.send('Page.navigate', { url: targetUrl });
-  await pageLoaded;
+  const navigation = await session.send('Page.navigate', { url: targetUrl });
+  if (navigation?.errorText) {
+    process.stderr.write(`Navigation failed: ${navigation.errorText} — ${targetUrl}\n`);
+    session.close();
+    if (!keepTab) {
+      await fetch(`${CDP_BASE}/json/close/${tab.id}`);
+    }
+    process.exit(1);
+  }
+  let loadTimer;
+  const loadTimeout = new Promise((r) => {
+    loadTimer = setTimeout(() => r('timeout'), timeout);
+  });
+  const loadResult = await Promise.race([pageLoaded.then(() => 'loaded'), loadTimeout]);
+  clearTimeout(loadTimer);
+  if (loadResult === 'timeout') {
+    process.stderr.write(`  Warning: page load event did not fire within ${timeout}ms, continuing\n`);
+  }
   if (!disableEarlyStop && effectiveWaitUntil === 'networkidle') {
     await waitForNetworkIdle(navigateWaitBudgetMs);
   } else if (effectiveWaitUntil === 'domcontentloaded') {
@@ -735,8 +751,8 @@ if (varNames.length) {
 
       function normalizePath(path) {
         return path
-          .replace(/\[(\d+)\]/g, '.$1')
-          .replace(/\[['\"]([^'\"]+)['\"]\]/g, '.$1');
+          .replace(/\\[(\\d+)\\]/g, '.$1')
+          .replace(/\\[['\"]([^'\"]+)['\"]\\]/g, '.$1');
       }
 
       function getByPath(root, path) {

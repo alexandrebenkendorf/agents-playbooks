@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     serve compiled output and interoperate with any remote
 
 ### Fixed
+- `frontend/module-federation` `browser-capture.mjs`: keep regex escapes in the injected `--vars` serializer, bound the page-load wait by `timeout_ms`, and report navigation errors (closing the new tab)
 - **All skills**: `name` in `SKILL.md` frontmatter must be lowercase letters, numbers, and hyphens
   only and match the folder name (Agent Skills format). Renamed `Frontend Code Standards`,
   `React Component Structure`, `Vitest Testing Guidelines`, `Git Commit Conventions`, and
