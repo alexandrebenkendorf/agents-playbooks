@@ -72,6 +72,112 @@ Testing best practices covering:
 
 Git commit message conventions and formatting rules.
 
+### Design Skills
+
+#### `design/awesome-design-md`
+**Source:** [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) (vendored, MIT)  
+**Local:** [SKILL.md](design/awesome-design-md/SKILL.md)
+
+84 brand DESIGN.md design-system references (colors, type, spacing, components) for building UI like a named site.
+
+#### `design/web-design-guidelines`
+**Source:** [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) (vendored, adapted)  
+**Local:** [SKILL.md](design/web-design-guidelines/SKILL.md)
+
+Review UI code against Vercel's Web Interface Guidelines; rules vendored in `rules.md`, refreshed weekly or on demand with `update.sh`, logged in `FETCH_LOG.md`.
+
+#### `design/design-taste-frontend`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/design-taste-frontend/SKILL.md)
+
+Taste Skill v2 default: anti-slop art direction for marketing and public pages (not for dashboards or app screens); scripts need Node 22+ and Chrome/Edge.
+
+#### `design/design-taste-frontend-v1`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/design-taste-frontend-v1/SKILL.md)
+
+Taste Skill v1, legacy original.
+
+#### `design/design-taste-frontend-v2-experimental`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/design-taste-frontend-v2-experimental/SKILL.md)
+
+Taste Skill earlier experimental v2, single-file dial-driven version.
+
+#### `design/gpt-taste`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/gpt-taste/SKILL.md)
+
+Stricter taste variant tuned for GPT/Codex (GSAP motion, AIDA structure).
+
+#### `design/redesign-existing-projects`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/redesign-existing-projects/SKILL.md)
+
+Audit an existing site or app and upgrade it without breaking functionality.
+
+#### `design/full-output-enforcement`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/full-output-enforcement/SKILL.md)
+
+Complete output only: no placeholders, clean handling of token-limit splits.
+
+#### `design/image-to-code`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/image-to-code/SKILL.md)
+
+Generate design images first, analyze them, then implement the site to match (needs an image-generation tool).
+
+#### `design/high-end-visual-design`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/high-end-visual-design/SKILL.md)
+
+Style variant: high-end agency look (fonts, spacing, shadows, motion).
+
+#### `design/minimalist-ui`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/minimalist-ui/SKILL.md)
+
+Style variant: clean editorial, warm monochrome, flat bento grids.
+
+#### `design/industrial-brutalist-ui`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/industrial-brutalist-ui/SKILL.md)
+
+Style variant: Swiss print meets military terminal, rigid grids.
+
+#### `design/stitch-design-taste`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/stitch-design-taste/SKILL.md)
+
+Google Stitch-compatible rules with a DESIGN.md export.
+
+#### `design/imagegen-frontend-web`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/imagegen-frontend-web/SKILL.md)
+
+Image generation: one design reference image per web section; images only, no code.
+
+#### `design/imagegen-frontend-mobile`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/imagegen-frontend-mobile/SKILL.md)
+
+Image generation: premium mobile app screen concepts; images only, no code.
+
+#### `design/brandkit`
+**Source:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (vendored, MIT)  
+**Local:** [SKILL.md](design/brandkit/SKILL.md)
+
+Image generation: brand-guidelines boards and logo systems.
+
+### Tooling Skills
+
+#### `tooling/playwright-cli`
+**Source:** [microsoft/playwright](https://playwright.dev/agent-cli/introduction) (copied from the `@playwright/cli` package)  
+**Local:** [SKILL.md](tooling/playwright-cli/SKILL.md)
+
+Drive a real browser to see the app (open, snapshot, screenshot, click through); needs `npm i -g @playwright/cli` and `playwright-cli install-browser`.
+
 ---
 
 ## For Consumer Projects

@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `design/*` skills (16) and `tooling/playwright-cli`, vendored from upstream
+  - `design/awesome-design-md` (VoltAgent, 84 brand DESIGN.md files), `design/web-design-guidelines`
+    (Vercel; rules snapshot in `rules.md` with `update.sh` and `FETCH_LOG.md`), and the Taste Skill pack
+    (Leonxlnx; folders renamed to match each skill `name`)
+  - `tooling/playwright-cli`, the skill shipped with `@playwright/cli`
 - `frontend/module-federation` skill, vendored and adapted from the official Module Federation `mf` skill
   - `README.md` and catalog entries in `README.md` / `skills/README.md`
   - `SHARED-SUBPATH` check for packages shared by exact name only (`react` vs `react/`)

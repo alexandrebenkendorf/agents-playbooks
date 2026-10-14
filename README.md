@@ -77,6 +77,61 @@ Vendored from the official [Module Federation `mf` skill](https://module-federat
 - Atomic commit guidance
 - AI assistant workflow
 
+### Design
+
+**[`design/awesome-design-md`](./skills/design/awesome-design-md/)**
+- 84 brand DESIGN.md design-system references (colors, type, spacing, components) for building UI like a named site
+
+**[`design/web-design-guidelines`](./skills/design/web-design-guidelines/)**
+- Review UI code against Vercel's Web Interface Guidelines; rules vendored in `rules.md`, refreshed weekly or on demand with `update.sh`, logged in `FETCH_LOG.md`
+
+**[`design/design-taste-frontend`](./skills/design/design-taste-frontend/)**
+- Taste Skill v2 default: anti-slop art direction for marketing and public pages (not for dashboards or app screens); scripts need Node 22+ and Chrome/Edge
+
+**[`design/design-taste-frontend-v1`](./skills/design/design-taste-frontend-v1/)**
+- Taste Skill v1, legacy original
+
+**[`design/design-taste-frontend-v2-experimental`](./skills/design/design-taste-frontend-v2-experimental/)**
+- Taste Skill earlier experimental v2, single-file dial-driven version
+
+**[`design/gpt-taste`](./skills/design/gpt-taste/)**
+- Stricter taste variant tuned for GPT/Codex (GSAP motion, AIDA structure)
+
+**[`design/redesign-existing-projects`](./skills/design/redesign-existing-projects/)**
+- Audit an existing site or app and upgrade it without breaking functionality
+
+**[`design/full-output-enforcement`](./skills/design/full-output-enforcement/)**
+- Complete output only: no placeholders, clean handling of token-limit splits
+
+**[`design/image-to-code`](./skills/design/image-to-code/)**
+- Generate design images first, analyze them, then implement the site to match (needs an image-generation tool)
+
+**[`design/high-end-visual-design`](./skills/design/high-end-visual-design/)**
+- Style variant: high-end agency look (fonts, spacing, shadows, motion)
+
+**[`design/minimalist-ui`](./skills/design/minimalist-ui/)**
+- Style variant: clean editorial, warm monochrome, flat bento grids
+
+**[`design/industrial-brutalist-ui`](./skills/design/industrial-brutalist-ui/)**
+- Style variant: Swiss print meets military terminal, rigid grids
+
+**[`design/stitch-design-taste`](./skills/design/stitch-design-taste/)**
+- Google Stitch-compatible rules with a DESIGN.md export
+
+**[`design/imagegen-frontend-web`](./skills/design/imagegen-frontend-web/)**
+- Image generation: one design reference image per web section; images only, no code
+
+**[`design/imagegen-frontend-mobile`](./skills/design/imagegen-frontend-mobile/)**
+- Image generation: premium mobile app screen concepts; images only, no code
+
+**[`design/brandkit`](./skills/design/brandkit/)**
+- Image generation: brand-guidelines boards and logo systems
+
+### Tooling
+
+**[`tooling/playwright-cli`](./skills/tooling/playwright-cli/)**
+- Drive a real browser to see the app (open, snapshot, screenshot, click through); needs `npm i -g @playwright/cli` and `playwright-cli install-browser`
+
 ---
 
 ## 🤖 AI Agent Commands
@@ -464,6 +519,23 @@ If you developed a useful skill in a consumer project's `.agents/local/skills/`:
 | **frontend/react-component-structure** | 1 file | ~300 | ✅ Yes (focused single file) |
 | **frontend/react-testing** | 4 files | ~800 | ✅ Yes (task-specific routing) |
 | **git/commit-conventions** | 1 file | ~200 | ✅ Yes (focused single file) |
+| **design/awesome-design-md** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/web-design-guidelines** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/design-taste-frontend** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/design-taste-frontend-v1** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/design-taste-frontend-v2-experimental** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/gpt-taste** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/redesign-existing-projects** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/full-output-enforcement** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/image-to-code** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/high-end-visual-design** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/minimalist-ui** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/industrial-brutalist-ui** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/stitch-design-taste** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/imagegen-frontend-web** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/imagegen-frontend-mobile** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **design/brandkit** | see folder | n/a | ✅ Yes (loaded on demand) |
+| **tooling/playwright-cli** | see folder | n/a | ✅ Yes (loaded on demand) |
 
 ---
 
