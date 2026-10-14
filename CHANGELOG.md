@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     serve compiled output and interoperate with any remote
 
 ### Fixed
+- `frontend/module-federation` `module-info.js`: read the `entry` field of object-form (Vite) remotes; `browser-capture.mjs`: track unique request IDs so redirects do not leave network-idle waiting
 - `frontend/module-federation` `module-info.js`: classify manifest URLs by pathname (query strings kept for fetching); `browser-capture.mjs`: clear the network-idle timeout once idle is reached
 - `frontend/module-federation` `module-info.js`: resolve remote entry and type URLs from `metaData.publicPath` and `remoteEntry.path` instead of the manifest URL directory
 - `frontend/module-federation` `browser-capture.mjs`: re-register console, exception, network and log handlers when following a new tab

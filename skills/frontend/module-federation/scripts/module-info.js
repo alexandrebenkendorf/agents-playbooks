@@ -21,7 +21,7 @@ function parseArgs(argv) {
 }
 
 function extractRemoteUrl(remoteValue) {
-  const raw = typeof remoteValue === 'string' ? remoteValue : (remoteValue && remoteValue.external) || null;
+  const raw = typeof remoteValue === 'string' ? remoteValue : (remoteValue && (remoteValue.external || remoteValue.entry)) || null;
   if (!raw) return null;
   const atIndex = raw.indexOf('@');
   return atIndex >= 0 ? raw.slice(atIndex + 1) : raw;

@@ -291,7 +291,8 @@ function attachLogHandlers(s) {
 
 // ── reusable network-idle waiter ──────────────────────────────────────────────
 
-let inflight = 0;
+// Request IDs repeat across redirects, so track unique IDs instead of counting events.
+const activeRequests = new Set();
 let idleTimer = null;
 const idleCallbacks = new Set();
 let lastWait = { earlyStop: false, timedOut: false };
@@ -302,24 +303,24 @@ function fireIdle() {
   cbs.forEach((cb) => cb());
 }
 function scheduleIdle() {
-  if (inflight === 0 && idleCallbacks.size > 0) {
+  if (activeRequests.size === 0 && idleCallbacks.size > 0) {
     clearTimeout(idleTimer);
     idleTimer = setTimeout(fireIdle, IDLE_MS);
   }
 }
 
 function attachIdleHandlers(s) {
-  s.on('Network.requestWillBeSent', () => {
-    inflight++;
+  s.on('Network.requestWillBeSent', ({ requestId }) => {
+    activeRequests.add(requestId);
     clearTimeout(idleTimer);
     idleTimer = null;
   });
-  s.on('Network.loadingFinished', () => {
-    inflight = Math.max(0, inflight - 1);
+  s.on('Network.loadingFinished', ({ requestId }) => {
+    activeRequests.delete(requestId);
     scheduleIdle();
   });
-  s.on('Network.loadingFailed', () => {
-    inflight = Math.max(0, inflight - 1);
+  s.on('Network.loadingFailed', ({ requestId }) => {
+    activeRequests.delete(requestId);
     scheduleIdle();
   });
 }
@@ -535,7 +536,7 @@ if (clickTarget) {
         await session.open();
         attachLogHandlers(session);
         attachIdleHandlers(session);
-        inflight = 0;
+        activeRequests.clear();
         await Promise.all([
           session.send('Runtime.enable'),
           session.send('Network.enable'),
