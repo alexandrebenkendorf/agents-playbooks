@@ -73,6 +73,41 @@ Testing best practices covering:
 - Common testing patterns
 - TypeScript testing conventions
 
+#### `frontend/ask-sonner`
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)  
+**Local:** [SKILL.md](frontend/ask-sonner/SKILL.md) | [API.md](frontend/ask-sonner/API.md)
+
+Guide to Sonner, the React toast library: setup, styling, recipes, and fixes for the most common issues.
+
+#### `frontend/pick-ui-library`
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)  
+**Local:** [SKILL.md](frontend/pick-ui-library/SKILL.md)
+
+Pick the right library for a frontend task from a curated, opinionated list (numbers, OTP inputs, charts, command menus, virtualization, drag and drop, toasts, state, styling). Explicit-invocation only.
+
+#### `frontend/mobile-native`
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)  
+**Local:** [SKILL.md](frontend/mobile-native/SKILL.md)
+
+Make a web app feel native on a phone: sticky hover states, tap highlight flashes, the 100vh bug, zooming inputs, laggy taps, safe areas, and the rest of the small platform-layer fixes.
+
+#### `frontend/break-ui`
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)  
+**Local:** [SKILL.md](frontend/break-ui/SKILL.md) | [CATALOG.md](frontend/break-ui/CATALOG.md)
+
+Stress-test a UI with worst-case data (long names, huge counts, empty lists, non-Latin text, emoji) and report what broke, with a fix for each.
+
+#### `frontend/write-swift`
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)  
+**Local:** [SKILL.md](frontend/write-swift/SKILL.md)
+
+Writing modern Swift: value types, Swift 6 concurrency, protocols and generics, performance and ARC, Swift Testing.
+
 ### Git Skills
 
 #### `git/commit-conventions`
@@ -208,6 +243,73 @@ Image generation: premium mobile app screen concepts; images only, no code.
 **Local:** [SKILL.md](design/brandkit/SKILL.md)
 
 Image generation: brand-guidelines boards and logo systems.
+
+#### `design/apple-design`
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)  
+**Local:** [SKILL.md](design/apple-design/SKILL.md)
+
+Apple's interface design and fluid-motion principles translated for the web: gesture-driven UI, springs, translucent materials, typography, reduced motion.
+
+#### `design/emil-design-eng`
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)  
+**Local:** [SKILL.md](design/emil-design-eng/SKILL.md)
+
+Emil Kowalski's philosophy on UI polish, component design, animation decisions, and the invisible details that make software feel great.
+
+#### `design/prototype`
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)  
+**Local:** [SKILL.md](design/prototype/SKILL.md) | [PICKER.md](design/prototype/PICKER.md)
+
+Build multiple genuinely different versions of a described UI piece behind a visual picker, and promote the one that feels right. Explicit-invocation only. Distinct from `engineering/prototype` (mattpocock), which validates a state model or logic, not UI direction.
+
+### Animation Skills
+
+**Source:** [emilkowalski/skills](https://github.com/emilkowalski/skills) (vendored, MIT)
+
+#### `animation/animate`
+
+**Local:** [SKILL.md](animation/animate/SKILL.md) | [RECIPES.md](animation/animate/RECIPES.md)
+
+Build an animation from scratch: whether to animate at all, which tool, properties, curve and duration, how it interrupts and exits.
+
+#### `animation/animate-expo`
+
+**Local:** [SKILL.md](animation/animate-expo/SKILL.md) | [RECIPES.md](animation/animate-expo/RECIPES.md)
+
+The same decisions for React Native and Expo: gestures, sheets, haptics, screen transitions, keeping motion off the JS thread.
+
+#### `animation/animation-performance`
+
+**Local:** [SKILL.md](animation/animation-performance/SKILL.md)
+
+Keep animations inside the frame budget: composite-only properties, CSS vs WAAPI vs requestAnimationFrame, `will-change`, diagnosing dropped frames.
+
+#### `animation/animation-vocabulary`
+
+**Local:** [SKILL.md](animation/animation-vocabulary/SKILL.md)
+
+Reverse-lookup glossary turning a vague motion description ("the bouncy thing when a popover opens") into its exact term.
+
+#### `animation/review-animations`
+
+**Local:** [SKILL.md](animation/review-animations/SKILL.md) | [STANDARDS.md](animation/review-animations/STANDARDS.md)
+
+Review animation and motion code against a high craft bar; default to flagging, approval is earned.
+
+#### `animation/improve-animations`
+
+**Local:** [SKILL.md](animation/improve-animations/SKILL.md) | [AUDIT.md](animation/improve-animations/AUDIT.md) | [PLAN-TEMPLATE.md](animation/improve-animations/PLAN-TEMPLATE.md)
+
+Audit all the animations in a codebase and produce prioritized, self-contained plans any agent can execute. Read-only.
+
+#### `animation/find-animation-opportunities`
+
+**Local:** [SKILL.md](animation/find-animation-opportunities/SKILL.md)
+
+Search a codebase/UI for places that would genuinely benefit from motion, and flag what shouldn't be animated. Read-only.
 
 ### Tooling Skills
 
