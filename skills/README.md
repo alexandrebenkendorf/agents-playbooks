@@ -218,6 +218,199 @@ Image generation: brand-guidelines boards and logo systems.
 
 Drive a real browser to see the app (open, snapshot, screenshot, click through); needs `npm i -g @playwright/cli` and `playwright-cli install-browser`.
 
+### Engineering Skills
+
+#### `engineering/ask-matt`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/ask-matt/SKILL.md)
+
+Ask which skill or flow fits your situation; a router over the engineering skills.
+
+#### `engineering/diagnosing-bugs`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/diagnosing-bugs/SKILL.md)
+
+Diagnosis loop for hard bugs and performance regressions.
+
+#### `engineering/grill-with-docs`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/grill-with-docs/SKILL.md)
+
+A relentless interview to sharpen a plan or design, which also creates docs (ADRs and a glossary) as it goes.
+
+#### `engineering/triage`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/triage/SKILL.md)
+
+Move issues and external PRs through a state machine of triage roles: categorise, verify, grill if needed, write agent-ready briefs.
+
+#### `engineering/improve-codebase-architecture`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/improve-codebase-architecture/SKILL.md)
+
+Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
+
+#### `engineering/setup-matt-pocock-skills`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/setup-matt-pocock-skills/SKILL.md)
+
+Configure a repo for the engineering skills: issue tracker, triage label vocabulary, domain doc layout. Run once before the other engineering skills.
+
+#### `engineering/tdd`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/tdd/SKILL.md)
+
+Test-driven development: red-green-refactor, what a good test is, where tests go, mocking guidelines.
+
+#### `engineering/to-spec`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/to-spec/SKILL.md)
+
+Turn the current conversation into a spec and publish it to the project issue tracker; synthesis only, no interview.
+
+#### `engineering/to-tickets`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/to-tickets/SKILL.md)
+
+Break a plan, spec, or conversation into tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker.
+
+#### `engineering/wayfinder`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/wayfinder/SKILL.md)
+
+Plan work too large for one agent session as a shared map of decision tickets, resolved one at a time.
+
+#### `engineering/implement`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/implement/SKILL.md)
+
+Implement a piece of work based on a spec or set of tickets.
+
+#### `engineering/implement-spec`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/implement-spec/SKILL.md)
+
+Implement the result of `to-spec` and `to-tickets` in code.
+
+#### `engineering/prototype`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/prototype/SKILL.md)
+
+Build a throwaway prototype to answer a design question: sanity-check a state model, logic, or what a UI should look like.
+
+#### `engineering/research`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/research/SKILL.md)
+
+Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo.
+
+#### `engineering/domain-modeling`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/domain-modeling/SKILL.md)
+
+Build and sharpen a project's domain model: codebase terminology, `GLOSSARY.md`, ADRs.
+
+#### `engineering/codebase-design`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/codebase-design/SKILL.md)
+
+Shared vocabulary for designing deep modules: interfaces, deepening opportunities, seams, testability.
+
+#### `engineering/code-review`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/code-review/SKILL.md)
+
+Review changes since a fixed point along two axes (repo standards, originating spec), via parallel sub-agent reviews reported side by side.
+
+#### `engineering/pr`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/pr/SKILL.md)
+
+Write a PR body.
+
+#### `engineering/retro`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/retro/SKILL.md)
+
+Conduct a retrospective on a coding session.
+
+#### `engineering/wizard`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](engineering/wizard/SKILL.md)
+
+Generate an interactive bash wizard that walks a human through steps only they can perform (infra provisioning, credentials, third-party dashboards, one-off migrations).
+
+### Productivity Skills
+
+#### `productivity/grill-me`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](productivity/grill-me/SKILL.md)
+
+A relentless interview to sharpen a plan or design.
+
+#### `productivity/grilling`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](productivity/grilling/SKILL.md)
+
+Grill the user relentlessly about a plan, decision, or idea; stress-tests their thinking.
+
+#### `productivity/handoff`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](productivity/handoff/SKILL.md)
+
+Compact the current conversation into a handoff document for another agent to pick up.
+
+#### `productivity/teach`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](productivity/teach/SKILL.md)
+
+Teach the user a new skill or concept, within the workspace.
+
+#### `productivity/to-questionnaire`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](productivity/to-questionnaire/SKILL.md)
+
+Turn a decision you can't fully answer into a questionnaire for someone else to fill in.
+
+#### `productivity/wait-what`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](productivity/wait-what/SKILL.md)
+
+Stop and re-pitch a message that didn't land.
+
+#### `productivity/writing-for-agents`
+
+**Source:** [mattpocock/skills](https://github.com/mattpocock/skills) (vendored, MIT)  
+**Local:** [SKILL.md](productivity/writing-for-agents/SKILL.md)
+
+Writing documents for agents; use when creating or editing skills, `AGENTS.md`, or `CLAUDE.md`.
+
 ---
 
 ## For Consumer Projects
