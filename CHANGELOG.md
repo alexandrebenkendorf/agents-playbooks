@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `engineering/*` (20) and `productivity/*` (7) skills, vendored as-is from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT): TDD, code review, diagnosing bugs, domain modeling, codebase design, spec/ticket flows (`to-spec`, `to-tickets`, `implement`, `implement-spec`, `wayfinder`, `triage`), PR writing, retro, prototyping, research, wizard, and the grilling/handoff/teach productivity set
 - `communication/plain-language` skill and an `AGENTS.md` rule: plain words, and every caveat carries an action
 - Prettier config (`.prettierrc`, `.prettierignore`) and local format/syntax/test checks in the pre-push hook; repo formatted once
 - `module-federation/scripts/tests/`: `node --test` coverage for `module-info.js` URL parsing/redirects and the `browser-capture.mjs` destination-tab wait

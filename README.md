@@ -163,6 +163,122 @@ Vendored from the official [Module Federation `mf` skill](https://module-federat
 
 - Drive a real browser to see the app (open, snapshot, screenshot, click through); needs `npm i -g @playwright/cli` and `playwright-cli install-browser`
 
+### Engineering
+
+Vendored from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT)
+
+**[`engineering/ask-matt`](./skills/engineering/ask-matt/)**
+
+- Router over the engineering skills: asks which skill or flow fits your situation
+
+**[`engineering/diagnosing-bugs`](./skills/engineering/diagnosing-bugs/)**
+
+- Diagnosis loop for hard bugs and performance regressions
+
+**[`engineering/grill-with-docs`](./skills/engineering/grill-with-docs/)**
+
+- Relentless interview to sharpen a plan or design, creating ADRs and a glossary as it goes
+
+**[`engineering/triage`](./skills/engineering/triage/)**
+
+- State machine for issues and external PRs: categorise, verify, grill if needed, write agent-ready briefs
+
+**[`engineering/improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/)**
+
+- Scan a codebase for deepening opportunities, present as a visual HTML report, then grill through one
+
+**[`engineering/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/)**
+
+- One-time setup: issue tracker, triage label vocabulary, domain doc layout for the other engineering skills
+
+**[`engineering/tdd`](./skills/engineering/tdd/)**
+
+- Test-driven development: red-green-refactor, what a good test is, where tests go, mocking guidelines
+
+**[`engineering/to-spec`](./skills/engineering/to-spec/)**
+
+- Turn the current conversation into a spec and publish it to the project issue tracker
+
+**[`engineering/to-tickets`](./skills/engineering/to-tickets/)**
+
+- Break a plan, spec, or conversation into tracer-bullet tickets with blocking edges, published to the tracker
+
+**[`engineering/wayfinder`](./skills/engineering/wayfinder/)**
+
+- Plan work too large for one agent session as a shared map of decision tickets, resolved one at a time
+
+**[`engineering/implement`](./skills/engineering/implement/)**
+
+- Implement a piece of work based on a spec or set of tickets
+
+**[`engineering/implement-spec`](./skills/engineering/implement-spec/)**
+
+- Implement the result of `to-spec` and `to-tickets` in code
+
+**[`engineering/prototype`](./skills/engineering/prototype/)**
+
+- Build a throwaway prototype to sanity-check a state model, logic, or UI direction
+
+**[`engineering/research`](./skills/engineering/research/)**
+
+- Investigate a question against high-trust primary sources, captured as a Markdown file in the repo
+
+**[`engineering/domain-modeling`](./skills/engineering/domain-modeling/)**
+
+- Build and sharpen a project's domain model: terminology, `GLOSSARY.md`, ADRs
+
+**[`engineering/codebase-design`](./skills/engineering/codebase-design/)**
+
+- Shared vocabulary for designing deep modules: interfaces, deepening opportunities, seams, testability
+
+**[`engineering/code-review`](./skills/engineering/code-review/)**
+
+- Review changes since a fixed point along two axes (repo standards, originating spec) via parallel sub-agent reviews
+
+**[`engineering/pr`](./skills/engineering/pr/)**
+
+- Write a PR body
+
+**[`engineering/retro`](./skills/engineering/retro/)**
+
+- Conduct a retrospective on a coding session
+
+**[`engineering/wizard`](./skills/engineering/wizard/)**
+
+- Generate an interactive bash wizard for steps only a human can perform (infra, credentials, dashboards, cutovers)
+
+### Productivity
+
+Vendored from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT)
+
+**[`productivity/grill-me`](./skills/productivity/grill-me/)**
+
+- Relentless interview to sharpen a plan or design
+
+**[`productivity/grilling`](./skills/productivity/grilling/)**
+
+- Grill the user relentlessly about a plan, decision, or idea to stress-test their thinking
+
+**[`productivity/handoff`](./skills/productivity/handoff/)**
+
+- Compact the current conversation into a handoff document for another agent to pick up
+
+**[`productivity/teach`](./skills/productivity/teach/)**
+
+- Teach the user a new skill or concept, within the workspace
+
+**[`productivity/to-questionnaire`](./skills/productivity/to-questionnaire/)**
+
+- Turn a decision you can't fully answer into a questionnaire for someone else to fill in
+
+**[`productivity/wait-what`](./skills/productivity/wait-what/)**
+
+- Stop and re-pitch a message that didn't land
+
+**[`productivity/writing-for-agents`](./skills/productivity/writing-for-agents/)**
+
+- Writing documents for agents: creating or editing skills, `AGENTS.md`, or `CLAUDE.md`
+
 ---
 
 ## 🤖 AI Agent Commands
@@ -579,6 +695,33 @@ If you developed a useful skill in a consumer project's `.agents/local/skills/`:
 | **design/imagegen-frontend-mobile**              | see folder | n/a    | ✅ Yes (loaded on demand)      |
 | **design/brandkit**                              | see folder | n/a    | ✅ Yes (loaded on demand)      |
 | **tooling/playwright-cli**                       | see folder | n/a    | ✅ Yes (loaded on demand)      |
+| **engineering/ask-matt**                         | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/diagnosing-bugs**                  | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/grill-with-docs**                  | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/triage**                            | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/improve-codebase-architecture**    | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/setup-matt-pocock-skills**         | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/tdd**                               | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/to-spec**                          | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/to-tickets**                       | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/wayfinder**                        | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/implement**                        | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/implement-spec**                   | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/prototype**                        | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/research**                         | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/domain-modeling**                  | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/codebase-design**                  | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/code-review**                      | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/pr**                                | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/retro**                            | see folder | n/a    | ✅ Yes (vendored)              |
+| **engineering/wizard**                           | see folder | n/a    | ✅ Yes (vendored)              |
+| **productivity/grill-me**                        | see folder | n/a    | ✅ Yes (vendored)              |
+| **productivity/grilling**                        | see folder | n/a    | ✅ Yes (vendored)              |
+| **productivity/handoff**                         | see folder | n/a    | ✅ Yes (vendored)              |
+| **productivity/teach**                           | see folder | n/a    | ✅ Yes (vendored)              |
+| **productivity/to-questionnaire**                | see folder | n/a    | ✅ Yes (vendored)              |
+| **productivity/wait-what**                       | see folder | n/a    | ✅ Yes (vendored)              |
+| **productivity/writing-for-agents**              | see folder | n/a    | ✅ Yes (vendored)              |
 
 ---
 
@@ -603,6 +746,7 @@ MIT License - See [LICENSE](LICENSE) file for details.
 ## 🙏 Acknowledgments
 
 - [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-skills) - React best practices patterns
+- [Matt Pocock / mattpocock/skills](https://github.com/mattpocock/skills) - Engineering and productivity skills (TDD, code review, spec/ticket flows, domain modeling, grilling, and more)
 - [Clean Code](https://www.oreilly.com/library/view/clean-code-a/9780136083238/) - Robert C. Martin
 - [SOLID Principles](https://en.wikipedia.org/wiki/SOLID) - Robert C. Martin
 - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) - Robert C. Martin
