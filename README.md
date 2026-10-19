@@ -74,6 +74,30 @@ Vendored from the official [Module Federation `mf` skill](https://module-federat
 - Runtime-only remotes: fetching `@mf-types` via `remoteTypeUrls` + `mf dts`
 - Runtime error triage (`RUNTIME-001` / `RUNTIME-008`)
 
+#### Frontend Libraries & Platform
+
+Vendored from [emilkowalski/skills](https://github.com/emilkowalski/skills) (MIT)
+
+**[`frontend/ask-sonner`](./skills/frontend/ask-sonner/)**
+
+- Guide to Sonner, the React toast library: setup, styling, recipes, fixes for common issues
+
+**[`frontend/pick-ui-library`](./skills/frontend/pick-ui-library/)**
+
+- Pick the right library for a task from a curated list (numbers, OTP, charts, command menus, virtualization, drag and drop, toasts, state, styling); explicit-invocation only
+
+**[`frontend/mobile-native`](./skills/frontend/mobile-native/)**
+
+- Make a web app feel native on a phone: sticky hover states, tap flashes, the 100vh bug, zooming inputs, safe areas
+
+**[`frontend/break-ui`](./skills/frontend/break-ui/)**
+
+- Stress-test a UI with worst-case data and report what broke, with a fix for each
+
+**[`frontend/write-swift`](./skills/frontend/write-swift/)**
+
+- Writing modern Swift: value types, Swift 6 concurrency, protocols and generics, performance and ARC, Swift Testing
+
 ### Git
 
 **[`git/commit-conventions`](./skills/git/commit-conventions/)**
@@ -156,6 +180,54 @@ Vendored from the official [Module Federation `mf` skill](https://module-federat
 **[`design/brandkit`](./skills/design/brandkit/)**
 
 - Image generation: brand-guidelines boards and logo systems
+
+#### Emil Kowalski (Vercel/Linear design engineering)
+
+Vendored from [emilkowalski/skills](https://github.com/emilkowalski/skills) (MIT)
+
+**[`design/apple-design`](./skills/design/apple-design/)**
+
+- Apple's interface design and fluid-motion principles translated for the web
+
+**[`design/emil-design-eng`](./skills/design/emil-design-eng/)**
+
+- Philosophy on UI polish, component design, animation decisions, and the invisible details that make software feel great
+
+**[`design/prototype`](./skills/design/prototype/)**
+
+- Build multiple different UI versions behind a visual picker, promote the one that feels right; explicit-invocation only (distinct from `engineering/prototype`, which validates logic/state, not UI direction)
+
+### Animation
+
+Vendored from [emilkowalski/skills](https://github.com/emilkowalski/skills) (MIT)
+
+**[`animation/animate`](./skills/animation/animate/)**
+
+- Build an animation from scratch: whether to animate, tool, properties, curve, duration, interruption and exit
+
+**[`animation/animate-expo`](./skills/animation/animate-expo/)**
+
+- The same decisions for React Native and Expo: gestures, sheets, haptics, screen transitions, JS-thread-free motion
+
+**[`animation/animation-performance`](./skills/animation/animation-performance/)**
+
+- Keep animations inside the frame budget; diagnose dropped frames, pick CSS vs WAAPI vs rAF, `will-change`
+
+**[`animation/animation-vocabulary`](./skills/animation/animation-vocabulary/)**
+
+- Reverse-lookup glossary: turns a vague motion description into its exact term
+
+**[`animation/review-animations`](./skills/animation/review-animations/)**
+
+- Review animation/motion code against a high craft bar; default to flagging
+
+**[`animation/improve-animations`](./skills/animation/improve-animations/)**
+
+- Audit a codebase's animations and produce prioritized, self-contained fix plans; read-only
+
+**[`animation/find-animation-opportunities`](./skills/animation/find-animation-opportunities/)**
+
+- Find UI that would genuinely benefit from motion, and flag what shouldn't be animated; read-only
 
 ### Tooling
 
@@ -722,6 +794,21 @@ If you developed a useful skill in a consumer project's `.agents/local/skills/`:
 | **productivity/to-questionnaire**                | see folder | n/a    | ✅ Yes (vendored)              |
 | **productivity/wait-what**                       | see folder | n/a    | ✅ Yes (vendored)              |
 | **productivity/writing-for-agents**              | see folder | n/a    | ✅ Yes (vendored)              |
+| **frontend/ask-sonner**                          | see folder | n/a    | ✅ Yes (vendored)              |
+| **frontend/pick-ui-library**                     | see folder | n/a    | ✅ Yes (vendored)              |
+| **frontend/mobile-native**                       | see folder | n/a    | ✅ Yes (vendored)              |
+| **frontend/break-ui**                            | see folder | n/a    | ✅ Yes (vendored)              |
+| **frontend/write-swift**                         | see folder | n/a    | ✅ Yes (vendored)              |
+| **design/apple-design**                          | see folder | n/a    | ✅ Yes (vendored)              |
+| **design/emil-design-eng**                       | see folder | n/a    | ✅ Yes (vendored)              |
+| **design/prototype**                             | see folder | n/a    | ✅ Yes (vendored)              |
+| **animation/animate**                            | see folder | n/a    | ✅ Yes (vendored)              |
+| **animation/animate-expo**                       | see folder | n/a    | ✅ Yes (vendored)              |
+| **animation/animation-performance**              | see folder | n/a    | ✅ Yes (vendored)              |
+| **animation/animation-vocabulary**               | see folder | n/a    | ✅ Yes (vendored)              |
+| **animation/review-animations**                  | see folder | n/a    | ✅ Yes (vendored)              |
+| **animation/improve-animations**                 | see folder | n/a    | ✅ Yes (vendored)              |
+| **animation/find-animation-opportunities**       | see folder | n/a    | ✅ Yes (vendored)              |
 
 ---
 
@@ -747,6 +834,7 @@ MIT License - See [LICENSE](LICENSE) file for details.
 
 - [Vercel Labs agent-skills](https://github.com/vercel-labs/agent-skills) - React best practices patterns
 - [Matt Pocock / mattpocock/skills](https://github.com/mattpocock/skills) - Engineering and productivity skills (TDD, code review, spec/ticket flows, domain modeling, grilling, and more)
+- [Emil Kowalski / emilkowalski/skills](https://github.com/emilkowalski/skills) - Animation, design engineering taste, and frontend platform skills
 - [Clean Code](https://www.oreilly.com/library/view/clean-code-a/9780136083238/) - Robert C. Martin
 - [SOLID Principles](https://en.wikipedia.org/wiki/SOLID) - Robert C. Martin
 - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) - Robert C. Martin
